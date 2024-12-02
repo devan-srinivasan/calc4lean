@@ -16,9 +16,12 @@ def make_wa_request(equation: str):
     r = requests.get(query_url).json()
 
     data = r["queryresult"]["pods"][0]["subpods"]
-    result = data[0]["plaintext"]
-    steps = data[1]["plaintext"]
-    return result, steps
+    print(data)
+    # result = data[0]["plaintext"]
+    # steps = data[1]["plaintext"]
+
+    # print(f"Result of {equation} is '{result}'.\n")
+    # print(f"Possible steps to solution:\n\n{steps}")
 
 urls = [
     ("https://tutorial.math.lamar.edu/Problems/CalcI/DiffFormulas.aspx", 0, 12),
@@ -45,7 +48,8 @@ manual = [
     "f(x) = \\frac{x+1}{x}",
     "f(x) = 3\\cot (x) + 5 \\csc (x)",
     "f(x) = \\frac{x + \cos (x)}{\\tan (x)}",
-] + [
+] + \
+[
     "f(x) = x\\bf{e}^x",
     "f(x) = x(x+1)^4",
     "f(x)=x\\ln x",
@@ -63,7 +67,8 @@ manual = [
     "f(x)=x\\sqrt{x-1}",
     "f(x)=x^2 \\sqrt{3x + 1}",
     "f(x)=(x+2)(x-3)^3",
-] + [
+] + \
+[
     "f(x) = x^5 + x^2",
     "f(x) = x + x^3",
     "f(x) = x^4 + 2",
@@ -119,10 +124,6 @@ def write_to_txt(questions: list[str], filename: str = "webscraping/derivatives/
         for q in questions:
             file.write(q + '\n')
 
-question_bank = []
-for url, start, end in urls:
-    question_bank.extend(get_questions(url, start, end))
-
 def clean_bank(questions):
     def clean(q: str):
         to_remove = ['\\displaystyle', '\\left', '\\right', '\\,']
@@ -137,11 +138,16 @@ def clean_bank(questions):
     
     return qb
 
+# question_bank = []
+# for url, start, end in urls:
+#     question_bank.extend(get_questions(url, start, end))
 
-question_bank = clean_bank(question_bank)
+# question_bank = clean_bank(question_bank)
 
-question_bank.extend(manual)
+# question_bank.extend(manual)
 
-write_to_txt(question_bank)
+# write_to_txt(question_bank)
             
-print(len(question_bank))
+# print(len(question_bank))
+
+make_wa_request("7 + 2x = 12 - 3x")
