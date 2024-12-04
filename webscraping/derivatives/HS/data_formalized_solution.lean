@@ -74,7 +74,19 @@ example (x0: ℝ): deriv (λ t ↦ (24*t^4 - t^2 + 48)/(6*t^5)) x0 = (96*x0^3 - 
 example (x0: ℝ): deriv (λ z ↦ 6/(sqrt z^3) + 1/(8*z^4) - 1/(3*z^10)) x0 = -9/(x0*(sqrt x0^3)) - 1/(2*x0^5) + 10/(3*x0^11) := sorry
 
 -- Original Problem: z = x( {3{x^2} - 9} )
-example (x0: ℝ): deriv (λ x ↦ 3*x*(x^2 - 3)) x0 = 9*x0^2 - 9 := sorry
+example (x0: ℝ): deriv (λ x ↦ 3*x*(x^2 - 3)) x0 = 9*x0^2 - 9 := by
+  rw [deriv_mul]
+  rw [deriv_sub]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_pow _
+  exact differentiableAt_const _
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact DifferentiableAt.sub (differentiableAt_pow _) (differentiableAt_const _)
 
 -- Original Problem: g( y ) = ( {y - 4} )( {2y + {y^2}} )
 example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 + 2) + (x0 - 4)*(x0 + 2) := by
@@ -104,13 +116,70 @@ example (x0: ℝ): deriv (λ x ↦ 4*x^2 - 7 + 8/x) x0 = 8*x0 - 8/x0^2 := sorry
 example (x0: ℝ): deriv (λ y ↦ y^2 - 5 + 2/y^2) x0 = 2*x0 - 4/x0^3 := sorry
 
 -- Original Problem: f( t ) = ( {4{t^2} - t} )( {{t^3} - 8{t^2} + 12} )
-example (x0: ℝ): deriv (λ t ↦ t*(4*t - 1)*(t^3 - 8*t^2 + 12)) x0 = x0*(4*x0 - 1)*(3*x0^2 - 16*x0) + 4*x0*(x0^3 - 8*x0^2 + 12) + (4*x0 - 1)*(x0^3 - 8*x0^2 + 12) := sorry
+example (x0: ℝ): deriv (λ t ↦ t*(4*t - 1)*(t^3 - 8*t^2 + 12)) x0 = x0*(4*x0 - 1)*(3*x0^2 - 16*x0) + 4*x0*(x0^3 - 8*x0^2 + 12) + (4*x0 - 1)*(x0^3 - 8*x0^2 + 12) := by
+  rw [deriv_mul]
+  rw [deriv_mul]
+  rw [deriv_sub]
+  rw [deriv_add]
+  rw [deriv_sub]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_const_mul]
+  rw [deriv_const]
+  rw [deriv_pow]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_id
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)
+  exact differentiableAt_const _
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)
+  exact DifferentiableAt.mul differentiableAt_id (DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _))
+  exact DifferentiableAt.add (DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)) (differentiableAt_const _)
 
 -- Original Problem: y = ( {1 + \sqrt {{x^3}} } )( {{x^{ - 3}} - 2\sqrt[3]{x}} )
 example (x0: ℝ): deriv (λ x ↦ -(2*x^(10/3) - 1)*((sqrt x^3) + 1)/x^3) x0 = 3*(2*x0^(10/3) - 1)*((sqrt x0^3) + 1)/x0^4 - 3*(2*x0^(10/3) - 1)*(sqrt x0^3)/(2*x0^4) - 20*((sqrt x0^3) + 1)/(3*x0^(2/3)) := sorry
 
--- Original Problem: h( z ) = ( {1 + 2z + 3{z^2}} )( {5z + 8{z^2} - {z^3}} )
-example (x0: ℝ): deriv (λ z ↦ z*(-z^2 + 8*z + 5)*(3*z^2 + 2*z + 1)) x0 = x0*(8 - 2*x0)*(3*x0^2 + 2*x0 + 1) + x0*(6*x0 + 2)*(-x0^2 + 8*x0 + 5) + (-x0^2 + 8*x0 + 5)*(3*x0^2 + 2*x0 + 1) := sorry
+-- Original Problem: h( z ) = ( {5z + 8{z^2} - {z^3}} )( {1 + 2z + 3{z^2}} )
+example (x0: ℝ): deriv (λ z ↦ z*(-(z^2) + 8*z + 5)*(3*z^2 + 2*z + 1)) x0 = x0*(8 - 2*x0)*(3*x0^2 + 2*x0 + 1) + x0*(6*x0 + 2)*(-x0^2 + 8*x0 + 5) + (-x0^2 + 8*x0 + 5)*(3*x0^2 + 2*x0 + 1) := by
+  rw [deriv_mul]
+  rw [deriv_mul]
+  rw [deriv_id'']
+  rw [deriv_add]
+  rw [deriv_add]
+  rw [deriv.neg]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_const]
+  rw [deriv_add]
+  rw [deriv_add]
+  rw [deriv_const]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul differentiableAt_id _)
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact DifferentiableAt.neg (differentiableAt_pow _)
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact DifferentiableAt.add (DifferentiableAt.neg (differentiableAt_pow _)) (DifferentiableAt.const_mul differentiableAt_id _)
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.neg (differentiableAt_pow _)) (DifferentiableAt.const_mul differentiableAt_id _)) (differentiableAt_const _)
+  exact DifferentiableAt.mul differentiableAt_id (DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.neg (differentiableAt_pow _)) (DifferentiableAt.const_mul differentiableAt_id _)) (differentiableAt_const _))
+  exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul differentiableAt_id _)) (differentiableAt_const _)
 
 -- Original Problem: g( x ) = \frac{{6{x^2}}}{{2 - x}}
 example (x0: ℝ): deriv (λ x ↦ -6*x^2/(x - 2)) x0 = 6*x0^2/(x0 - 2)^2 - 12*x0/(x0 - 2) := sorry
@@ -206,7 +275,10 @@ example (x0: ℝ): deriv (λ x ↦ (x + 1)/x) x0 = 1/x0 - (x0 + 1)/x0^2 := sorry
 -- example (x0: ℝ): deriv (λ x ↦ (x + cos(x))/tan(x)) x0 = (1 - sin(x0))/tan(x0) + (x0 + cos(x0))*(-tan(x0)^2 - 1)/tan(x0)^2 := sorry
 
 -- Original Problem: f(x) = x(x+1)^4
-example (x0: ℝ): deriv (λ x ↦ x*(x + 1)^4) x0 = 4*x0*(x0 + 1)^3 + (x0 + 1)^4 := sorry
+example (x0: ℝ): deriv (λ x ↦ x*(x + 1)^4) x0 = 4*x0*(x0 + 1)^3 + (x0 + 1)^4 := by
+  -- rw [deriv_mul]
+  sorry
+  -- TO BE CHECKED BY BINDU
 
 -- Original Problem: f(x)=x\ln x
 example (x0: ℝ): deriv (λ x ↦ x*(log x)) x0 = (log x0) + 1 := sorry
@@ -245,40 +317,81 @@ example (x0: ℝ): deriv (λ x ↦ x^2*(sqrt 3*x + 1)) x0 = 3*x0^2/(2*(sqrt 3*x0
 example (x0: ℝ): deriv (λ x ↦ (x - 3)^3*(x + 2)) x0 = (x0 - 3)^3 + 3*(x0 - 3)^2*(x0 + 2) := sorry
 
 -- Original Problem: f(x) = x^5 + x^2
-example (x0: ℝ): deriv (λ x ↦ x^5 + x^2) x0 = 5*x0^4 + 2*x0 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^5 + x^2) x0 = 5*x0^4 + 2*x0 := by
+  rw [deriv_add]
+  rw [deriv_pow]
+  rw [deriv_pow]
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_pow _
 
 -- Original Problem: f(x) = x + x^3
-example (x0: ℝ): deriv (λ x ↦ x^3 + x) x0 = 3*x0^2 + 1 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^3 + x) x0 = 3*x0^2 + 1 := by
+  rw [deriv_add]
+  rw [deriv_pow]
+  rw [deriv_id'']
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_id'
 
 -- Original Problem: f(x) = x^4 + 2
-example (x0: ℝ): deriv (λ x ↦ x^4 + 2) x0 = 4*x0^3 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^4 + 2) x0 = 4*x0^3 := by
+  rw [deriv_add]
+  rw [deriv_const]
+  rw [deriv_pow]
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_const _
 
 -- Original Problem: f(x) = x^6 - 2x
-example (x0: ℝ): deriv (λ x ↦ x*(x^5 - 2)) x0 = 6*x0^5 - 2 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^6 - 2*x) x0 = 6*x0^5 - 2 := by
+  rw [deriv_sub]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  ring
+  exact differentiableAt_id'
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul differentiableAt_id _
 
 -- Original Problem: f(x) = 6x^3 + 5x^{-2}
 example (x0: ℝ): deriv (λ x ↦ (6*x^5 + 5)/x^2) x0 = 30*x0^2 - 2*(6*x0^5 + 5)/x0^3 := sorry
 
 -- Original Problem: f(x) = x^2 - 4x + 1
-example (x0: ℝ): deriv (λ x ↦ x^2 - 4*x + 1) x0 = 2*x0 - 4 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^2 - 4*x + 1) x0 = 2*x0 - 4 := by
+  rw [deriv_add]
+  rw [deriv_sub]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id'
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul differentiableAt_id _)
+  exact differentiableAt_const _
 
 -- Original Problem: f(x) = x^{-1} - x^{-5}
 example (x0: ℝ): deriv (λ x ↦ (x^4 - 1)/x^5) x0 = 4/x0^2 - 5*(x0^4 - 1)/x0^6 := sorry
 
 -- Original Problem: f(t) = t^6
-example (x0: ℝ): deriv (λ t ↦ t^6) x0 = 6*x0^5 := sorry
+example (x0: ℝ): deriv (λ t ↦ t^6) x0 = 6*x0^5 := by
+  rw [deriv_pow]
+  ring
 
 -- Original Problem: f(t) = 5t^{-3}
-example (x0: ℝ): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := sorry
+example (x0: ℝ): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := by
+  sorry
 
 -- Original Problem: f(t) = t^{1/2}
 example (x0: ℝ): deriv (λ t ↦ (sqrt t)) x0 = 1/(2*(sqrt x0)) := sorry
 
 -- Original Problem: f(t) = t^{2/3}
-example (x0: ℝ): deriv (λ t ↦ t^(2/3)) x0 = 2/(3*x0^(1/3)) := sorry
+example (x0: ℝ): deriv (λ t ↦ t^(2/3)) x0 = 2/(3*x0^(1/3)) := by sorry
 
 -- Original Problem: f(t) = \frac{3}{4}t^2
 example (x0: ℝ): deriv (λ t ↦ 3*t^2/4) x0 = 3*x0/2 := sorry
 
 -- Original Problem: f(t) = 8t^{\frac{1}{4}}
-example (x0: ℝ): deriv (λ t ↦ 8*t^(1/4)) x0 = 2/x0^(3/4) := sorry
+example (x0: ℝ): deriv (λ t ↦ 8*t^(1/4)) x0 = 2/x0^(3/4) := by sorry
