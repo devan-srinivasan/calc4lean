@@ -395,8 +395,7 @@ example (x0: ℝ): deriv (λ t ↦ t^6) x0 = 6*x0^5 := by
   ring
 
 -- Original Problem: f(t) = 5t^{-3}
-example (x0: ℝ): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := by
-  sorry
+example (x0: ℝ): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := by sorry
 
 -- Original Problem: f(t) = t^{1/2}
 example (x0: ℝ): deriv (λ t ↦ (sqrt t)) x0 = 1/(2*(sqrt x0)) := sorry
