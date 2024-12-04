@@ -6,6 +6,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.Calculus.Deriv.Inv
+import Mathlib.Analysis.Calculus.Deriv.Comp
 
 import «Calc4lean».LLMStep
 
@@ -145,3 +146,64 @@ example (x0: ℝ) (h: x0 - 2 ≠ 0): deriv (λ x ↦ -6*x^2/(x - 2)) x0 = 6*x0^2
   exact h
   --llmstep ""
   --exact fun h' => h (sub_eq_zero.mp h')
+
+
+-- Original Problem: f( x ) = {( {5 - 3{x^2}} )^7}\sqrt {6{x^2} + 8x - 12}
+example (x0: ℝ): deriv (λ x ↦ -(3*x^2 - 5)^7) x0 = -42*x0*(3*x0^2 - 5)^6 := by
+  have h_comp: deriv (λ x ↦ -(3*x^2 - 5)^7) x0 = deriv ((λ x ↦ -x^7) ∘ (λ x ↦ 3*x^2 - 5)) x0 := by rfl
+  rw [h_comp]
+  rw [deriv_comp]
+  rw [deriv.neg]
+  rw [deriv_pow]
+  rw [deriv_sub]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const]
+  ring
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact differentiableAt_const _
+  exact DifferentiableAt.neg (differentiableAt_pow _)
+  exact DifferentiableAt.sub (DifferentiableAt.const_mul (differentiableAt_pow _) _) (differentiableAt_const _)
+
+
+-- Original Problem: F( y ) = \ln ( {1 - 5{y^2} + {y^3}} )
+example (x0: ℝ) (h: x0^3 - 5*x0^2 + 1 > 0): deriv (λ y ↦ (log (y^3 - 5*y^2 + 1))) x0 = (3*x0^2 - 10*x0)/(x0^3 - 5*x0^2 + 1) := by
+  have h_comp: deriv (λ y ↦ (log (y^3 - 5*y^2 + 1))) x0 = deriv ((λ y ↦ log y) ∘ (λ y ↦ (y^3 - 5*y^2 + 1))) x0 := by rfl
+  rw [h_comp]
+  rw [deriv_comp]
+  rw [deriv_log]
+  rw [deriv_add]
+  rw [deriv_sub]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const]
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)
+  exact differentiableAt_const _
+  exact differentiableAt_log (ne_of_gt h)
+  exact DifferentiableAt.add (DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)) (differentiableAt_const _)
+
+
+example (x0: ℝ) : deriv (λ y ↦ y^3 - 5*y^2 + 1) x0 = 3*x0^2 - 10*x0 := by
+  rw [deriv_add]
+  rw [deriv_sub]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const]
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)
+  exact differentiableAt_const _
+
+
+example (x0: ℝ) (h: x0 > 0) : deriv (λ y ↦ log y) x0 = 1/x0 := by
+  rw [deriv_log]
+  ring

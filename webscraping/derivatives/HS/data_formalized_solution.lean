@@ -214,7 +214,7 @@ example (x0: ℝ): deriv (λ z ↦ (z + 1)/(tanh z)) x0 = (x0 + 1)*((tanh x0)^2 
 example (x0: ℝ): deriv (λ x ↦ x^4*(6*x + 7)^4) x0 = 24*x0^4*(6*x0 + 7)^3 + 4*x0^3*(6*x0 + 7)^4 := sorry
 
 -- Original Problem: g( t ) = {( {4{t^2} - 3t + 2} )^{ - 2}}
-example (x0: ℝ): deriv (λ t ↦ (4*t^2 - 3*t + 2)^(-2:ℤ)) x0 = (6 - 16*x0)/(4*x0^2 - 3*x0 + 2)^3 := sorry
+example (x0: ℝ) (h: 4*x0^2 - 3*x0 + 2 ≠ 0): deriv (λ t ↦ (4*t^2 - 3*t + 2)^(-2:ℤ)) x0 = (6 - 16*x0)/(4*x0^2 - 3*x0 + 2)^3 := sorry
 
 -- Original Problem: y = \sqrt[3]{{1 - 8z}}
 example (x0: ℝ): deriv (λ z ↦ (1 - 8*z)^(1/3)) x0 = -8/(3*(1 - 8*x0)^(2/3)) := sorry
@@ -232,7 +232,7 @@ example (x0: ℝ): deriv (λ z ↦ (1 - 8*z)^(1/3)) x0 = -8/(3*(1 - 8*x0)^(2/3))
 -- example (x0: ℝ): deriv (λ z ↦ 2^(1 - 6*z)) x0 = -6*2^(1 - 6*x0)*(log 2) := sorry
 
 -- Original Problem: F( y ) = \ln ( {1 - 5{y^2} + {y^3}} )
-example (x0: ℝ): deriv (λ y ↦ (log (y^3 - 5*y^2 + 1))) x0 = (3*x0^2 - 10*x0)/(x0^3 - 5*x0^2 + 1) := sorry
+example (x0: ℝ) (h: x0^3 - 5*x0^2 + 1 ≠ 0): deriv (λ y ↦ (log (y^3 - 5*y^2 + 1))) x0 = (3*x0^2 - 10*x0)/(x0^3 - 5*x0^2 + 1) := sorry
 
 -- -- Original Problem: V( x ) = \ln ( {\sin ( x ) - \cot ( x )} )
 -- example (x0: ℝ): deriv (λ x ↦ (log (sin(x) - (cot x)))) x0 = (cos(x0) + (cot x0)^2 + 1)/(sin(x0) - (cot x0)) := sorry
