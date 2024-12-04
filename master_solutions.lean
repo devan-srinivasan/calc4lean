@@ -5,6 +5,7 @@ import Mathlib.Analysis.Calculus.Deriv.Pow
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.Calculus.Deriv.Inv
 
 import «Calc4lean».LLMStep
 
@@ -123,3 +124,24 @@ example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 
   exact differentiableAt_id.sub (differentiableAt_const _)
   exact differentiableAt_id.mul (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _))
   exact differentiableAt_id.add (differentiableAt_const _)
+
+
+-- Example with f(x)/g(x) format
+-- Original Problem: g( x ) = \frac{{6{x^2}}}{{2 - x}}
+example (x0: ℝ) (h: x0 - 2 ≠ 0): deriv (λ x ↦ -6*x^2/(x - 2)) x0 = 6*x0^2/(x0 - 2)^2 - 12*x0/(x0 - 2) := by
+  rw [deriv_div]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  field_simp [h]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact h
+  --llmstep ""
+  --exact fun h' => h (sub_eq_zero.mp h')

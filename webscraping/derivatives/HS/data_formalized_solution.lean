@@ -113,7 +113,21 @@ example (x0: ℝ): deriv (λ x ↦ -(2*x^(10/3) - 1)*((sqrt x^3) + 1)/x^3) x0 = 
 example (x0: ℝ): deriv (λ z ↦ z*(-z^2 + 8*z + 5)*(3*z^2 + 2*z + 1)) x0 = x0*(8 - 2*x0)*(3*x0^2 + 2*x0 + 1) + x0*(6*x0 + 2)*(-x0^2 + 8*x0 + 5) + (-x0^2 + 8*x0 + 5)*(3*x0^2 + 2*x0 + 1) := sorry
 
 -- Original Problem: g( x ) = \frac{{6{x^2}}}{{2 - x}}
-example (x0: ℝ): deriv (λ x ↦ -6*x^2/(x - 2)) x0 = 6*x0^2/(x0 - 2)^2 - 12*x0/(x0 - 2) := sorry
+example (x0: ℝ) (h: x0 - 2 ≠ 0): deriv (λ x ↦ -6*x^2/(x - 2)) x0 = 6*x0^2/(x0 - 2)^2 - 12*x0/(x0 - 2) := by
+  rw [deriv_div]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  field_simp [h]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact h
 
 -- Original Problem: R( w ) = \frac{{3w + {w^4}}}{{2{w^2} + 1}}
 example (x0: ℝ): deriv (λ w ↦ w*(w^3 + 3)/(2*w^2 + 1)) x0 = 3*x0^3/(2*x0^2 + 1) - 4*x0^2*(x0^3 + 3)/(2*x0^2 + 1)^2 + (x0^3 + 3)/(2*x0^2 + 1) := sorry
