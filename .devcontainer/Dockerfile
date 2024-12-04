@@ -13,8 +13,10 @@ RUN apt-get install -y vim
 RUN apt-get -y install git
 RUN apt-get -y update; apt-get -y install curl
 
-RUN bash -c 'curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:v4.11.0 || (echo && read -n 1 -s -r -p "Install failed, press ENTER to continue...")' && exit
+#Install Lean and Elan
+#RUN bash -c 'curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:v4.11.0 || (echo && read -n 1 -s -r -p "Install failed, press ENTER to continue...")' && exit
+RUN bash -c 'curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:stable || (echo && read -n 1 -s -r -p "Install failed, press ENTER to continue...")' && exit
 
-# RUN pip install python-sat[aiger,approxmc,cryptosat]
-# COPY requirements.txt .
-# RUN pip install -r requirements.txt
+# Install requirements
+COPY requirements.txt .
+RUN pip install -r requirements.txt

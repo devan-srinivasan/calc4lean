@@ -1,2 +1,5 @@
 .vnv/
-.env
+.env/
+.devcontainer/devcontainer.env
+.lake
+/.lake
