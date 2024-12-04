@@ -23,7 +23,7 @@ example (x0: ℝ): deriv (λ x ↦ 6*x^3 - 9*x + 4) x0 = 18*x0^2 - 9 := by
   exact DifferentiableAt.const_mul (differentiableAt_pow _) _
   exact DifferentiableAt.const_mul differentiableAt_id _
   exact DifferentiableAt.sub (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul differentiableAt_id _)
-  exact differentiableAt_const 4
+  exact differentiableAt_const _
 
 -- Original Problem: y = 2{t^4} - 10{t^2} + 13t
 example (x0: ℝ): deriv (λ t ↦ 2*t^4 - 10*t^2 + 13*t) x0 = 2*x0^3 + x0*(6*x0^2 - 10) - 10*x0 + 13 := by
@@ -45,19 +45,21 @@ example (x0: ℝ): deriv (λ t ↦ 2*t^4 - 10*t^2 + 13*t) x0 = 2*x0^3 + x0*(6*x0
   exact DifferentiableAt.const_mul differentiableAt_id _
 
 
+-- Original Problem: f( x ) = e^x * ln(x)
+example (x0 : ℝ) (h : 0 < x0) : deriv (fun x => exp x * log x) x0 = exp x0 / x0 + exp x0 * log x0 := by
+  -- Apply the product rule
+  rw [deriv_mul]
+  -- Derivative of log(x), under the condition x > 0
+  rw [Real.deriv_log]
+  -- Simplify the resulting expression
+  rw [Real.deriv_exp]
+  ring
+  exact differentiableAt_exp
+  exact differentiableAt_log (ne_of_gt h)
+
+
 -- Original Problem: g( z ) = 4{z^7} - 3{z^{ - 7}} + 9z
-example (x0: ℝ): deriv (λ z ↦ 4*z^7 + 9*z - 3/z^7) x0 = 28*x0^6 + 9 + 21/x0^8 := by
-  sorry
-  -- rw [deriv_sub]
-  -- rw [deriv_add]
-  -- rw [deriv_const_mul]
-  -- rw [deriv_const_mul]
-  -- rw [deriv_pow]
-  -- rw [deriv_id'']
-  -- ring
-  -- sorry
-  -- sorry
-  -- --rw [deriv_const_div]
+example (x0: ℝ): deriv (λ z ↦ 4*z^7 + 9*z - 3/z^7) x0 = 28*x0^6 + 9 + 21/x0^8 := sorry
 
 -- Original Problem: h( y ) = {y^{ - 4}} - 9{y^{ - 3}} + 8{y^{ - 2}} + 12
 example (x0: ℝ): deriv (λ y ↦ 12 + 8/y^2 - 9/y^3 + y^(-4: ℤ)) x0 = -16/x0^3 + 27/x0^4 - 4/x0^5 := sorry
@@ -168,7 +170,7 @@ example (x0: ℝ): deriv (λ x ↦ -(3*x^2 - 5)^7*(sqrt 6*x^2 + 8*x - 12)) x0 = 
 -- example (x0: ℝ): deriv (λ x ↦ sin(2*x + 1)^2) x0 = 4*sin(2*x0 + 1)*cos(2*x0 + 1) := sorry
 
 -- Original Problem: f(x) = \log_7 (2x-3)
-example (x0: ℝ): deriv (λ x ↦ (log 2*x - 3)/(log 7)) x0 = 2/((2*x0 - 3)*(log 7)) := sorry
+example (x0: ℝ): deriv (λ x ↦ (log (2*x - 3))/(log 7)) x0 = 2/((2*x0 - 3)*(log 7)) := sorry
 
 -- Original Problem: f(x) = \log_x 3
 example (x0: ℝ): deriv (λ x ↦ (log 3)/(log x)) x0 = -(log 3)/(x0*(log x0)^2) := sorry

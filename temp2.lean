@@ -4,6 +4,7 @@ import Mathlib.Analysis.Calculus.Deriv.Mul
 import Mathlib.Analysis.Calculus.Deriv.Pow
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
+import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 
 import «Calc4lean».LLMStep
 
@@ -72,22 +73,13 @@ theorem h0_2 (x0: ℝ): deriv (λ x ↦ 6 * x^3 - 9 * x + 4) x0 = 18 * x0^2 - 9 
   exact DifferentiableAt.const_mul differentiableAt_id 9
 
 
-example (x0: ℝ) (h: x0≠0): deriv (λ z ↦ 3/z^7) x0 = -21/x0^8 := by
-  -- Rewrite the function in terms of powers
-  have h1 : (λ z:ℝ ↦ 3 / z^7) = (λ z:ℝ ↦ 3 * z^(-7: ℤ)) := by
-    --funext
-    simp [div_eq_mul_inv, zpow_neg]
-    rfl
-  rw [h1]
-  -- Differentiate using the power rule
-  rw [deriv_const_mul]
-  rw [deriv_zpow]
-  ring_nf
-  sorry
-  sorry
-  --simp [rpow_neg, mul_neg, mul_comm, h1]
-  --llmstep ""
-  -- field_simp
-  -- ring_nf
-  -- field_simp
-  -- ring_nf
+example (x : ℝ) (h : 0 < x) : deriv (fun x => exp x * log x) x = exp x / x + exp x * log x := by
+  -- Apply the product rule
+  rw [deriv_mul]
+  -- Derivative of log(x), under the condition x > 0
+  rw [Real.deriv_log]
+  -- Simplify the resulting expression
+  rw [Real.deriv_exp]
+  ring
+  exact differentiableAt_exp
+  exact differentiableAt_log (ne_of_gt h)
