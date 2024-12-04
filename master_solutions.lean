@@ -78,3 +78,48 @@ example (x0 : ℝ) (h : 0 < x0) : deriv (fun x => exp x * log x) x0 = exp x0 / x
   ring
   exact differentiableAt_exp
   exact differentiableAt_log (ne_of_gt h)
+
+
+-- A solution that also prooves that the multiplication is differentiable at a point
+-- Original Problem: g( y ) = ( {y - 4} )( {2y + {y^2}} )
+example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 + 2) + (x0 - 4)*(x0 + 2) := by
+  rw [deriv_mul]
+  rw [deriv_mul]
+  rw [deriv_id'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  rw [deriv_add]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact DifferentiableAt.mul differentiableAt_id (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _))
+  exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
+
+-- A solution that also prooves that the multiplication is differentiable at a point
+-- Original Problem: g( y ) = ( {y - 4} )( {2y + {y^2}} )
+example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 + 2) + (x0 - 4)*(x0 + 2) := by
+  rw [deriv_mul]
+  rw [deriv_mul]
+  rw [deriv_id'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  rw [deriv_add]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact differentiableAt_id.sub (differentiableAt_const _)
+  exact differentiableAt_id.mul (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _))
+  exact differentiableAt_id.add (differentiableAt_const _)

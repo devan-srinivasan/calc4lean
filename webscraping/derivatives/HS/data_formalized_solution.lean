@@ -77,7 +77,25 @@ example (x0: ℝ): deriv (λ z ↦ 6/(sqrt z^3) + 1/(8*z^4) - 1/(3*z^10)) x0 = -
 example (x0: ℝ): deriv (λ x ↦ 3*x*(x^2 - 3)) x0 = 9*x0^2 - 9 := sorry
 
 -- Original Problem: g( y ) = ( {y - 4} )( {2y + {y^2}} )
-example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 + 2) + (x0 - 4)*(x0 + 2) := sorry
+example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 + 2) + (x0 - 4)*(x0 + 2) := by
+  rw [deriv_mul]
+  rw [deriv_mul]
+  rw [deriv_id'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  rw [deriv_add]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact DifferentiableAt.mul differentiableAt_id (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _))
+  exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
 
 -- Original Problem: h( x ) = \frac{{4{x^3} - 7x + 8}}{x}
 example (x0: ℝ): deriv (λ x ↦ 4*x^2 - 7 + 8/x) x0 = 8*x0 - 8/x0^2 := sorry
