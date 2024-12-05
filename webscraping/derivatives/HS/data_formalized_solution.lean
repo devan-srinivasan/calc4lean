@@ -79,6 +79,11 @@ example (x0: ℝ) (h: x0 ≠ 0): deriv (λ z ↦ 4*z^7 + 9*z - 3/z^7) x0 = 28*x0
   exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul differentiableAt_id _)
   exact DifferentiableAt.div (differentiableAt_const _) (differentiableAt_pow _) (pow_ne_zero _ h)
 
+example (x0: ℝ) (h: x0 ≠ 0): (λ y ↦ y * y^(-1: ℤ)) x0 = 1 := by
+  -- simp
+  -- rw [mul_inv_cancel x0]
+  sorry
+
 -- Original Problem: h( y ) = {y^{ - 4}} - 9{y^{ - 3}} + 8{y^{ - 2}} + 12
 example (x0: ℝ) (h: x0 ≠ 0): deriv (λ y ↦ 12 + 8/y^2 - 9/y^3 + y^(-4: ℤ)) x0 = -16/x0^3 + 27/x0^4 - 4/x0^5 := by
   -- rw [deriv_add]
@@ -331,10 +336,24 @@ example (x0: ℝ): deriv (λ x ↦ -(3*x^2 - 5)^7*(sqrt 6*x^2 + 8*x - 12)) x0 = 
 -- example (x0: ℝ): deriv (λ x ↦ sin(2*x + 1)^2) x0 = 4*sin(2*x0 + 1)*cos(2*x0 + 1) := sorry
 
 -- Original Problem: f(x) = \log_7 (2x-3)
-example (x0: ℝ): deriv (λ x ↦ (log (2*x - 3))/(log 7)) x0 = 2/((2*x0 - 3)*(log 7)) := sorry
+example (x0: ℝ) (h : 0 < x0): deriv (λ x ↦ (log (2*x - 3))/(log 7)) x0 = 2/((2*x0 - 3)*(log 7)) := by
+  -- rw [deriv_div]
+  -- have h_comp: deriv (λ x ↦ log (2*x - 3)) x0 = deriv ((λ x ↦ log x) ∘ (λ x ↦ (2*x - 3))) x0 := by rfl
+  -- rw [h_comp]
+  -- rw [deriv_comp]
+  -- rw [deriv_log]
+  -- rw [deriv_sub]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_id'']
+  -- rw [deriv_const]
+  -- rw [deriv_const]
+  -- ring
+  -- TO BE CHECKED BY BINDU
+  sorry
+
 
 -- Original Problem: f(x) = \log_x 3
-example (x0: ℝ): deriv (λ x ↦ (log 3)/(log x)) x0 = -(log 3)/(x0*(log x0)^2) := sorry
+example (x0: ℝ) (h : 0 < x0): deriv (λ x ↦ (log 3)/(log x)) x0 = -(log 3)/(x0*(log x0)^2) := by sorry
 
 -- -- Original Problem: f(x) = 3^{x\log x}
 -- example (x0: ℝ): deriv (λ x ↦ 3^(x*(log x)/(log 10))) x0 = 3^(x0*(log x0)/(log 10))*((log x0)/(log 10) + 1/(log 10))*(log 3) := sorry
@@ -349,10 +368,30 @@ example (x0: ℝ): deriv (λ x ↦ (x + 1)/x) x0 = 1/x0 - (x0 + 1)/x0^2 := sorry
 -- example (x0: ℝ): deriv (λ x ↦ (x + cos(x))/tan(x)) x0 = (1 - sin(x0))/tan(x0) + (x0 + cos(x0))*(-tan(x0)^2 - 1)/tan(x0)^2 := sorry
 
 -- Original Problem: f(x) = x(x+1)^4
-example (x0: ℝ): deriv (λ x ↦ x*(x + 1)^4) x0 = 4*x0*(x0 + 1)^3 + (x0 + 1)^4 := by sorry
+example (x0: ℝ): deriv (λ x ↦ x*(x + 1)^4) x0 = 4*x0*(x0 + 1)^3 + (x0 + 1)^4 := by
+  -- rw [deriv_mul]
+  -- rw [deriv_id'']
+  -- have h_comp: deriv (λ x ↦ (x + 1)^4) x0 = deriv ((λ x ↦ x ^ 4) ∘ (λ x ↦ x + 1)) x0 := by rfl
+  -- rw [h_comp]
+  -- rw [deriv_comp]
+  -- rw [deriv_pow]
+  -- rw [deriv_add]
+  -- rw [deriv_id'']
+  -- rw [deriv_const]
+  -- ring
+  -- exact differentiableAt_id
+  -- exact differentiableAt_const _
+  -- TO BE CHECKED BY BINDU
+  sorry
 
 -- Original Problem: f(x)=x\ln x
-example (x0: ℝ): deriv (λ x ↦ x*(log x)) x0 = (log x0) + 1 := sorry
+example (x0: ℝ): deriv (λ x ↦ x*(log x)) x0 = (log x0) + 1 := by
+  -- rw [deriv_mul]
+  -- rw [deriv_id'']
+  -- rw [Real.deriv_log]
+  -- ring
+  -- TO BE CHECKED BY BINDU
+  sorry
 
 -- Original Problem: f(x)=x^2(x-1)^3
 example (x0: ℝ): deriv (λ x ↦ x^2*(x - 1)^3) x0 = 3*x0^2*(x0 - 1)^2 + 2*x0*(x0 - 1)^3 := sorry
@@ -426,7 +465,16 @@ example (x0: ℝ): deriv (λ x ↦ x^6 - 2*x) x0 = 6*x0^5 - 2 := by
   exact DifferentiableAt.const_mul differentiableAt_id _
 
 -- Original Problem: f(x) = 6x^3 + 5x^{-2}
-example (x0: ℝ): deriv (λ x ↦ (6*x^5 + 5)/x^2) x0 = 30*x0^2 - 2*(6*x0^5 + 5)/x0^3 := sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ x ↦ 6*x^3 + 5/x^2) x0 = 18*x0^2 - 10*x0^(-3:ℤ) := by
+  -- rw [deriv_add]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_pow]
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_pow]
+  -- ring
+  -- TO BE CHECKED BY BINDU
+  sorry
 
 -- Original Problem: f(x) = x^2 - 4x + 1
 example (x0: ℝ): deriv (λ x ↦ x^2 - 4*x + 1) x0 = 2*x0 - 4 := by
