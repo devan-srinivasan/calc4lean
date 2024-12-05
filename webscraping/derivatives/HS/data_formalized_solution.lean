@@ -44,7 +44,6 @@ example (x0: ℝ): deriv (λ t ↦ 2*t^4 - 10*t^2 + 13*t) x0 = 2*x0^3 + x0*(6*x0
   exact DifferentiableAt.sub (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)
   exact DifferentiableAt.const_mul differentiableAt_id _
 
-
 -- Original Problem: f( x ) = e^x * ln(x)
 example (x0 : ℝ) (h : 0 < x0) : deriv (fun x => exp x * log x) x0 = exp x0 / x0 + exp x0 * log x0 := by
   -- Apply the product rule
@@ -57,18 +56,66 @@ example (x0 : ℝ) (h : 0 < x0) : deriv (fun x => exp x * log x) x0 = exp x0 / x
   exact differentiableAt_exp
   exact differentiableAt_log (ne_of_gt h)
 
-
 -- Original Problem: g( z ) = 4{z^7} - 3{z^{ - 7}} + 9z
-example (x0: ℝ): deriv (λ z ↦ 4*z^7 + 9*z - 3/z^7) x0 = 28*x0^6 + 9 + 21/x0^8 := sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ z ↦ 4*z^7 + 9*z - 3/z^7) x0 = 28*x0^6 + 9 + 21/x0^8 := by
+  rw [deriv_sub]
+  rw [deriv_add]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_div]
+  rw [deriv_const]
+  rw [deriv_pow]
+  field_simp [h]
+  ring
+  exact differentiableAt_const _
+  exact differentiableAt_pow _
+  exact pow_ne_zero _ h
+  exact differentiableAt_id
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul differentiableAt_id _)
+  exact DifferentiableAt.div (differentiableAt_const _) (differentiableAt_pow _) (pow_ne_zero _ h)
 
 -- Original Problem: h( y ) = {y^{ - 4}} - 9{y^{ - 3}} + 8{y^{ - 2}} + 12
-example (x0: ℝ): deriv (λ y ↦ 12 + 8/y^2 - 9/y^3 + y^(-4: ℤ)) x0 = -16/x0^3 + 27/x0^4 - 4/x0^5 := sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ y ↦ 12 + 8/y^2 - 9/y^3 + y^(-4: ℤ)) x0 = -16/x0^3 + 27/x0^4 - 4/x0^5 := by
+  -- rw [deriv_add]
+  -- rw [deriv_sub]
+  -- rw [deriv_add]
+  -- rw [deriv_const]
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_pow]
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_pow]
+  -- rw [deriv_zpow]
+  -- ring
+  sorry
+  -- TO BE CHECKED BY BINDU
 
 -- Original Problem: f( x ) = 10\sqrt[5]{{{x^3}}} - \sqrt {{x^7}}  + 6\sqrt[3]{{{x^8}}} - 3
 example (x0: ℝ): deriv (λ x ↦ 10*(x^3)^(1/5) - (sqrt x^7) + 6*(x^8)^(1/3) - 3) x0 = 6*(x0^3)^(1/5)/x0 - 7*(sqrt x0^7)/(2*x0) + 16*(x0^8)^(1/3)/x0 := sorry
 
 -- Original Problem: f( t ) = \frac{4}{t} - \frac{1}{{6{t^3}}} + \frac{8}{{{t^5}}}
-example (x0: ℝ): deriv (λ t ↦ (24*t^4 - t^2 + 48)/(6*t^5)) x0 = (96*x0^3 - 2*x0)/(6*x0^5) - 5*(24*x0^4 - x0^2 + 48)/(6*x0^6) := sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ t ↦ 4/t - 1/(6*t^3) + 8/t^5) x0 = -4/x0^2 + 1/(2*x0^4) - 40/x0^6 := by
+  -- rw [deriv_add]
+  -- rw [deriv_sub]
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_id'']
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_pow]
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_pow]
+  -- ring
+  -- TO BE CHECKED BY BINDU
+  sorry
 
 -- Original Problem: R( z ) = \frac{6}{{\sqrt {{z^3}} }} + \frac{1}{{8{z^4}}} - \frac{1}{{3{z^{10}}}}
 example (x0: ℝ): deriv (λ z ↦ 6/(sqrt z^3) + 1/(8*z^4) - 1/(3*z^10)) x0 = -9/(x0*(sqrt x0^3)) - 1/(2*x0^5) + 10/(3*x0^11) := sorry
@@ -110,7 +157,18 @@ example (x0: ℝ): deriv (λ y ↦ y*(y - 4)*(y + 2)) x0 = x0*(x0 - 4) + x0*(x0 
   exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
 
 -- Original Problem: h( x ) = \frac{{4{x^3} - 7x + 8}}{x}
-example (x0: ℝ): deriv (λ x ↦ 4*x^2 - 7 + 8/x) x0 = 8*x0 - 8/x0^2 := sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ x ↦ (4*x^2 - 7 + 8)/x) x0 = 8*x0 - 8/x0^2 := by
+  -- rw [deriv_div]
+  -- rw [deriv_add]
+  -- rw [deriv_sub]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_pow]
+  -- rw [deriv_const]
+  -- rw [deriv_const]
+  -- rw [deriv_id'']
+  -- ring
+  sorry
+  -- TO BE CHECKED BY BINDU
 
 -- Original Problem: f( y ) = \frac{{{y^5} - 5{y^3} + 2y}}{{{y^3}}}
 example (x0: ℝ): deriv (λ y ↦ y^2 - 5 + 2/y^2) x0 = 2*x0 - 4/x0^3 := sorry
