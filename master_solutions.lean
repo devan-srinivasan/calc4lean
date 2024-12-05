@@ -207,3 +207,47 @@ example (x0: ℝ) : deriv (λ y ↦ y^3 - 5*y^2 + 1) x0 = 3*x0^2 - 10*x0 := by
 example (x0: ℝ) (h: x0 > 0) : deriv (λ y ↦ log y) x0 = 1/x0 := by
   rw [deriv_log]
   ring
+
+
+-- Original Problem: g( z ) = 4{z^7} - 3{z^{ - 7}} + 9z
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ z ↦ 4*z^7 + 9*z - 3/z^7) x0 = 28*x0^6 + 9 + 21/x0^8 := by
+  rw [deriv_sub]
+  rw [deriv_add]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_div]
+  rw [deriv_const]
+  rw [deriv_pow]
+  field_simp [h]
+  ring
+  exact differentiableAt_const _
+  exact differentiableAt_pow _
+  exact pow_ne_zero _ h
+  exact differentiableAt_id
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.const_mul (differentiableAt_id) _
+  exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul (differentiableAt_id) _)
+  exact DifferentiableAt.div (differentiableAt_const _) (differentiableAt_pow _) (pow_ne_zero _ h)
+
+
+-- Original Problem: g( z ) = 4{z^7} - 3{z^{ - 7}} + 9z
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ z ↦ 4*z^7 + 9*z - 3*z^(-7:ℤ)) x0 = 28*x0^6 + 9 + 21*x0^(-8:ℤ) := by
+  rw [deriv_sub]
+  rw [deriv_add]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_const_mul]
+  rw [deriv_zpow]
+  ring
+  exact (differentiableAt_zpow.mpr (Or.inl h))
+  exact differentiableAt_id
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.const_mul (differentiableAt_id) _
+  exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul (differentiableAt_id) _)
+  exact DifferentiableAt.const_mul ((hasDerivAt_zpow _ _ (Or.inl h)).differentiableAt) _
