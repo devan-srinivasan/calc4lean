@@ -7,7 +7,6 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 
 open Real
 
-
 -- Original Problem: f( x ) = 6{x^3} - 9x + 4
 example (x0: ℝ): deriv (λ x ↦ 6*x^3 - 9*x + 4) x0 = 18*x0^2 - 9 := by
   rw [deriv_add]
@@ -195,11 +194,11 @@ example (x0: ℝ): deriv (λ t ↦ t*(4*t - 1)*(t^3 - 8*t^2 + 12)) x0 = x0*(4*x0
   rw [deriv_const]
   ring
   exact differentiableAt_pow _
-  exact differentiableAt_id
   exact differentiableAt_pow _
   exact DifferentiableAt.const_mul (differentiableAt_pow _) _
   exact DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)
   exact differentiableAt_const _
+  exact differentiableAt_id
   exact DifferentiableAt.const_mul differentiableAt_id _
   exact differentiableAt_const _
   exact differentiableAt_id
@@ -492,7 +491,15 @@ example (x0: ℝ): deriv (λ x ↦ x^2 - 4*x + 1) x0 = 2*x0 - 4 := by
   exact differentiableAt_const _
 
 -- Original Problem: f(x) = x^{-1} - x^{-5}
-example (x0: ℝ): deriv (λ x ↦ (x^4 - 1)/x^5) x0 = 4/x0^2 - 5*(x0^4 - 1)/x0^6 := sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ x ↦ (x^4 - 1)/x^5) x0 = -1/x^2 + 5/x^6 := by
+  rw [deriv_div]
+  rw [deriv_sub]
+  rw [deriv_pow]
+  rw [deriv_const]
+  rw [deriv_pow]
+  rw []
+  ring
+
 
 -- Original Problem: f(t) = t^6
 example (x0: ℝ): deriv (λ t ↦ t^6) x0 = 6*x0^5 := by
@@ -500,16 +507,29 @@ example (x0: ℝ): deriv (λ t ↦ t^6) x0 = 6*x0^5 := by
   ring
 
 -- Original Problem: f(t) = 5t^{-3}
-example (x0: ℝ): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := by sorry
+example (x0: ℝ): deriv (λ t ↦ 5*t^(-3:ℤ)) x0 = -15/x0^4 := by
+  -- rw [deriv_const_mul]
+  -- rw [deriv_zpow]
+  sorry
 
 -- Original Problem: f(t) = t^{1/2}
-example (x0: ℝ): deriv (λ t ↦ (sqrt t)) x0 = 1/(2*(sqrt x0)) := sorry
+example (x0: ℝ): deriv (λ t ↦ (sqrt t)) x0 = 1/(2*(sqrt x0)) := by sorry
 
 -- Original Problem: f(t) = t^{2/3}
 example (x0: ℝ): deriv (λ t ↦ t^(2/3)) x0 = 2/(3*x0^(1/3)) := by sorry
 
 -- Original Problem: f(t) = \frac{3}{4}t^2
-example (x0: ℝ): deriv (λ t ↦ 3*t^2/4) x0 = 3*x0/2 := sorry
+example (x0: ℝ): deriv (λ t ↦ 3*t^2/4) x0 = 3*x0/2 := by
+  -- rw [deriv_div]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_pow]
+  -- rw [deriv_const]
+  -- ring
+  -- exact differentiableAt_pow _
+  -- exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  -- exact differentiableAt_const _
+  -- TO BE CHECKED BY BINDU
+  sorry
 
 -- Original Problem: f(t) = 8t^{\frac{1}{4}}
 example (x0: ℝ): deriv (λ t ↦ 8*t^(1/4)) x0 = 2/x0^(3/4) := by sorry
