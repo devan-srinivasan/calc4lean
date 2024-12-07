@@ -7,6 +7,7 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.Deriv.Comp
+import Mathlib.Analysis.SpecialFunctions.Sqrt
 
 import «Calc4lean».LLMStep
 
@@ -251,3 +252,49 @@ example (x0: ℝ) (h: x0 ≠ 0): deriv (λ z ↦ 4*z^7 + 9*z - 3*z^(-7:ℤ)) x0 
   exact DifferentiableAt.const_mul (differentiableAt_id) _
   exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul (differentiableAt_id) _)
   exact DifferentiableAt.const_mul ((hasDerivAt_zpow _ _ (Or.inl h)).differentiableAt) _
+
+
+-- Original Problem: f( x ) = {( {5 - 3{x^2}} )^7}\sqrt {6{x^2} + 8x - 12}
+example (x0: ℝ) (h: 6*x0^2 + 8*x0 - 12 > 0): deriv (λ x ↦ -(3*x^2 - 5)^7*(sqrt (6*x^2 + 8*x - 12))) x0 =
+  -(2*(3*x^2 - 5)^6 * (135*x^3 + 174*x^2 - 267*x - 10))/(sqrt (6*x^2 + 8*x - 12)) := by
+  -- rw [deriv_mul]
+  -- have h_comp: deriv (λ x ↦ -(3*x^2 - 5)^7) x0 = deriv ((λ x ↦ -x^7) ∘ (λ x ↦ 3*x^2 - 5)) x0 := by rfl
+  -- rw [h_comp]
+  -- rw [deriv_comp]
+  -- rw [deriv.neg]
+  -- rw [deriv_pow]
+  -- rw [deriv_sub]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_pow]
+  -- rw [deriv_const]
+  -- have h_comp: deriv (λ x ↦ sqrt (6*x^2 + 8*x - 12)) x0 = deriv ((λ x ↦ sqrt x) ∘ (λ x ↦ 6*x^2 + 8*x - 12)) x0 := by rfl
+  -- rw [h_comp]
+  -- rw [deriv_comp]
+  -- rw [deriv_sqrt]
+  -- rw [deriv_sub]
+  -- rw [deriv_add]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_pow]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_id'']
+  -- rw [deriv_const]
+  sorry
+
+
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ y ↦ 12 + 8/y^2 - 9/y^3 + y^(-4: ℤ)) x0 = -16/x0^3 + 27/x0^4 - 4/x0^5 := by
+  -- rw [deriv_add]
+  -- rw [deriv_sub]
+  -- rw [deriv_add]
+  -- rw [deriv_zpow]
+  -- rw [deriv_const]
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_pow]
+  -- simp
+  -- rw [deriv_div]
+  -- rw [deriv_const]
+  -- rw [deriv_pow]
+  -- simp
+  -- field_simp [h]
+  -- ring
+  sorry
