@@ -180,7 +180,22 @@ example (x0: ℝ) (h: x0 ≠ 0): deriv (λ x ↦ (4*x^2 - 7 + 8)/x) x0 = 8*x0 - 
   -- TO BE CHECKED BY BINDU
 
 -- Original Problem: f( y ) = \frac{{{y^5} - 5{y^3} + 2y}}{{{y^3}}}
-example (x0: ℝ) (h: x0 ≠ 0): deriv (λ y ↦ y^2 - 5 + 2/y^2) x0 = 2*x0 - 4/x0^3 := sorry
+example (x0: ℝ) (h: x0^2 ≠ 0): deriv (λ y ↦ (y^2 - 5 + 2)/y^2) x0 = 6/x0^3 := by
+  rw [deriv_div]
+  rw [deriv_add]
+  rw [deriv_sub]
+  rw [deriv_pow]
+  rw [deriv_const]
+  rw [deriv_const]
+  ring
+  sorry
+  exact differentiableAt_pow _
+  exact differentiableAt_const _
+  exact DifferentiableAt.sub (differentiableAt_pow _) (differentiableAt_const _)
+  exact differentiableAt_const _
+  exact DifferentiableAt.add (DifferentiableAt.sub (differentiableAt_pow _) (differentiableAt_const _)) (differentiableAt_const _)
+  exact differentiableAt_pow _
+  exact h
 
 -- Original Problem: f( t ) = ( {4{t^2} - t} )( {{t^3} - 8{t^2} + 12} )
 example (x0: ℝ): deriv (λ t ↦ t*(4*t - 1)*(t^3 - 8*t^2 + 12)) x0 = x0*(4*x0 - 1)*(3*x0^2 - 16*x0) + 4*x0*(x0^3 - 8*x0^2 + 12) + (4*x0 - 1)*(x0^3 - 8*x0^2 + 12) := by
@@ -390,10 +405,42 @@ example (x0: ℝ) (h: sin x0 - cos x0 > 0): deriv (λ x ↦ log (sin x - cos x))
 
 
 -- -- Original Problem: g( z ) = 3{z^7} - \sin ( {{z^2} + 6} )
-example (x0: ℝ): deriv (λ z ↦ 3*z^7 - sin (z^2 + 6)) x0 = ... := sorry
+example (x0: ℝ): deriv (λ z ↦ 3*z^7 - sin (z^2 + 6)) x0 = 21*x0^6 - cos (x0^2 + 6) * 2 * x0 := by
+  rw [deriv_sub]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  have h_comp: deriv (λ y ↦ sin (y^2 + 6)) x0 = deriv ((λ y ↦ sin y) ∘ (λ y ↦ y^2 + 6)) x0 := by rfl
+  rw [h_comp]
+  rw [deriv_comp]
+  rw [Real.deriv_sin]
+  rw [deriv_add]
+  rw [deriv_pow]
+  rw [deriv_const]
+  ring
+  exact differentiableAt_pow _
+  exact differentiableAt_const _
+  exact differentiableAt_sin
+  exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.sin (DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _))
 
 -- Original Problem: f( x ) = \ln ( {\sin ( x )} ) - {( {{x^4} - 3x} )^{10}}
-example (x0: ℝ): deriv (λ x ↦ -x^10*(x^4 - 3*x) + ln (sin x)) x0 = ... := sorry
+example (x0: ℝ) (h: sin x0 ≠ 0): deriv (λ x ↦ log (sin x) - (x^4 - 3*x)^10) x0 = x^9 * (x^3 - 3)^9 * (x * (x^3 - 3) * cot x + 10 * (4 * x^3 - 3) * log (sin x)) := by
+  -- rw [deriv_sub]
+  -- have h_comp: deriv (λ y ↦ (log (sin y))) x0 = deriv ((λ y ↦ log y) ∘ (λ y ↦ sin y)) x0 := by rfl
+  -- rw [h_comp]
+  -- rw [deriv_comp]
+  -- rw [deriv_log]
+  -- rw [Real.deriv_sin]
+  -- rw [deriv_pow'']
+  -- rw [deriv_sub]
+  -- rw [deriv_pow]
+  -- rw [deriv_const_mul]
+  -- rw [deriv_id'']
+  -- field_simp [h]
+  sorry
+
 
 -- Original Problem: h( t ) = {t^6}\sqrt {5{t^2} - t}
 example (x0: ℝ): deriv (λ t ↦ t^6*(sqrt t*(5*t - 1))) x0 = 6*x0^5*(sqrt x0*(5*x0 - 1)) + x0^5*(sqrt x0*(5*x0 - 1))*(5*x0 - 1/2)/(5*x0 - 1) := sorry
@@ -413,6 +460,7 @@ example (x0: ℝ) (h: x0^5 > 0): deriv (λ t ↦ t^2*(log (t^5))) x0 = 2*x0*(log
   exact differentiableAt_pow _
   exact differentiableAt_pow _
   exact DifferentiableAt.log (differentiableAt_pow _) (ne_of_gt h)
+  -- TO BE CHECKED BY BINDU
 
 -- -- Original Problem: g( w ) = \cos ( {3w} )\sec ( {1 - w} )
 -- example (x0: ℝ): deriv (λ w ↦ cos(3*w)*sec(w - 1)) x0 = -3*sin(3*x0)*sec(x0 - 1) + cos(3*x0)*tan(x0 - 1)*sec(x0 - 1) := sorry
@@ -488,7 +536,21 @@ example (x0: ℝ) (h : x0 ≠ 0): deriv (λ x ↦ (x + 1)/x) x0 = -1/x0^2 := by
   exact h
 
 -- Original Problem: f(x) = 3\cot (x) + 5 \csc (x)
-example (x0: ℝ): deriv (λ x ↦ 3*(cot x) + 5/sin x) x0 = ... := sorry
+-- Tweaked Problem: f(x) = 3\cos (x) + 5 \csc (x)
+example (x0: ℝ) (h: sin x0 ≠ 0): deriv (λ x ↦ 3*(cos x) + 5/sin x) x0 = -3 * sin x0 - 5 * cos x0 / (sin x0)^2 := by
+  rw [deriv_add]
+  rw [deriv_const_mul]
+  rw [Real.deriv_cos]
+  rw [deriv_div]
+  rw [deriv_const]
+  rw [Real.deriv_sin]
+  ring
+  exact differentiableAt_const _
+  exact differentiableAt_sin
+  exact h
+  exact differentiableAt_cos
+  exact DifferentiableAt.const_mul differentiableAt_cos _
+  exact DifferentiableAt.div (differentiableAt_const _) (differentiableAt_sin) h
 
 -- -- Original Problem: f(x) = \frac{x + \cos (x)}{\tan (x)}
 -- example (x0: ℝ): deriv (λ x ↦ (x + cos(x))/tan(x)) x0 = (1 - sin(x0))/tan(x0) + (x0 + cos(x0))*(-tan(x0)^2 - 1)/tan(x0)^2 := sorry
@@ -522,19 +584,87 @@ example (x0: ℝ): deriv (λ x ↦ x*(log x)) x0 = (log x0) + 1 := by
 
 -- == HERE ARE SOME == --
 -- Original Problem: f(x)=x^2(x-1)^3
-example (x0: ℝ): deriv (λ x ↦ x^2*(x - 1)^3) x0 = 3*x0^2*(x0 - 1)^2 + 2*x0*(x0 - 1)^3 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^2*(x - 1)^3) x0 = 3*x0^2*(x0 - 1)^2 + 2*x0*(x0 - 1)^3 := by
+  rw [deriv_mul]
+  rw [deriv_pow]
+  rw [deriv_pow'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact differentiableAt_pow _
+  exact DifferentiableAt.pow (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)) _
 
 -- Original Problem: f(x)=x^3 \ln (2x)
-example (x0: ℝ): deriv (λ x ↦ x^3*(log 2*x)) x0 = 3*x0^2*(log 2*x0) + x0^2 := sorry
+example (x0: ℝ) (h: 2 * x0 > 0): deriv (λ x ↦ x^3*(log (2*x))) x0 = 3*x0^2*(log 2*x0) + x0^2 := by
+  rw [deriv_mul]
+  rw [deriv_pow]
+  have h_comp: deriv (λ y ↦ log (2 * y)) x0 = deriv ((λ y ↦ log y) ∘ (λ y ↦ 2 * y)) x0 := by rfl
+  rw [h_comp]
+  rw [deriv_comp]
+  rw [deriv_log]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  ring
+  sorry
+  exact differentiableAt_id
+  exact differentiableAt_log (ne_of_gt h)
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact differentiableAt_pow _
+  exact DifferentiableAt.log (DifferentiableAt.const_mul differentiableAt_id _) (ne_of_gt h)
+  -- TO BE CHECKED BY BINDU
 
 -- Original Problem: f(x)=2x^4(5+x)^3
-example (x0: ℝ): deriv (λ x ↦ 2*x^4*(x + 5)^3) x0 = 6*x0^4*(x0 + 5)^2 + 8*x0^3*(x0 + 5)^3 := sorry
+example (x0: ℝ): deriv (λ x ↦ 2*x^4*(x + 5)^3) x0 = 6*x0^4*(x0 + 5)^2 + 8*x0^3*(x0 + 5)^3 := by
+  rw [deriv_mul]
+  rw [deriv_const_mul]
+  rw [deriv_pow]
+  rw [deriv_pow'']
+  rw [deriv_add]
+  rw [deriv_const]
+  rw [deriv_id'']
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
+  exact differentiableAt_pow _
+  exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+  exact DifferentiableAt.pow (DifferentiableAt.add differentiableAt_id (differentiableAt_const _)) _
 
 -- Original Problem: f(x)=x^2(x-3)^4
-example (x0: ℝ): deriv (λ x ↦ x^2*(x - 3)^4) x0 = 4*x0^2*(x0 - 3)^3 + 2*x0*(x0 - 3)^4 := sorry
+example (x0: ℝ): deriv (λ x ↦ x^2*(x - 3)^4) x0 = 4*x0^2*(x0 - 3)^3 + 2*x0*(x0 - 3)^4 := by
+  rw [deriv_mul]
+  rw [deriv_pow]
+  rw [deriv_pow'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact differentiableAt_pow _
+  exact DifferentiableAt.pow (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)) _
 
 -- Original Problem: f(x)=x(2x-1)^3
-example (x0: ℝ): deriv (λ x ↦ x*(2*x - 1)^3) x0 = 6*x0*(2*x0 - 1)^2 + (2*x0 - 1)^3 := sorry
+example (x0: ℝ): deriv (λ x ↦ x*(2*x - 1)^3) x0 = 6*x0*(2*x0 - 1)^2 + (2*x0 - 1)^3 := by
+  rw [deriv_mul]
+  rw [deriv_id'']
+  rw [deriv_pow'']
+  rw [deriv_sub]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact differentiableAt_const _
+  exact DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)
+  exact differentiableAt_id
+  exact DifferentiableAt.pow (DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)) _
 
 -- == HERE ARE SOME == --
 
