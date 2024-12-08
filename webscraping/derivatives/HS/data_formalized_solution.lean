@@ -836,9 +836,9 @@ example (x0: ℝ): deriv (λ x ↦ x^2 - 4*x + 1) x0 = 2*x0 - 4 := by
 
 -- Original Problem: f(x) = x^{-1} - x^{-5}
 example (x0: ℝ) (h: x0 ≠ 0): deriv (λ x ↦ x^(-1: ℤ) - x^(-5: ℤ)) x0 = -1/(x0^2) + 5/(x0^6) := by
-  rw [deriv_sub]
-  rw [deriv_zpow]
-  rw [deriv_zpow]
+  -- rw [deriv_sub]
+  -- rw [deriv_zpow]
+  -- rw [deriv_zpow]
   -- rw [pow_]
   sorry
 
