@@ -635,6 +635,24 @@ example (x0: ℝ) (h: x0^2 - 1 ≠ 0): deriv (λ x ↦ (x + 1)*(log (x^2 - 1))) 
   exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
   exact DifferentiableAt.comp x0 (differentiableAt_log h) (DifferentiableAt.sub (differentiableAt_pow _) (differentiableAt_const _))
 
+-- Original Problem: f(x)=(x+2)(x-3)^3
+example (x0: ℝ): deriv (λ x ↦ (x - 3)^3*(x + 2)) x0 = (x0 - 3)^3 + 3*(x0 - 3)^2*(x0 + 2) := by
+  rw [deriv_mul]
+  rw [deriv_pow'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  rw [deriv_add]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact DifferentiableAt.pow (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)) _
+  exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
 
 -- Original Problem: f(x) = x^5 + x^2
 example (x0: ℝ): deriv (λ x ↦ x^5 + x^2) x0 = 5*x0^4 + 2*x0 := by
@@ -675,7 +693,7 @@ example (x0: ℝ): deriv (λ x ↦ x^6 - 2*x) x0 = 6*x0^5 - 2 := by
   exact DifferentiableAt.const_mul differentiableAt_id _
 
 
--- Original Problem: f(x) = 6x^3 + 5x^{-2} (DEVAN)
+-- Original Problem: f(x) = 6x^3 + 5x^{-2}
 example (x0: ℝ) (h: x0 ≠ 0): deriv (λ x ↦ 6*x^3 + 5/x^2) x0 = 18*x0^2 - 10/x0^3 := by
   rw [deriv_add]
   rw [deriv_const_mul]

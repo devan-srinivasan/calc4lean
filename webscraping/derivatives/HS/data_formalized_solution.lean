@@ -316,7 +316,7 @@ example (x0: ℝ): deriv (λ x ↦ (6*x^2 + 7*x)^4) x0 = 4*(6*x0^2 + 7*x0)^3 * (
   exact DifferentiableAt.add (DifferentiableAt.const_mul (differentiableAt_pow _) _) (DifferentiableAt.const_mul differentiableAt_id _)
 
 -- Original Problem: g( t ) = {( {4{t^2} - 3t + 2} )^{ - 2}}
-example (x0: ℝ) (h: 4*x0^2 - 3*x0 + 2 ≠ 0): deriv (λ t ↦ (4*t^2 - 3*t + 2)^(-2:ℤ)) x0 = (6 - 16*x0)/(4*x0^2 - 3*x0 + 2)^3 := sorry
+example (x0: ℝ) (h: 4*x0^2 - 3*x0 + 2 ≠ 0): deriv (λ t ↦ (4*t^2 - 3*t + 2)^(-2:ℤ)) x0 = (6 - 16*x0)/(4*x0^2 - 3*x0 + 2)^3 := by sorry
 
 -- Original Problem: y = \sqrt[3]{{1 - 8z}}
 example (x0: ℝ): deriv (λ z ↦ (1 - 8*z)^(1/3)) x0 = -8/(3*(1 - 8*x0)^(2/3)) := sorry
@@ -752,7 +752,23 @@ example (x0: ℝ): deriv (λ x ↦ x*(sqrt x - 1)) x0 = x0/(2*(sqrt x0 - 1)) + (
 example (x0: ℝ): deriv (λ x ↦ x^2*(sqrt 3*x + 1)) x0 = 3*x0^2/(2*(sqrt 3*x0 + 1)) + 2*x0*(sqrt 3*x0 + 1) := sorry
 
 -- Original Problem: f(x)=(x+2)(x-3)^3
-example (x0: ℝ): deriv (λ x ↦ (x - 3)^3*(x + 2)) x0 = (x0 - 3)^3 + 3*(x0 - 3)^2*(x0 + 2) := sorry
+example (x0: ℝ): deriv (λ x ↦ (x - 3)^3*(x + 2)) x0 = (x0 - 3)^3 + 3*(x0 - 3)^2*(x0 + 2) := by
+  rw [deriv_mul]
+  rw [deriv_pow'']
+  rw [deriv_sub]
+  rw [deriv_id'']
+  rw [deriv_const]
+  rw [deriv_add]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact differentiableAt_id
+  exact differentiableAt_const _
+  exact DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)
+  exact DifferentiableAt.pow (DifferentiableAt.sub differentiableAt_id (differentiableAt_const _)) _
+  exact DifferentiableAt.add differentiableAt_id (differentiableAt_const _)
 
 -- Original Problem: f(x) = x^5 + x^2
 example (x0: ℝ): deriv (λ x ↦ x^5 + x^2) x0 = 5*x0^4 + 2*x0 := by
@@ -867,7 +883,16 @@ example (x0: ℝ): deriv (λ t ↦ t^6) x0 = 6*x0^5 := by
   ring
 
 -- Original Problem: f(t) = 5t^{-3}
-example (x0: ℝ): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := by sorry
+example (x0: ℝ) (h: x0 ≠ 0): deriv (λ t ↦ 5/t^3) x0 = -15/x0^4 := by
+  rw [deriv_div]
+  rw [deriv_const]
+  rw [deriv_pow]
+  field_simp [h]
+  ring
+  exact differentiableAt_const _
+  exact differentiableAt_pow _
+  sorry
+
 
 -- Original Problem: f(t) = t^{1/2}
 example (x0: ℝ): deriv (λ t ↦ (sqrt t)) x0 = 1/(2*(sqrt x0)) := sorry
