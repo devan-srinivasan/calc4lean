@@ -294,7 +294,7 @@ example (x0: ℝ): deriv (λ x ↦ 2*sin (3*x + cos x)) x0 = -2*(sin x0 - 3) * c
   rw [deriv_const_mul]
   have h_comp: deriv (λ x ↦ sin (3*x + cos x)) x0 = deriv ((λ x ↦ sin x) ∘ (λ x ↦ 3*x + cos x)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [Real.deriv_sin]
   rw [deriv_add]
   rw [deriv_const_mul]
@@ -313,7 +313,7 @@ example (x0: ℝ): deriv (λ x ↦ 2*sin (3*x + cos x)) x0 = -2*(sin x0 - 3) * c
 example (x0: ℝ): deriv (λ x ↦ sin (10*x + 4)) x0 = 10 * cos (4 + 10 * x0) := by
   have h_comp: deriv (λ x ↦ sin (10*x + 4)) x0 = deriv ((λ x ↦ sin x) ∘ (λ x ↦10 * x + 4)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [Real.deriv_sin]
   rw [deriv_add]
   rw [deriv_const_mul]
@@ -330,7 +330,7 @@ example (x0: ℝ): deriv (λ x ↦ sin (10*x + 4)) x0 = 10 * cos (4 + 10 * x0) :
 example (x0: ℝ) (h: x0^3 - 5*x0^2 + 1 > 0): deriv (λ y ↦ (log (y^3 - 5*y^2 + 1))) x0 = (3*x0^2 - 10*x0)/(x0^3 - 5*x0^2 + 1) := by
   have h_comp: deriv (λ y ↦ (log (y^3 - 5*y^2 + 1))) x0 = deriv ((λ y ↦ log y) ∘ (λ y ↦ (y^3 - 5*y^2 + 1))) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_log]
   rw [deriv_add]
   rw [deriv_sub]
@@ -347,14 +347,14 @@ example (x0: ℝ) (h: x0^3 - 5*x0^2 + 1 > 0): deriv (λ y ↦ (log (y^3 - 5*y^2 
   exact differentiableAt_log (ne_of_gt h)
   exact DifferentiableAt.add (DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)) (differentiableAt_const _)
 
--- -- Original Problem: g( z ) = 3{z^7} - \sin ( {{z^2} + 6} )
+-- Original Problem: g( z ) = 3{z^7} - \sin ( {{z^2} + 6} )
 example (x0: ℝ): deriv (λ z ↦ 3*z^7 - sin (z^2 + 6)) x0 = 21*x0^6 - cos (x0^2 + 6) * 2 * x0 := by
   rw [deriv_sub]
   rw [deriv_const_mul]
   rw [deriv_pow]
   have h_comp: deriv (λ y ↦ sin (y^2 + 6)) x0 = deriv ((λ y ↦ sin y) ∘ (λ y ↦ y^2 + 6)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [Real.deriv_sin]
   rw [deriv_add]
   rw [deriv_pow]
@@ -375,7 +375,7 @@ example (x0: ℝ) (h: x0^5 > 0): deriv (λ t ↦ t^2*(log (t^5))) x0 = 2*x0*(log
   rw [deriv_pow]
   have h_comp: deriv (λ x ↦ (log (x^5))) x0 = deriv ((λ x ↦ log x) ∘ (λ x ↦ x^5)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_log]
   rw [deriv_pow]
   field_simp [h]
@@ -390,7 +390,7 @@ example (x0: ℝ): deriv (λ x ↦ sin (2*x + 1)^2) x0 = 4 * sin (2 * x0 + 1) * 
   rw [deriv_pow'']
   have h_comp: deriv (λ x ↦ sin (2*x + 1)) x0 = deriv ((λ x ↦ sin x) ∘ (λ x ↦ 2*x + 1)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [Real.deriv_sin]
   rw [deriv_add]
   rw [deriv_const_mul]
@@ -409,7 +409,7 @@ example (x0: ℝ) (h : 2*x0 - 3 > 0): deriv (λ x ↦ (log (2*x - 3))/(log 7)) x
   rw [deriv_div]
   have h_comp: deriv (λ x ↦ log (2*x - 3)) x0 = deriv ((λ x ↦ log x) ∘ (λ x ↦ (2*x - 3))) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_log]
   rw [deriv_sub]
   rw [deriv_const_mul]
@@ -463,7 +463,7 @@ example (x0: ℝ): deriv (λ x ↦ x*(x + 1)^4) x0 = 4*x0*(x0 + 1)^3 + (x0 + 1)^
   rw [deriv_id'']
   have h_comp: deriv (λ x ↦ (x + 1)^4) x0 = deriv ((λ x ↦ x ^ 4) ∘ (λ x ↦ x + 1)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_pow]
   rw [deriv_add]
   rw [deriv_id'']
@@ -508,7 +508,7 @@ example (x0: ℝ) (h: 2*x0 > 0): deriv (λ x ↦ x^3*(log (2*x))) x0 = 3*x0^2*(l
   rw [deriv_pow]
   have h_comp: deriv (λ y ↦ log (2 * y)) x0 = deriv ((λ y ↦ log y) ∘ (λ y ↦ 2 * y)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_log]
   rw [deriv_const_mul]
   rw [deriv_id'']
@@ -575,7 +575,7 @@ example (x0: ℝ) (h: x0 + 6 ≠ 0): deriv (λ x ↦ x^2*(log (x + 6))) x0 = x0^
   rw [deriv_pow]
   have h_comp: deriv (λ x ↦ log (x + 6)) x0 = deriv ((λ x ↦ log x) ∘ (λ x ↦ x + 6)) x0 := by rfl
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_log]
   rw [deriv_add]
   rw [deriv_id'']
@@ -615,7 +615,7 @@ example (x0: ℝ) (h: x0^2 - 1 ≠ 0): deriv (λ x ↦ (x + 1)*(log (x^2 - 1))) 
   rw [deriv_id'']
   rw [deriv_const]
   rw [h_comp]
-  rw [deriv_comp]
+  rw [deriv.comp]
   rw [deriv_log]
   rw [deriv_sub]
   rw [deriv_pow]
