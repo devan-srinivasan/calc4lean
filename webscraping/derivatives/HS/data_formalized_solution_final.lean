@@ -347,7 +347,6 @@ example (x0: ℝ) (h: x0^3 - 5*x0^2 + 1 > 0): deriv (λ y ↦ (log (y^3 - 5*y^2 
   exact differentiableAt_log (ne_of_gt h)
   exact DifferentiableAt.add (DifferentiableAt.sub (differentiableAt_pow _) (DifferentiableAt.const_mul (differentiableAt_pow _) _)) (differentiableAt_const _)
 
-
 -- -- Original Problem: g( z ) = 3{z^7} - \sin ( {{z^2} + 6} )
 example (x0: ℝ): deriv (λ z ↦ 3*z^7 - sin (z^2 + 6)) x0 = 21*x0^6 - cos (x0^2 + 6) * 2 * x0 := by
   rw [deriv_sub]
@@ -488,7 +487,6 @@ example (x0: ℝ) (h: x0 > 0): deriv (λ x ↦ x*(log x)) x0 = (log x0) + 1 := b
   exact differentiableAt_id
   exact differentiableAt_log (ne_of_gt h)
 
--- == HERE ARE SOME == --
 -- Original Problem: f(x)=x^2(x-1)^3
 example (x0: ℝ): deriv (λ x ↦ x^2*(x - 1)^3) x0 = 3*x0^2*(x0 - 1)^2 + 2*x0*(x0 - 1)^3 := by
   rw [deriv_mul]
@@ -570,8 +568,6 @@ example (x0: ℝ): deriv (λ x ↦ x*(2*x - 1)^3) x0 = 6*x0*(2*x0 - 1)^2 + (2*x0
   exact DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)
   exact differentiableAt_id
   exact DifferentiableAt.pow (DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)) _
-
--- == HERE ARE SOME == --
 
 -- Original Problem: f(x)=x^2 \ln (x+6)
 example (x0: ℝ) (h: x0 + 6 ≠ 0): deriv (λ x ↦ x^2*(log (x + 6))) x0 = x0^2/(x0 + 6) + 2*x0*(log (x0 + 6)) := by
