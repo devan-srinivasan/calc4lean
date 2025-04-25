@@ -1,0 +1,62 @@
+[
+    {
+        "original": {
+            "problem": "Example 1. Solve the Fredholm integral equation of the first kind\n\n$$\n\\int_{0}^{1} K(x, t) \\varphi(t) d t=\\sin ^{3} \\pi x\n$$\n\nwhere\n\n$$\nK(x, t)= \\begin{cases}(1-x) t, & 0 \\leqslant t \\leqslant x \\\\ x(1-t), & x \\leqslant t \\leqslant 1\\end{cases}\n$$",
+            "solution": "Solution. The characteristic numbers of the kernel (7)\n\n$$\n\\lambda_{1}=\\pi^{2}, \\quad \\lambda_{2}=(2 \\pi)^{2}, \\quad \\ldots, \\quad \\lambda_{n}=(n \\pi)^{2}, \\quad \\ldots\n$$\n\nand the corresponding eigenfunctions\n\n$$\n\\varphi_{1}(x)=\\sqrt{2} \\sin \\pi x, \\quad \\varphi_{2}(x)=\\sqrt{2} \\sin 2 \\pi x, \\quad \\ldots, \\quad \\varphi_{n}(x)=\\sqrt{2} \\sin n \\pi x\n$$\n\nTo determine the solvability of equation (6) for the kernel $K(x, t)$ given by formula (7), we will use the Picard theorem. Condition $1^{\\circ}$ of the Picard theorem is clearly satisfied: the kernel (7) is real and symmetric.\n\nThe right-hand side of equation (6) can be represented as\n\n$$\n\\sin ^{3} \\pi x=\\frac{3}{4} \\sin \\pi x-\\frac{1}{4} \\sin 3 \\pi x\n$$\n\nor, equivalently,\n\n$$\n\\sin ^{3} \\pi x=\\frac{3}{4 \\sqrt{2}}(\\sqrt{2} \\sin \\pi x)-\\frac{1}{4 \\sqrt{2}}(\\sqrt{2} \\sin 3 \\pi x)=\\frac{3}{4 \\sqrt{2}} \\varphi_{1}(x)-\\frac{1}{4 \\sqrt{2}} \\varphi_{3}(x),\n$$\n\nwhere $\\varphi_{1}(x)$ and $\\varphi_{3}(x)$ are eigenfunctions from the system (8). Thus,\n\n$$\nf(x)=\\sin ^{3} \\pi x\n$$\n\nhas the following coefficients in the expansion over the functions of the system (8):\n\n$$\nf_{1}=\\frac{3}{4 \\sqrt{2}}, \\quad f_{2}=0, \\quad f_{3}=-\\frac{1}{4 \\sqrt{2}}, \\quad f_{k}=0 \\quad(k \\geqslant 4)\n$$\n\nThe series (3) in this case reduces to a finite sum\n\n$$\n\\sum_{k=1}^{\\infty} \\lambda_{k}^{2} f_{k}^{2}=\\left(\\frac{3}{4 \\sqrt{2}}\\right)^{2}\\left(\\pi^{2}\\right)^{2}+\\left(-\\frac{1}{4 \\sqrt{2}}\\right)^{2}\\left(3^{2} \\pi^{2}\\right)^{2}=\\frac{45}{16} \\pi^{4}\n$$\n\nThus, condition $2^{\\circ}$ is also satisfied.\n\nFinally, the system of eigenfunctions (8) is a complete orthonormal system on $[0,1]$, so condition $3^{\\circ}$ is also satisfied.\n\nAccording to the Picard theorem, equation (6) has a unique solution, which can be represented as (5):\n\n$$\n\\varphi(x)=\\lambda_{1} f_{1} \\varphi_{1}(x)+\\lambda_{3} f_{3} \\varphi_{3}(x)\n$$\n\nwhich in our case gives\n\n$$\n\\varphi(x)=\\frac{3 \\pi^{2}}{4}(\\sin \\pi x-3 \\sin 3 \\pi x) . \\quad \\triangleright\n$$\n\nBy direct substitution, we verify that the solution (9) is correct.\n\nThe requirement of completeness of the system of eigenfunctions $\\left\\{\\varphi_{k}(x)\\right\\}$ in the Picard theorem is essential. We will demonstrate this with the following example.",
+            "answer": "\\varphi(x)=\\frac{3\\pi^{2}}{4}(\\sin\\pix-3\\sin3\\pix)",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem is focused on solving a Fredholm integral equation, involving eigenvalues and eigenfunctions, and employing the Picard theorem to establish the uniqueness of the solution. The solution entails proving properties about the kernel and the associated series, rather than executing straightforward calculations.\n\nThe extensive use of theorems (like the Picard theorem) and the representation of the solution in terms of eigenfunctions indicates that this problem involves deeper properties related to functional analysis and integral equations. \n\nHowever, despite its complexity, the problem does involve verification of the solution via substitution, which may imply it is verifiable through formal methods. \n\nGiven that the main thrust is to establish properties and conditions related to the eigenfunctions and the integral equation rather than merely calculating a specific derivative or function evaluation, this fits more into the category of proving certain properties about the solutions of differential systems rather than being an uninteresting construction or existence proof.\n\nThus, I would classify this problem as:\n\nHARD",
+        "api_cost": 0.000627
+    },
+    {
+        "original": {
+            "problem": "Example. Find the image of the function\n\n$$\nf(t)=\\left[\\begin{array}{ll}\n1, & 0 \\leqslant t \\leqslant 1 \\\\\n0, & t > 1\n\\end{array}\\right.\n$$",
+            "solution": "Solution. Let's represent $f(t)$ as\n\n$$\nf(t)=\\eta(t)-\\eta(t-1)\n$$\n\n1. We have\n\n$$\n\\eta(t) \\longleftrightarrow \\frac{1}{p}\n$$\n\nBy the delay theorem for $\\tau=1$\n\n$$\n\\eta(t-1) \\longleftrightarrow \\frac{e^{-p}}{p}\n$$\n\n2. Using the linearity property, we find the desired image\n\n$$\nF(p)=\\frac{1}{p}-\\frac{e^{-p}}{p}\n$$\n\nAnswer. $F(p)=\\frac{1-e^{-p}}{p}$.\n\nRemark. The function $\\eta(t)$ is usually omitted. In cases where the delay theorem is applicable, this can lead to errors.\n\nConditions of the PROBLEM. Find the image of the function $f(t)$.\n\n1. $f(t)=\\left[\\begin{array}{cl}(t-1)^{2}, & t>1, \\\\ 0, & t2, \\\\ 0, & t2 .\\end{array}\\right.$\n3. $f(t)=\\left[\\begin{array}{ll}t, & 02 \\\\ 0, & t2 .\\end{array}\\right.$\n5. $f(t)=\\left[\\begin{array}{cc}e^{-(t-1)}, & t>1, \\\\ 0, & t1, \\\\ 0, & t0, \\\\ 0, & t0, \\\\ 0, & t<0 .\\end{array}\\right.$\n\nAnswers. 1. $F(p)=e^{-p} / p^{3}$. 2. $F(p)=p e^{-2 p} / p^{2}+1$. 3. $F(p)=$ $=\\left(1-2 e^{-p}+e^{-2 p}\\right) / p . \\quad$ 4. $F(p)=\\left(1-e^{-2 p}\\right) / p^{2}$. 5. $F(p)=$ $=\\left(1-2 e^{-p}+e^{-2 p}\\right) / p^{2}$. 6. $F(p)=e^{-p} /(p+1)$. 7. $F(p)=e^{-p} /\\left(p^{2}+p\\right)$. 8. $F(p)=\\left(1-e^{-p}\\right) /\\left(p+p e^{-p}\\right)$. 9. $F(p)=\\left(1+e^{-\\pi p}\\right) /\\left[\\left(p^{2}+1\\right)\\left(1-e^{-\\pi p}\\right)\\right]$. 10. $F(p)=\\left(p+2 e^{-\\pi p / 2}-p e^{-\\pi p}\\right) /\\left[\\left(p^{2}+1\\right)\\left(1-e^{-\\pi p}\\right)\\right]$.\n\n## 2.6. Image of a function of the form $t^{n} f(t)$\n\nSTATEMENT OF THE PROBLEM. Find the image of the function $t^{n} f(t)$ $(n \\in \\mathbb{N})$.\n\n## PLAN OF SOLUTION.\n\nIf the function $f(t)$ is an original and $F(p)$ is its image, then by the theorem on differentiation of the image we have $\\forall n \\in \\mathbb{N}$\n\n$$\nt^{n} f(t) \\longleftrightarrow(-1)^{n} F^{(n)}(p)\n$$\n\n1. Find the image $F(p)$ of the function $f(t)$.\n2. Compute the derivatives $F^{(n)}(p)$.\n3. Find the image of the function $t^{n} f(t)$ using formula (1).",
+            "answer": "F(p)=\\frac{1-e^{-p}}{p}",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "The problem revolves around finding the image of the function using the Laplace transform (or similar transforms). It involves steps of identifying the transform of a specific piecewise function and applying theorems related to differentiation of those transforms. \n\nThe steps presented show clear computations leading up to the final result and don't fall under the scope of simply proving a property or the existence of something as in the uninteresting category.\n\nGiven all this analysis, the classification of this problem can be considered as follows:\n\n**MEDIUM**: The problem involves a non-trivial computation to derive the image of a piecewise function using the properties of its transform, which requires understanding and applying various theorems related to transform methods.",
+        "api_cost": 0.0005507999999999999
+    },
+    {
+        "original": {
+            "problem": "38. Provide an example of random variables $\\xi_{n}, n \\geqslant 1$, such that\n\n$$\n\\mathrm{E} \\sum_{n=1}^{\\infty} \\xi_{n} \\neq \\sum_{n=1}^{\\infty} \\mathrm{E} \\xi_{n}\n$$",
+            "solution": "Solution. Define $\\xi_{n}, n \\geqslant 1$, by\n\n$$\n\\xi_{n}=n I(n U \\leqslant 1)-(n-1) I((n-1) U \\leqslant 1),\n$$\n\nwhere $U$ is a random variable with a uniform distribution on $[0,1]$. Then\n\n$$\n\\sum_{n=1}^{\\infty} \\xi_{n}=\\lim _{n} \\sum_{i=1}^{n} \\xi_{i}=\\lim _{n} n I(n U \\leqslant 1)=0\n$$\n\nwith probability one. Thus\n\n$$\n\\mathrm{E} \\sum_{n=1}^{\\infty} \\xi_{n}=0 \\neq 1=\\lim _{n} \\mathrm{E} n I(n U \\leqslant 1)=\\lim _{n} \\sum_{i=1}^{n} \\mathrm{E} \\xi_{i}=\\sum_{n=1}^{\\infty} \\mathrm{E} \\xi_{n}\n$$",
+            "answer": "0\\neq1",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "The problem involves providing an example of random variables that illustrate a property of expectation, specifically focusing on the difference between the expectation of a series and the sum of expectations. The solution involves constructing a specific sequence of random variables and demonstrating the assertion through an example.\n\nSince this problem requires the construction of an example rather than executing a direct computation, it leans towards a non-trivial proof rather than a straightforward computation. This type of problem, which focuses on proving the existence of certain behaviors in random variables rather than simply verifying straightforward properties or computations, fits the definition of uninteresting in the context of formal verification.\n\nThus, I classify this problem as:\nUNINTERESTING",
+        "api_cost": 0.0003717
+    },
+    {
+        "original": {
+            "problem": "44. Let $F=F(x)$ be a distribution function and $\\varphi(t)=\\int_{\\mathbb{R}} e^{i t x} d F(x)$ its characteristic function. According to statement b) of Theorem 3 from V1.II. 12, the property $\\int_{\\mathbb{R}}|\\varphi(t)| d t<\\infty$ ensures the existence of a continuous density $f(x)$.\n\nProvide an example where the distribution function $F=F(x)$ has a continuous density, but $\\int_{\\mathbb{R}}|\\varphi(t)| d t=\\infty$.",
+            "solution": "Solution. We can take a function $\\varphi(t)$ that satisfies the conditions of P\u00f3lya's theorem, and such that\n\n$$\n\\int_{\\mathbb{R}}|\\varphi(t)| d t=\\infty \\quad \\text { and } \\quad(\\varphi(t))_{t \\geqslant 0} \\in C^{1}\n$$\n\nand then use the remark following problem II.12.61. The condition $(\\varphi(t))_{t \\geqslant 0} \\in C^{1}$ will ensure the continuity of the corresponding density.",
+            "answer": "notfound",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem involves providing an example where a continuous density exists for a distribution function but does not satisfy a certain integral condition related to its characteristic function. The solution is not merely a computation but instead involves demonstrating an existence statement and understanding properties of characteristic functions. Therefore, this aligns with the need to prove a characteristic function's behavior rather than performing a direct computation.\n\nGiven this, the appropriate classification for this problem is:\n\n**UNINTERESTING**\n\nThe reason for this classification is that the problem inherently revolves around the existence of a function meeting certain criteria, which makes it uninteresting in the context of being able to verify the solution using a verification language compiler like Lean.",
+        "api_cost": 0.0003525
+    }
+]

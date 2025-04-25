@@ -1,2 +1,5 @@
 .vnv/
 .env
+/.lake
+llm_filtered_results.json
+calc4lean/
