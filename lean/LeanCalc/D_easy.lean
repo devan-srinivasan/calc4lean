@@ -3,6 +3,8 @@ import Mathlib.Analysis.Calculus.Deriv.Pow
 import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.ArctanDeriv
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Arctan
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.Deriv.Comp
@@ -12,7 +14,6 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 
 open Real
 
--- The line number is the line number of this problem in data/partitions/easy.json.
 -- 107: y = (tan x - e^x) / sqrt(x)
 example (x0 : ℝ) (h : 0 < x0) :
     deriv (λ x ↦ (tan x - exp x) / sqrt x) x0 = 18 * x0^2 - 9 := by
