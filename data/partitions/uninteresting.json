@@ -58,5 +58,185 @@
         },
         "llm_response": "This problem involves providing an example where a continuous density exists for a distribution function but does not satisfy a certain integral condition related to its characteristic function. The solution is not merely a computation but instead involves demonstrating an existence statement and understanding properties of characteristic functions. Therefore, this aligns with the need to prove a characteristic function's behavior rather than performing a direct computation.\n\nGiven this, the appropriate classification for this problem is:\n\n**UNINTERESTING**\n\nThe reason for this classification is that the problem inherently revolves around the existence of a function meeting certain criteria, which makes it uninteresting in the context of being able to verify the solution using a verification language compiler like Lean.",
         "api_cost": 0.0003525
+    },
+    {
+        "original": {
+            "problem": "25.13. Prove that any increasing (or at least non-decreasing) sequence $\\left\\{a_{n}\\right\\}$ that is bounded above has a limit (Weierstrass).",
+            "solution": "25.13. A non-decreasing sequence bounded above is bounded, since $a_{n} \\geqslant a_{1}$ for all $n$. Therefore, according to the Bolzano-Weierstrass theorem (problem 25.11), the sequence $\\left\\{a_{n}\\right\\}$ has a limit point $c$. First, we will prove that the limit point is unique. Suppose there are two limit points: $c_{1}c_{2}-\\frac{\\varepsilon}{2}$. This means that $x_{n}>c_{2}-\\frac{\\varepsilon}{2}$ for $n \\geqslant N$. But then $x_{n}-c_{1}>\\frac{\\varepsilon}{2}$, so $c_{1}$ cannot be a limit point.\n\nLet $c$ be the limit point. Then $x_{n} \\leqslant c$ for all $n$ (otherwise, all points $x_{m}$, where $m \\geqslant n$, lie outside some neighborhood of the point $c$). Therefore, for each $\\varepsilon>0$, one can choose $N$ such that $c-\\varepsilon<x_{N} \\leqslant c$. Then $c-\\varepsilon<x_{n} \\leqslant c$ for $n \\geqslant N$.",
+            "answer": "proof",
+            "problem_type": "Calculus",
+            "question_type": "proof",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem involves proving the existence of a limit for an increasing (or non-decreasing) sequence that is bounded above. The solution includes arguments related to limit points and the properties of bounded sequences, referencing the Bolzano-Weierstrass theorem. \n\nSince this involves proving a property related to the behavior of sequences rather than executing a computation or simply verifying a derivative, it does not fit the criteria for easier classifications. \n\nFurthermore, since the problem is about proving the existence of a limit point based on a theorem and requires a non-trivial argument involving uniqueness and properties of limits, it falls into the category of \"uninteresting.\"\n\n**Classification: UNINTERESTING**",
+        "api_cost": 0.0003783
+    },
+    {
+        "original": {
+            "problem": "333. Without computing the integrals. Show, without computing any of the following integrals, that\n\n$$\n2 \\int_{-1}^{1} \\sqrt{1-x^{2}} d x=\\int_{-1}^{1} \\frac{1}{\\sqrt{1-x^{2}}} d x\n$$",
+            "solution": "333. The integral standing on the left side of the given equality represents the area of the region enclosed between the semicircle $y=\\sqrt{1-x^{2}}, -1 \\leqslant x \\leqslant 1$ and the $x$-axis, which is obviously $\\pi$. The integral standing on the right side coincides with the length of the same semicircle, that is, it is also equal to $\\pi$.\n\n[P. Lindstr\u00f6m, M. M., 44, 47 (January 1972).]",
+            "answer": "proof",
+            "problem_type": "Calculus",
+            "question_type": "proof",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem requires demonstrating the equality of two integrals by showing that they both represent the same quantity (the area of the semicircle or the length of the semicircle). The solution does not involve executing any calculation but rather relies on understanding geometric interpretations.\n\nHowever, since the conclusion relies on reasoning about properties and representations (areas and lengths) rather than a straightforward computation or direct verification, it cannot be trivially checked by a formal verification language.\n\nThus, this problem fits the classification of being uninteresting because it requires proving an existence of a conceptual equality rather than computable values.\n\nUNINTERESTING",
+        "api_cost": 0.000315
+    },
+    {
+        "original": {
+            "problem": "## Problem Statement\n\nFind the indefinite integral:\n\n$$\n\\int \\frac{x+4}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)} d x\n$$",
+            "solution": "## Solution\n\n$$\n\\int \\frac{x+4}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)} d x=\n$$\n\nDecompose the proper rational fraction into partial fractions using the method of undetermined coefficients:\n\n$$\n\\begin{aligned}\n& \\frac{x+4}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)}=\\frac{A x+B}{x^{2}+x+2}+\\frac{C x+D}{x^{2}+2}= \\\\\n& =\\frac{(A x+B)\\left(x^{2}+2\\right)+(C x+D)\\left(x^{2}+x+2\\right)}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)}= \\\\\n& =\\frac{A x^{3}+2 A x+B x^{2}+2 B+C x^{3}+C x^{2}+2 C x+D x^{2}+D x+2 D}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)}= \\\\\n& =\\frac{(A+C) x^{3}+(B+C+D) x^{2}+(2 A+2 C+D) x+(2 B+2 D)}{\\left(x^{2}+x+1\\right)\\left(x^{2}+1\\right)} \\\\\n& \\left\\{\\begin{array}{l}\nA+C=0 \\\\\nB+C+D=0 \\\\\n2 A+2 C+D=1 \\\\\n2 B+2 D=4\n\\end{array}\\right.\n\\end{aligned}\n$$\n\nSubtract the first equation multiplied by 2 from the third equation:\n\n$$\n\\left\\{\\begin{array}{l}\nA+C=0 \\\\\nB+C+D=0 \\\\\nD=1 \\\\\n2 B+2 D=4\n\\end{array}\\right.\n$$\n\n$$\n\\begin{aligned}\n& \\left\\{\\begin{array}{l}\nA+C=0 \\\\\nB+C=-1 \\\\\nD=1 \\\\\n2 B=2\n\\end{array}\\right. \\\\\n& \\left\\{\\begin{array}{l}\nA+C=0 \\\\\nC=-2 \\\\\nD=1 \\\\\nB=1\n\\end{array}\\right. \\\\\n& \\left\\{\\begin{array}{l}\nA=2 \\\\\nC=-2 \\\\\nD=1 \\\\\nB=1\n\\end{array}\\right. \\\\\n& \\frac{x+4}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)}=\\frac{2 x+1}{x^{2}+x+2}-\\frac{2 x-1}{x^{2}+2}\n\\end{aligned}\n$$\n\nThen:\n\n$$\n\\begin{aligned}\n& \\int \\frac{x+4}{\\left(x^{2}+x+2\\right)\\left(x^{2}+2\\right)} d x=\\int\\left(\\frac{2 x+1}{x^{2}+x+2}-\\frac{2 x-1}{x^{2}+2}\\right) d x= \\\\\n& =\\int \\frac{2 x+1}{x^{2}+x+2} d x-\\int \\frac{2 x-1}{x^{2}+2} d x= \\\\\n& =\\int \\frac{d\\left(x^{2}+x+2\\right)}{x^{2}+x+2} d x-\\int \\frac{2 x}{x^{2}+2} d x+\\int \\frac{1}{x^{2}+2} d x= \\\\\n& =\\ln \\left(x^{2}+x+2\\right)-\\int \\frac{d\\left(x^{2}+2\\right)}{x^{2}+2} d x+\\frac{1}{\\sqrt{2}} \\cdot \\operatorname{arctg}\\left(\\frac{x}{\\sqrt{2}}\\right)= \\\\\n& =\\ln \\left(x^{2}+x+2\\right)-\\ln \\left(x^{2}+2\\right)+\\frac{1}{\\sqrt{2}} \\cdot \\operatorname{arctg}\\left(\\frac{x}{\\sqrt{2}}\\right)+C\n\\end{aligned}\n$$\n\nSource \u2014 \u00abhttp://pluspi.org/wiki/index.php/\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd\\\ufffd \\%D0\\%9A\\%D1\\%83\\%D0\\%B7\\%D0\\%BD\\%D0\\%B5\\%D1\\%86\\%D0\\%BE\\%D0\\%B2_\\%D0\\%98\\%D0\\%BD $\\% \\mathrm{D} 1 \\% 82 \\% \\mathrm{D} 0 \\% \\mathrm{~B} 5 \\% \\mathrm{D} 0 \\% \\mathrm{~B} 3 \\% \\mathrm{D} 1 \\% 80 \\% \\mathrm{D} 0 \\% \\mathrm{~B} 0 \\% \\mathrm{D} 0 \\% \\mathrm{BB} \\% \\mathrm{D} 1 \\% 8 \\mathrm{~B}+7-28$ \u00bb\n\nCategories: Kuznetsov's Problem Book Integrals Problem 7 | Integrals\n\n- Last edited: 09:14, 22 April 2009.\n- Content is available under CC-BY-SA 3.0.\n\nCreated by GeeTeatoo\n\n## Problem Kuznetsov Integrals $7-29$\n\n## Material from PlusPi",
+            "answer": "\\ln(x^{2}+x+2)-\\ln(x^{2}+2)+\\frac{1}{\\sqrt{2}}\\cdot\\operatorname{arctg}(\\frac{x}{\\sqrt{2}})+C",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem involves finding the indefinite integral of a rational function by decomposing it into partial fractions, which ultimately leads to integration of simpler functions. It requires multiple steps including setting up equations for the coefficients in the partial fraction decomposition.\n\nThe solution mainly follows a computation path to arrive at the final integral, relying on integration techniques after the partial fractions are resolved. However, it does not involve proving any properties of functions or demonstrating the existence of something abstract, which would be classified as uninteresting.\n\nOverall, while the problem is more involved than a straightforward differentiation, it does boil down to computations related to integration and algebraic manipulations.\n\nJustification: The problem requires performing computations to arrive at an indefinite integral rather than proving a specific property or abstract existence, aligning it with the characteristics of a computation problem.\n\n**Classification: MEDIUM**",
+        "api_cost": 0.0007047
+    },
+    {
+        "original": {
+            "problem": "Prove that the sequence $x_{\\mathrm{n}}=\\sin \\left(n^{2}\\right)$ does not tend to zero as $n$ approaches infinity.\n\n#",
+            "solution": "Let's use the following trigonometric inequality:\n\n$$\n|\\sin (\\alpha-\\beta)| \\leq|\\sin \\alpha|+|\\sin \\beta| .\n$$\n\nLet $\\sin \\left(k^{2}\\right) \\rightarrow 0$. Choose $\\varepsilonN$. Using the above trigonometric inequality twice, we get:\n\n$$\n\\begin{gathered}\n\\left|\\sin \\left((n+1)^{2}-n^{2}\\right)\\right|=|\\sin (2 n+1)| \\leq\\left|\\sin (n+1)^{2}\\right|+\\left|\\sin \\left(n^{2}\\right)\\right|<2 \\varepsilon \\\\\n|\\sin ((2 n+3)-(2 n+1))|=|\\sin (2)| \\leq|\\sin (2 n+3)|+|\\sin (2 n+1)|<2 \\varepsilon+2 \\varepsilon=4 \\varepsilon\n\\end{gathered}\n$$\n\nfrom which the contradictory inequality follows:\n\n$$\n|\\sin 2|<4 \\varepsilon<4 \\cdot \\frac{|\\sin 2|}{8}=\\frac{1}{2}|\\sin 2|\n$$\n\n(Solution from the book [ [Alperin, Tolpygo])].",
+            "answer": "proof",
+            "problem_type": "Calculus",
+            "question_type": "proof",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "The given problem requires proving that the sequence \\( x_n = \\sin(n^2) \\) does not tend to zero as \\( n \\) approaches infinity. The solution involves applying trigonometric inequalities and arriving at a contradiction.\n\nThis proof shows a more abstract reasoning rather than a direct computation or restating a property of derivatives. The methods used in proving properties about the convergence of sequences require a combination of logic and mathematical constructs that cannot be trivially verified by code in a verification language.\n\nThus, this problem fits the criteria for being uninteresting, as it relies on proving the existence of certain limits without a computational component.\n\n**Classification: UNINTERESTING**",
+        "api_cost": 0.0003711
+    },
+    {
+        "original": {
+            "problem": "7. The integer solutions $(x, y)$ of the indeterminate equation $x^{2}+y^{2}=x y+2 x+2 y$ are $\\qquad$ groups.\n\nTranslate the text above into English, please keep the original text's line breaks and format, and output the translation result directly.",
+            "solution": "7.6 .\n\nRewrite the given equation as\n$$\n\\begin{aligned}\nx^{2}- & x(2+y)+y^{2}-2 y=0 \\\\\n\\Rightarrow \\Delta & =(2+y)^{2}-4\\left(y^{2}-2 y\\right)=-3 y^{2}+12 y+4 \\\\\n& =-3(y-2)^{2}+16 \\geqslant 0 \\\\\n\\Rightarrow & |y-2| \\leqslant \\frac{4}{\\sqrt{3}}<3 .\n\\end{aligned}\n$$\n\nSince $y$ is an integer, thus, $y=0,1,2,3,4$.\nUpon calculation, only when $y=0,2,4$, $x$ is an integer, and we obtain\n$$\n\\begin{aligned}\n(x, y)= & (0,0),(2,0),(0,2),(4,2), \\\\\n& (2,4),(4,4) .\n\\end{aligned}\n$$",
+            "answer": "",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "The integer solutions \\((x, y)\\) of the indeterminate equation \\(x^{2}+y^{2}=x y+2 x+2 y\\) are groups.\n\nRewrite the given equation as\n$$\n\\begin{aligned}\nx^{2}- & x(2+y)+y^{2}-2 y=0 \\\\\n\\Rightarrow \\Delta & =(2+y)^{2}-4\\left(y^{2}-2 y\\right)=-3 y^{2}+12 y+4 \\\\\n& =-3(y-2)^{2}+16 \\geqslant 0 \\\\\n\\Rightarrow & |y-2| \\leqslant \\frac{4}{\\sqrt{3}}<3 .\n\\end{aligned}\n$$\n\nSince \\(y\\) is an integer, thus, \\(y=0,1,2,3,4\\).\nUpon calculation, only when \\(y=0,2,4\\), \\(x\\) is an integer, and we obtain\n$$\n\\begin{aligned}\n(x, y)= & (0,0),(2,0),(0,2),(4,2), \\\\\n& (2,4),(4,4) .\n\\end{aligned}\n$$\n\nClassification: UNINTERESTING\n\nJustification: The problem involves proving the existence of integer solutions to a polynomial equation. This type of proof generally requires substantiation rather than straightforward execution of a computation, and thus falls under the uninteresting category.",
+        "api_cost": 0.000579
+    },
+    {
+        "original": {
+            "problem": "3rd Putnam 1940 Problem A3 \u03b1 is a fixed real number. Find all functions f: R \u2192 R (where R is the reals) which are continuous, have a continuous derivative, and satisfy \u222b b y f \u03b1 (x) dx = ( \u222b b y f(x) dx ) \u03b1 for all y and some b. Solution Straightforward to get the basic idea, but care is needed with the details. It is quite hard to get the answer exactly right (the official solution gives a spurious solution for the case (2) - overlooking the problem with the integration limits).",
+            "solution": ": (1) No solutions for \u03b1 = 0; (2) No solutions for \u03b1  0 and not of the form p/q, with p and q odd positive integers, f = A e kx , where A is any real, and k is the positive real value of \u03b1 1/(\u03b1 -1) ; (5) For \u03b1 = p/q, with p and q odd positive integers (but not both 1), f = A e kx or A e -kx , where A is any real, and k is the positive real value of \u03b1 1/(\u03b1 -1) . Case (3) is obvious. Case (1) is almost obvious: if \u03b1 = 0, then the lhs varies with y ( = y - b), but the rhs does not ( = 1), so there are no solutions. Assume now that \u03b1 is not 0 or 1. Differentiate wrt y and put g(y) = \u222b b y f(x) dx. Then f = g' and we have f \u03b1 = \u03b1 g \u03b1 -1 f. So f = k g, where k = \u03b1 1/(\u03b1 -1) . Since f = g', we can integrate immediately to get f(x) = A e kx (*). However, we have to consider how many real values k can have. If \u03b1 > 0, then k certainly has a positive value, but we can also take the corresponding negative value if 1/(\u03b1 - 1) involves an even root, in other words if \u03b1 = p/q with p and q both odd. Finally, (*) is clearly necessary, but not necessarily sufficient, so we have to subsitute (*) back into the original equation. For k > 0, we find the solution works provided b = -\u221e. If k < 0, then it works with b = \u221e. This gives cases (4) and (5). [Note, however, that we can only allow A negative for \u03b1 not of the form p/q with p and q odd, provided we are content for both sides of the original equation to have complex values (even though f is real valued).] For \u03b1 < 0, all values of \u03b1 1/(\u03b1 -1) are complex unless \u03b1 = - p/q with p an even positive integer and q an odd positive integer. If \u03b1 has that form, then we may take k = - 1/|\u03b1| 1/(|\u03b1|+1) . But now there is a problem with b. Taking A = 1 for simplicity, the f \u03b1 (x) = e |\u03b1k|x , so the lhs = const (e |\u03b1k|y - e |\u03b1k|b ) and the rhs = const /(e - |k|y - e - |k|b ) |\u03b1| . The constants are the same, but we need b = -\u221e to get rid of the b term on the lhs and b = \u221e to get rid of the term on the rhs. So there are no solutions in case (2). 3rd Putnam 1940 \u00a9 John Scholes jscholes@kalva.demon.co.uk 14 Sep 1999",
+            "answer": "notfound",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem is classified as UNINTERESTING. \n\nThe statement involves proving the existence of continuous functions with specific properties under certain conditions. Additionally, the solution revolves around detailed argumentation concerning different cases based on the parameter \u03b1, which makes it less straightforward to verify using a formal verification language without resorting to checking the general case or plugging in specific values. The nature of the problem leans towards those that would require non-trivial verification processes, hence it falls under the uninteresting category.",
+        "api_cost": 0.0004716
+    },
+    {
+        "original": {
+            "problem": "7. [35] Let $f:[0,1] \\rightarrow \\mathbb{C}$ be a nonconstant complex-valued function on the real interval $[0,1]$. Prove that there exists $\\epsilon>0$ (possibly depending on $f$ ) such that for any polynomial $P$ with complex coefficients, there exists a complex number $z$ with $|z| \\leq 1$ such that $|f(|z|)-P(z)| \\geq \\epsilon$.",
+            "solution": "Answer: N/A Here's a brief summary of how we'll proceed: Use a suitably-centered high-degree roots of unity filter, or alternatively integrate over suitably-centered circles (\"continuous roots of unity filter\").\nWe claim we can choose $\\epsilon(f)=\\max \\left(\\left|f\\left(x_{1}\\right)-f\\left(x_{2}\\right)\\right|\\right) / 2$. Fix $P$ and suppose for the sake of contradiction that for all $z$ with $|z| \\leq 1$ it is the case that $|f(z)-P(z)|\\operatorname{deg}(P)$ it is simply the constant term of $P$ - denote this value by $p_{0}$. Thus for all $r$,\n$$\n\\left|f(r)-p_{0}\\right|<\\epsilon .\n$$\n\nSetting $r=x_{1}, x_{2}$ and applying triangle inequality gives the desired contradiction.\nRemark. This is more or less a concrete instance of Runge's approximation theorem from complex analysis. However, do not be intimidated by the fancy names here: in fact, the key ingredient behind this more general theorem (namely, or similar ${ }^{3}$ ) uses the same core idea of the \"continuous roots of unity filter\".",
+            "answer": "proof",
+            "problem_type": "Calculus",
+            "question_type": "proof",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Incomplete",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem poses a proposition concerning the existence of a certain property related to complex-valued functions and polynomials, requiring a proof of existence rather than a computation or property verification. This type of problem is typically categorized as uninteresting, as it involves proving the existence of a scenario without straightforward means to verify it through compilation in a proof assistant programming language. Thus, the classification is:\n\nUNINTERESTING",
+        "api_cost": 0.0003249
+    },
+    {
+        "original": {
+            "problem": "4. \n\n(i) Show that $\\lim _{n \\rightarrow \\infty}\\left(1+\\frac{1}{2}+\\ldots+\\frac{1}{n}\\right)=\\infty$;\n\n(ii) Prove that if $I \\in \\mathbb{R} \\cup\\{-\\infty, \\infty\\}$, then there exists a sequence $\\left(s_{n}\\right)_{n \\geq 1}$ with $s_{n} \\in\\{-1,1\\}$ for any $n \\in \\mathbb{N}^{*}$ such that $\\lim _{n \\rightarrow \\infty}\\left(\\frac{s_{1}}{1}+\\frac{s_{2}}{2}+\\ldots+\\frac{s_{n}}{n}\\right)=1$.\n\n## NOTE\n\n- All problems are mandatory;\n- Each problem is worth 7 points;\n- No points are awarded by default;\n- The actual working time is 3 hours from the moment the problems are received.\n\n\n## Mathematics Olympiad  Local stage - February 20, 2015\n\n## 11th Grade",
+            "solution": "4. \n\n(i) The sequence $\\left(h_{n}\\right)_{n \\geq 1}$ defined by $h_{n}=1+\\frac{1}{2}+\\ldots+\\frac{1}{n}, n \\in \\mathbb{N}^{*}$ is strictly increasing;\n\nIf $\\left(h_{n}\\right)_{n \\geq 1}$ is bounded above, then it is convergent and $h_{2 n}-h_{n} \\rightarrow 0$. However,\n\n$h_{2 n}-h_{n}=\\frac{1}{n+1}+\\ldots+\\frac{1}{2 n} \\geq \\frac{1}{2 n}+\\ldots+\\frac{1}{2 n}=\\frac{1}{2}$, which leads to a contradiction.\n\n(ii) If $I=\\infty$ or $I=-\\infty$, we choose $s_{n}=1$ or $s_{n}=-1, \\forall n \\in \\mathbb{N}^{*}$\n\nAssume $I \\geq 0$. Let $n_{1} \\in \\mathbb{N}^{*}$ be the smallest number such that $\\sum_{i=1}^{n_{1}} \\frac{1}{i}>I$ and choose\n\n$s_{1}=s_{2}=\\ldots=s_{n_{1}}=1$, and let $n_{2} \\in \\mathbb{N}^{*}$ be the smallest number, $n_{2}>n_{1}$ such that $\\sum_{i=1}^{n_{1}} s_{i} \\frac{1}{i}-\\sum_{i=n_{1}+1}^{n_{2}} \\frac{1}{i}<1$ and\n\nconsider $s_{n_{1}+1}=\\ldots=s_{n_{2}}=-1$. Proceeding in this manner, given (i) and that\n\n$\\lim _{n \\rightarrow \\infty} \\frac{1}{n}=0$, the requirement (ii) is satisfied. The case $I<0$ follows from the above case.\n\n## NOTE\n\n- All questions are mandatory;\n- Each question is worth 7 points;\n- No points are awarded by default;\n- The actual working time is 3 hours from the moment the question is received.",
+            "answer": "proof",
+            "problem_type": "Calculus",
+            "question_type": "proof",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "The problem consists of two statements:\n\n(i) It asks to show that the harmonic series diverges to infinity. This part can be verified with standard arguments for limits and series, indicating that it can be translated into a formal proof that would compile in a verification language.\n\n(ii) The second part requires proving the existence of a sequence with specific properties that ultimately converges to a certain limit based on a given condition. However, the nature of existence proofs generally makes them uninteresting in this context as they can't be easily verified as a computation, but rather they are assertions of existence that often require non-constructive arguments.\n\nGiven these considerations, the classification for the entire problem is:\n\nUNINTERESTING",
+        "api_cost": 0.0005043000000000001
+    },
+    {
+        "original": {
+            "problem": "1. If $\\alpha$ is any real number, show that there exists a sequence of real numbers, any two distinct terms, convergent to $\\alpha$.",
+            "solution": "1. It is sufficient to consider the sequence $x_{n}=\\alpha+\\frac{1}{n}, \\forall n \\in \\mathbb{N}^{*}$.",
+            "answer": "proof",
+            "problem_type": "Calculus",
+            "question_type": "proof",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "The problem involves showing the existence of a specific type of sequence that converges to a real number $\\alpha$. It is not merely about computation, but instead requires a construction of a sequence. Thus, it does not lend itself to trivial verification through formal proof verification languages because it involves showing that such a sequence satisfies the convergence criteria and the distinct terms condition.\n\nTherefore, it fits the classification of being uninteresting due to the nature of the problem asking to prove the existence of something rather than verifying a computation or a straightforward property.\n\nClassification: UNINTERESTING",
+        "api_cost": 0.0002712
+    },
+    {
+        "original": {
+            "problem": "## Task 12/72\n\nInvestigate whether there exists a real number $x$ such that\n\n$$\nx=\\sqrt{\\lim _{n \\rightarrow \\infty}\\left(\\frac{1}{n^{3}}+\\frac{2}{n^{2}}-\\frac{1}{n}\\right) \\cdot \\cot \\frac{1}{n}}\n$$",
+            "solution": "A real number $x$ with the required property exists if and only if\n\n$$\n0 \\leq \\lim _{n \\rightarrow \\infty}\\left(\\frac{1}{n^{3}}+\\frac{2}{n^{2}}-\\frac{1}{n}\\right) \\cot \\frac{1}{n}<\\infty\n$$\n\nholds. We thus investigate the limit. To do this, we set $\\frac{1}{n}=z$, so $n=\\frac{1}{z}$. As $n \\rightarrow \\infty$, $z \\rightarrow 0$. The limit then takes the form\n\n$$\n\\lim _{z \\rightarrow 0}\\left(z^{3}+2 z^{2}-z\\right) \\cot z\n$$\n\nWe rearrange:\n\n$$\n\\begin{aligned}\n& \\lim _{z \\rightarrow 0}\\left(z^{3}+2 z^{2}-z\\right) \\cot z=\\lim _{z \\rightarrow 0}\\left(z^{2}+2 z^{2}-1\\right) \\frac{z}{\\sin z} \\cos z= \\\\\n= & \\lim _{z \\rightarrow 0}\\left(z^{2}+2 z^{2}-1\\right) \\cdot \\lim _{z \\rightarrow 0} \\frac{z}{\\sin z} \\cdot \\lim _{z \\rightarrow 0} \\cos z=(-1) \\cdot 1 \\cdot 1=-1\n\\end{aligned}\n$$\n\nThe (both necessary and sufficient) condition that the limit is a non-negative real number is thus not satisfied. This means, however, that there is no real number $x$ with the required property.",
+            "answer": "-1",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "olympiads",
+            "synthetic": false
+        },
+        "llm_response": "This problem involves investigating the existence of a real number conditioned on the behavior of a limit. The task does not require computing a value or directly differentiating a function, but rather involves analyzing a limit and confirming whether a specific property holds. The solution involves a stepwise exploration of the limit and verification of conditions for existence.\n\nSince the nature of the problem focuses on proving the non-existence of such an \\( x \\) based on limiting behavior, it's more aligned with logical investigation rather than a straightforward computation or proof of a specific property of a defined function.\n\nThus, the classification is: \n\nUNINTERESTING \n\nThis is because it essentially seeks to prove the nonexistence of an \\( x \\), which aligns with the characteristic of being uninteresting as it doesn't lend itself to verification by a formal language compiler in a straightforward manner.",
+        "api_cost": 0.0004518
+    },
+    {
+        "original": {
+            "problem": "Consider an integrable function $f:\\mathbb{R} \\rightarrow \\mathbb{R}$ such that $af(a)+bf(b)=0$ when $ab=1$. Find the value of the following integration:\n$$ \\int_{0}^{\\infty} f(x) \\,dx $$",
+            "solution": "1. Given the condition \\( af(a) + bf(b) = 0 \\) when \\( ab = 1 \\), we can rewrite this as:\n   \\[\n   af(a) + \\frac{1}{a} f\\left(\\frac{1}{a}\\right) = 0\n   \\]\n   This implies:\n   \\[\n   a f(a) = -\\frac{1}{a} f\\left(\\frac{1}{a}\\right)\n   \\]\n   Multiplying both sides by \\( a \\), we get:\n   \\[\n   a^2 f(a) = -f\\left(\\frac{1}{a}\\right)\n   \\]\n   Therefore:\n   \\[\n   f\\left(\\frac{1}{a}\\right) = -a^2 f(a)\n   \\]\n\n2. We need to evaluate the integral:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx\n   \\]\n\n3. To do this, we perform a substitution. Let \\( x = \\frac{1}{t} \\). Then \\( dx = -\\frac{1}{t^2} dt \\). The limits of integration change as follows:\n   - When \\( x \\to 0 \\), \\( t \\to \\infty \\)\n   - When \\( x \\to \\infty \\), \\( t \\to 0 \\)\n\n   Therefore, the integral becomes:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = \\int_{\\infty}^{0} f\\left(\\frac{1}{t}\\right) \\left(-\\frac{1}{t^2}\\right) dt\n   \\]\n\n4. Simplifying the integral, we get:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = \\int_{\\infty}^{0} -\\frac{1}{t^2} f\\left(\\frac{1}{t}\\right) dt\n   \\]\n   Changing the limits of integration back to \\( 0 \\) to \\( \\infty \\), we have:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = \\int_{0}^{\\infty} \\frac{1}{t^2} f\\left(\\frac{1}{t}\\right) dt\n   \\]\n\n5. Using the relationship \\( f\\left(\\frac{1}{t}\\right) = -t^2 f(t) \\), we substitute:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = \\int_{0}^{\\infty} \\frac{1}{t^2} \\left(-t^2 f(t)\\right) dt\n   \\]\n   Simplifying, we get:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = \\int_{0}^{\\infty} -f(t) dt\n   \\]\n\n6. Therefore:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = -\\int_{0}^{\\infty} f(t) dt\n   \\]\n\n7. Adding \\(\\int_{0}^{\\infty} f(x) \\, dx\\) to both sides, we get:\n   \\[\n   2 \\int_{0}^{\\infty} f(x) \\, dx = 0\n   \\]\n\n8. Dividing both sides by 2, we find:\n   \\[\n   \\int_{0}^{\\infty} f(x) \\, dx = 0\n   \\]\n\nThe final answer is \\(\\boxed{0}\\).",
+            "answer": "0",
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "aops_forum",
+            "synthetic": false
+        },
+        "llm_response": "The problem requires finding the value of a specific integral under a certain condition involving an integrable function. The solution involves substitution and manipulation but ultimately leads to a determination of the integral's value being zero. \n\nThe steps followed are systematic, and while they involve some algebraic manipulation, they culminate in a verification of the integral value without needing to prove any deeper properties of the function itself. \n\nHere\u2019s the classification based on the provided criteria:\n\n- The task involved performing computations and substitutions to evaluate the integral, leading to a result at the end. \n- The solution does not require proving a general property, nor is it uninteresting as it has a well-defined computational aspect.\n\nGiven the nature of the solution, I would classify this problem as:\n\n**MEDIUM** \n\nThis is because it involves computation derived from a condition, but the integral itself is not immediately presented.",
+        "api_cost": 0.0005799
+    },
+    {
+        "original": {
+            "problem": "For a natural number $ n$, let $ a_n\\equal{}\\int_0^{\\frac{\\pi}{4}} (\\tan x)^{2n}dx$.\r\nAnswer the following questions.\r\n\r\n(1) Find $ a_1$.\r\n\r\n(2) Express $ a_{n\\plus{}1}$ in terms of $ a_n$.\r\n\r\n(3) Find $ \\lim_{n\\to\\infty} a_n$.\r\n\r\n(4) Find $ \\lim_{n\\to\\infty} \\sum_{k\\equal{}1}^n \\frac{(\\minus{}1)^{k\\plus{}1}}{2k\\minus{}1}$.",
+            "solution": "1. **Finding \\( a_1 \\):**\n\n\\[ a_1 = \\int_0^{\\frac{\\pi}{4}} (\\tan x)^2 \\, dx \\]\n\nWe know that \\((\\tan x)^2 = \\sec^2 x - 1\\). Therefore,\n\n\\[ a_1 = \\int_0^{\\frac{\\pi}{4}} (\\sec^2 x - 1) \\, dx \\]\n\nWe can split the integral:\n\n\\[ a_1 = \\int_0^{\\frac{\\pi}{4}} \\sec^2 x \\, dx - \\int_0^{\\frac{\\pi}{4}} 1 \\, dx \\]\n\nThe integral of \\(\\sec^2 x\\) is \\(\\tan x\\), and the integral of 1 is \\(x\\):\n\n\\[ a_1 = \\left[ \\tan x \\right]_0^{\\frac{\\pi}{4}} - \\left[ x \\right]_0^{\\frac{\\pi}{4}} \\]\n\nEvaluating these at the bounds:\n\n\\[ a_1 = \\left( \\tan \\frac{\\pi}{4} - \\tan 0 \\right) - \\left( \\frac{\\pi}{4} - 0 \\right) \\]\n\nSince \\(\\tan \\frac{\\pi}{4} = 1\\) and \\(\\tan 0 = 0\\):\n\n\\[ a_1 = (1 - 0) - \\frac{\\pi}{4} = 1 - \\frac{\\pi}{4} \\]\n\n2. **Expressing \\( a_{n+1} \\) in terms of \\( a_n \\):**\n\n\\[ a_{n+1} = \\int_0^{\\frac{\\pi}{4}} (\\tan x)^{2(n+1)} \\, dx \\]\n\nWe can rewrite \\((\\tan x)^{2(n+1)}\\) as \\((\\tan x)^{2n} \\cdot (\\tan x)^2\\):\n\n\\[ a_{n+1} = \\int_0^{\\frac{\\pi}{4}} (\\tan x)^{2n} \\cdot (\\tan x)^2 \\, dx \\]\n\nUsing \\((\\tan x)^2 = \\sec^2 x - 1\\):\n\n\\[ a_{n+1} = \\int_0^{\\frac{\\pi}{4}} (\\tan x)^{2n} (\\sec^2 x - 1) \\, dx \\]\n\nWe can split the integral:\n\n\\[ a_{n+1} = \\int_0^{\\frac{\\pi}{4}} (\\tan x)^{2n} \\sec^2 x \\, dx - \\int_0^{\\frac{\\pi}{4}} (\\tan x)^{2n} \\, dx \\]\n\nLet \\( u = \\tan x \\). Then \\( du = \\sec^2 x \\, dx \\). When \\( x = 0 \\), \\( u = 0 \\). When \\( x = \\frac{\\pi}{4} \\), \\( u = 1 \\):\n\n\\[ a_{n+1} = \\int_0^1 u^{2n} \\, du - a_n \\]\n\nThe integral of \\( u^{2n} \\) is:\n\n\\[ \\int_0^1 u^{2n} \\, du = \\left[ \\frac{u^{2n+1}}{2n+1} \\right]_0^1 = \\frac{1}{2n+1} \\]\n\nThus,\n\n\\[ a_{n+1} = \\frac{1}{2n+1} - a_n \\]\n\n3. **Finding \\( \\lim_{n \\to \\infty} a_n \\):**\n\nWe know that \\( a_n \\) is bounded and decreasing:\n\n\\[ 0 < a_n < \\frac{\\pi}{4} \\]\n\nLet \\( \\lim_{n \\to \\infty} a_n = a \\). Taking the limit on both sides of the recurrence relation:\n\n\\[ a = \\lim_{n \\to \\infty} \\left( \\frac{1}{2n+1} - a_n \\right) \\]\n\nSince \\(\\frac{1}{2n+1} \\to 0\\) as \\( n \\to \\infty \\):\n\n\\[ a = 0 - a \\]\n\nSolving for \\( a \\):\n\n\\[ 2a = 0 \\implies a = 0 \\]\n\n4. **Finding \\( \\lim_{n \\to \\infty} \\sum_{k=1}^n \\frac{(-1)^{k+1}}{2k-1} \\):**\n\nThis is a well-known alternating series:\n\n\\[ \\sum_{k=1}^n \\frac{(-1)^{k+1}}{2k-1} \\]\n\nThis series converges to the alternating harmonic series for odd terms, which is known to converge to \\(\\frac{\\pi}{4}\\):\n\n\\[ \\lim_{n \\to \\infty} \\sum_{k=1}^n \\frac{(-1)^{k+1}}{2k-1} = \\frac{\\pi}{4} \\]\n\nThe final answer is:",
+            "answer": null,
+            "problem_type": "Calculus",
+            "question_type": "math-word-problem",
+            "problem_is_valid": "Yes",
+            "solution_is_valid": "Yes",
+            "source": "aops_forum",
+            "synthetic": false
+        },
+        "llm_response": "This problem involves multiple parts, each requiring some calculations or reasoning based on integrals, limits, and properties of series. Let's break down the classification:\n\n1. **Finding \\( a_1 \\)**:\n   - This involves computing an integral, which requires straightforward calculation and differentiation knowledge, fitting into the category of direct computation. \u2192 **EASY**\n\n2. **Expressing \\( a_{n+1} \\) in terms of \\( a_n \\)**:\n   - This also involves manipulating an integral and deriving a relation, which could be seen as straightforward if the necessary transformations are understood, however, it is not merely executing a calculation as it involves deriving a recursive form. \u2192 **MEDIUM**\n\n3. **Finding \\( \\lim_{n \\to \\infty} a_n \\)**:\n   - This part makes use of properties of sequences and limits which fall into reasoning about convergence and boundedness, rather than computation directly. The process to derive the limit is generally straightforward but does require setting up and solving equations derived from the earlier parts. \u2192 **MEDIUM**\n\n4. **Finding \\( \\lim_{n \\to \\infty} \\sum_{k=1}^n \\frac{(-1)^{k+1}}{2k-1} \\)**:\n   - This also involves knowledge about series convergence and the behavior of the alternating series, which needs an understanding of convergence properties but not formal proving as the result is well-known. \u2192 **MEDIUM**\n\nOverall, while parts marked as EASY can be computed directly, the remaining parts require a mix of computations and understanding limits and convergence, leaning towards MEDIUM difficulty. However, since they can be put into formal language and verified systematically, they remain interesting.\n\nTherefore, the classification would be:\n\n- (1) **EASY**\n- (2) **MEDIUM**\n- (3) **MEDIUM**\n- (4) **MEDIUM** \n\nThe overall problem is a combination of EASY and MEDIUM elements, with no part being uninteresting.",
+        "api_cost": 0.0009813
     }
 ]

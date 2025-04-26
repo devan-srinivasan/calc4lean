@@ -130,3 +130,4 @@ def load_problems(in_file='data/llm_filtered_results.json'):
             json.dump(partitions[k], f, indent=4)
 
 load_problems()
+# main()
