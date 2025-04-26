@@ -113,13 +113,13 @@ def load_problems(in_file='data/llm_filtered_results.json'):
 
     for k in problems.keys():
         llm_resp = problems[k]['llm_response']
-        if 'easy' in llm_resp:
+        if 'EASY' in llm_resp:
             partitions['easy'].append(problems[k])
-        elif 'medium' in llm_resp:
+        elif 'MEDIUM' in llm_resp:
             partitions['medium'].append(problems[k])
-        elif 'hard' in llm_resp:
+        elif 'HARD' in llm_resp:
             partitions['hard'].append(problems[k])
-        elif 'uninteresting' in llm_resp:
+        elif 'UNINTERESTING' in llm_resp:
             partitions['uninteresting'].append(problems[k])
 
     for k in partitions.keys():
