@@ -162,12 +162,44 @@ example (x0 : ℝ) :
 
 -- 677e: y = x / (2 - cos x) - x^3 / sqrt(7)
 example (x0 : ℝ) (h : cos x0 ≠ 2) :
-    deriv (λ x ↦ x / (2 - cos x) - x^3 / sqrt 7) x0 =
-    x0 := by
-  sorry
+    deriv (λ x ↦ x / (2 - cos x) - x^3 / sqrt 7) x0 = 1/(2 - cos x0) - (x0 * sin x0)/((2 - cos x0)^2) - (3 * x0^2)/√7:= by
+  rw [deriv_sub]
+  rw [deriv_div]
+  rw [deriv_div]
+  rw [deriv_id'']
+  rw [deriv_sub]
+  rw [deriv_const]
+  rw [Real.deriv_cos]
+  rw [deriv_pow]
+  rw [deriv_const]
+  field_simp [h]
+  -- these are equivalent, just need to do some algebra
+
+
 
 -- 677f: y = 5 / sin x + ln x / x^2
-example (x0 : ℝ) (h : 0 < x0 ∧ sin x0 ≠ 0) :
+example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
     deriv (λ x ↦ 5 / sin x + log x / x^2) x0 =
-    x0 := by
+    -5 * cos x0 / (sin x0)^2 + 1 / x0^3 - 2 * log x0 / x0^3 := by
+  rw [deriv_add]
+  rw [deriv_div]
+  rw [deriv_const]
+  rw [Real.deriv_sin]
+  rw [deriv_div]
+  rw [deriv_log]
+  rw [deriv_pow]
+  field_simp [h, h2]
+  ring_nf
+  exact differentiableAt_log (ne_of_gt h)
+  exact differentiableAt_pow 2
+  have hx2_pos : 0 < x0 ^ 2 := pow_pos h 2
+  have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt hx2_pos
+  exact hx2_ne_zero
+  exact differentiableAt_const 5
+  exact differentiableAt_sin
+  exact h2
   sorry
+  sorry
+  -- exact DifferentiableAt.div ((differentiableAt_const 5)  differentiableAt_sin) h2
+  -- exact DifferentiableAt.div (differentiableAt_log (ne_of_gt h) differentiableAt_pow) (hx2_ne_zero)
+  -- why don't these work ^^
