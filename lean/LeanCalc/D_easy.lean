@@ -19,7 +19,7 @@ open Real
 -- 107: y = (tan x - e^x) / sqrt(x)
 example (x0 : ℝ) (h : 0 < x0) (h2: cos x0 ≠ 0) :
     deriv (λ x ↦ (tan x - exp x) / sqrt x) x0 =
-    ( exp x0 * (1 - 2*x0) - tan x0 + 2*x0*(1/cos x0)^2 ) / (2 * x0^(3/2)):= by
+    ( exp x0 * (1 - 2*x0) - tan x0 + 2*x0/(cos x0)^2 ) / (2 * x0^(3/2)):= by
   rw [deriv_div]
   rw [deriv_sub]
   rw [deriv_tan]
@@ -27,10 +27,6 @@ example (x0 : ℝ) (h : 0 < x0) (h2: cos x0 ≠ 0) :
   rw [deriv_sqrt]
   rw [deriv_id'']
   field_simp [h, h2]
-  nth_rewrite 2 [← mul_assoc]
-  nth_rewrite 3 [mul_comm]
-  nth_rewrite 2 [← mul_assoc]
-  -- rw [mul_self_sqrt h]
   sorry
 
 -- 137: y = 2^x * cos x
@@ -198,8 +194,7 @@ example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
   exact differentiableAt_const 5
   exact differentiableAt_sin
   exact h2
-  sorry
-  sorry
-  -- exact DifferentiableAt.div ((differentiableAt_const 5)  differentiableAt_sin) h2
-  -- exact DifferentiableAt.div (differentiableAt_log (ne_of_gt h) differentiableAt_pow) (hx2_ne_zero)
-  -- why don't these work ^^
+  exact DifferentiableAt.div (differentiableAt_const 5) (differentiableAt_sin) (h2)
+  have hx2_pos : 0 < x0 ^ 2 := pow_pos h 2
+  have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt hx2_pos
+  exact DifferentiableAt.div (differentiableAt_log (ne_of_gt h)) (differentiableAt_pow 2) (hx2_ne_zero)
