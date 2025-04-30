@@ -19,7 +19,8 @@ open Real
 -- 107: y = (tan x - e^x) / sqrt(x)
 example (x0 : ℝ) (h : 0 < x0) (h2: cos x0 ≠ 0) :
     deriv (λ x ↦ (tan x - exp x) / sqrt x) x0 =
-    ( exp x0 * (1 - 2*x0) - tan x0 + 2*x0/(cos x0)^2 ) / (2 * x0^(3/2)):= by
+    ((1 / (cos x0)^2 - exp x0) * √x0 - (tan x0 - exp x0) / (2 * √x0))/x0 := by
+    -- ( exp x0 * (1 - 2*x0) - tan x0 + 2*x0/(cos x0)^2 ) / (2 * x0^((3:ℝ)/(2:ℝ))):= by
   rw [deriv_div]
   rw [deriv_sub]
   rw [deriv_tan]
@@ -27,7 +28,13 @@ example (x0 : ℝ) (h : 0 < x0) (h2: cos x0 ≠ 0) :
   rw [deriv_sqrt]
   rw [deriv_id'']
   field_simp [h, h2]
+  exact differentiableAt_id
+  exact (ne_of_gt h)
+  apply differentiableAt_tan.mpr (h2)
+  exact differentiableAt_exp
+  exact DifferentiableAt.sub (differentiableAt_tan.mpr (h2)) differentiableAt_exp
   sorry
+  apply ne_of_gt (sqrt_pos.mpr (h))
 
 -- 137: y = 2^x * cos x
 example (x0 : ℝ) :
@@ -56,8 +63,8 @@ example (x0 : ℝ) (h : 0 < x0) :
   exact Real.differentiableAt_log (ne_of_gt h)
 
 -- 183: y = ln(x + sqrt(x^2 + 1))
-example (x0 : ℝ) :
-    deriv (λ x ↦ log (x + sqrt (x^2 + 1))) x0 = 1/√(x0^2 + 1) := by
+example (x0 : ℝ):
+    deriv (λ x ↦ log (x + √(x^2 + 1))) x0 = 1/√(x0^2 + 1) := by
     rw [← Function.comp_def]
     rw [deriv_comp]
     rw [deriv_log]
@@ -70,12 +77,37 @@ example (x0 : ℝ) :
     rw [deriv_add]
     rw [deriv_pow]
     rw [deriv_const]
-    ring_nf
     field_simp
-    sorry
+    -- am i tripping or can you not prove this without assuming x0 != 1/2 - root(5)/2
+
+-- SOME OTHER WORK I DID THAT MAY BE MEANINGLESS AHHH
+    -- field_simp
+    -- have reorder_numerator: (2 * √(x0 ^ 2 + 1) + 2 * x0) * √(x0 ^ 2 + 1) =
+    --   (2 * (√(x0 ^ 2 + 1) + x0) * √(x0 ^ 2 + 1)) := by
+    --   ring
+    -- have reorder_denominator: ((x0 + √(x0 ^ 2 + 1)) * (2 * √(x0 ^ 2 + 1))) =
+    --   (2 * (√(x0 ^ 2 + 1) + x0)) * √(x0 ^ 2 + 1) := by
+    --   ring
+    -- rw [reorder_numerator]
+    -- rw [reorder_denominator]
+    -- have h1 : (2 * (√(x0 ^ 2 + 1) + x0)) * √(x0 ^ 2 + 1) ≠ 0 := by
+    --   have rhs: √(x0 ^ 2 + 1) ≠ 0 := by
+    --     have inside_positive: x0 ^ 2 + 1 > 0 := by
+    --       apply lt_add_of_le_of_pos (sq_nonneg x0) (zero_lt_one)
+    --     have rhs_positive: √(x0 ^ 2 + 1) > 0 := by
+    --       apply sqrt_pos.mpr (inside_positive)
+    --     apply ne_of_gt (rhs_positive)
+    --   have lhs: 2 * (√(x0 ^ 2 + 1) + x0) ≠ 0 := by
+    --     have rhs_neq_zero: √(x0 ^ 2 + 1) + x0 ≠ 0 := by
+    --       by_contra rhs_eq_zero
+
+    --     apply mul_ne_zero (two_ne_zero) (rhs_neq_zero)
+    --   apply mul_ne_zero (lhs) (rhs)
+    -- field_simp [h1]
+
 
 -- 197: y = sin^3(x^2) * arccos(sqrt x)
-example (x0 : ℝ) (h : 0 < x0 ∧ x0 ≤ 1) :
+example (x0 : ℝ) (h1 : 0 < x0) (h2: x0 < 1) :
     deriv (λ x ↦ (sin (x^2))^3 * arccos (sqrt x)) x0 =
     6*x0*(sin ( x0^2 ))^2 * arccos (sqrt x0) * cos (x0^2) - (sin ( x0^2 ))^3 / (2 * sqrt ( x0 - x0^2)) := by
     rw [deriv_mul]
@@ -89,14 +121,25 @@ example (x0 : ℝ) (h : 0 < x0 ∧ x0 ≤ 1) :
     rw [deriv_comp]
     rw [deriv_arccos]
     rw [deriv_sqrt]
-    ring_nf
-    field_simp [h]
-    -- almost there, what's wrong?
+    field_simp [h1, h2]
+    have lhs: 3 * sin (x0 ^ 2) ^ 2 * (cos (x0 ^ 2) * (2 * x0)) * arccos √x0 + -sin (x0 ^ 2) ^ 3 / (√(1 - x0) * (2 * √x0))
+      = 6 * x0 * sin (x0 ^ 2) ^ 2 * arccos √x0 * cos (x0 ^ 2) - sin (x0 ^ 2) ^ 3 / (2 * √(1 - x0) * √x0) := by ring
+    rw [lhs]
+    have sqrt_denom_part: √(1 - x0) * √x0 = √(x0 - x0 ^ 2) := by
+      rw [← sqrt_mul]
+      ring
+      simp [h2]
+    rw [← sqrt_denom_part]
+    ring
+    exact differentiableAt_id
+    exact (ne_of_gt h1)
+    -- exact differentiableOn_arccos
     sorry
-
+    sorry
+    exact differentiableAt_id
 
 -- 212: y = cos²(2x) / tan(x²)
-example (x0 : ℝ) (h : cos (2 * x0) ≠ 0 ∧ tan (x0^2) ≠ 0) :
+example (x0 : ℝ) (h1 : cos (2 * x0) ≠ 0) (h2: tan (x0^2) ≠ 0) :
     deriv (λ x ↦ (cos (2 * x))^2 / tan (x^2)) x0 =
     -2 * cos (2*x0) * (x0 * cos (2 * x0) * (1/(sin ( x0^2 ))^2)) + 2 * sin (2*x0) / tan (x0^2):= by
   rw [deriv_div]
@@ -110,8 +153,7 @@ example (x0 : ℝ) (h : cos (2 * x0) ≠ 0 ∧ tan (x0^2) ≠ 0) :
   rw [deriv_const_mul]
   rw [deriv_pow]
   rw [tan_eq_sin_div_cos]
-  ring_nf
-  field_simp
+  field_simp [h1, h2]
   sorry
 
 
