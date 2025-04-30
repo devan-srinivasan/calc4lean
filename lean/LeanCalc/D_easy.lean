@@ -211,6 +211,7 @@ example (x0 : ℝ) (h : cos x0 ≠ 2) :
   rw [deriv_pow]
   rw [deriv_const]
   field_simp [h]
+
   -- these are equivalent, just need to do some algebra
 
 
