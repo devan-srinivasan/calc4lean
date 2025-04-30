@@ -13,7 +13,6 @@ import Mathlib.Analysis.Calculus.Deriv.Comp
 import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
-
 open Real
 
 -- 107: y = (tan x - e^x) / sqrt(x)
@@ -35,6 +34,9 @@ example (x0 : ℝ) (h : 0 < x0) (h2: cos x0 ≠ 0) :
   exact DifferentiableAt.sub (differentiableAt_tan.mpr (h2)) differentiableAt_exp
   sorry
   apply ne_of_gt (sqrt_pos.mpr (h))
+
+-- theorem deriv_const_pow {a x: ℝ} (ha: a > 0):
+--   (deriv fun x : ℝ => a ^ x) = fun x => a ^ x * log a := by sorry
 
 -- 137: y = 2^x * cos x
 example (x0 : ℝ) :
@@ -139,9 +141,9 @@ example (x0 : ℝ) (h1 : 0 < x0) (h2: x0 < 1) :
     exact differentiableAt_id
 
 -- 212: y = cos²(2x) / tan(x²)
-example (x0 : ℝ) (h1 : cos (2 * x0) ≠ 0) (h2: tan (x0^2) ≠ 0) :
+example (x0 : ℝ) (h2 : tan (x0^2) ≠ 0) (h4 : (cos (x0^2))^2 ≠ 0) :
     deriv (λ x ↦ (cos (2 * x))^2 / tan (x^2)) x0 =
-    -2 * cos (2*x0) * (x0 * cos (2 * x0) * (1/(sin ( x0^2 ))^2)) + 2 * sin (2*x0) / tan (x0^2):= by
+      -4 * cos (2*x0) * sin (2 * x0) / tan (x0 ^ 2) - ((cos (2 * x0))^2 * 2 * x0 / ((tan (x0^2))^2 * (cos (x0^2)^2))):= by
   rw [deriv_div]
   rw [deriv_pow'']
   rw [← Function.comp_def]
@@ -152,10 +154,7 @@ example (x0 : ℝ) (h1 : cos (2 * x0) ≠ 0) (h2: tan (x0^2) ≠ 0) :
   rw [Real.deriv_tan]
   rw [deriv_const_mul]
   rw [deriv_pow]
-  rw [tan_eq_sin_div_cos]
-  field_simp [h1, h2]
-  sorry
-
+  field_simp [h2, h4]
 
 -- 242: y = e^x * (x^2 + 3)
 example (x0 : ℝ) :
@@ -172,7 +171,6 @@ example (x0 : ℝ) :
   exact differentiableAt_const 3
   exact differentiableAt_exp
   exact DifferentiableAt.add (differentiableAt_pow 2) (differentiableAt_const 3)
-
 
 -- 677a: y = x^(5/6) + 7
 example (x0 : ℝ) (h : 0 < x0) :
@@ -210,11 +208,45 @@ example (x0 : ℝ) (h : cos x0 ≠ 2) :
   rw [Real.deriv_cos]
   rw [deriv_pow]
   rw [deriv_const]
-  field_simp [h]
-
-  -- these are equivalent, just need to do some algebra
-
-
+  field_simp
+  have two_sub_cos_ne_zero: 2 - cos x0 ≠ 0 := by
+    by_contra h2_contra
+    have h2_contra_a: cos x0 = 2 := by linarith
+    contradiction
+  have lhs: ((2 - cos x0 - x0 * sin x0) * 7 / (2 - cos x0) ^ 2 - 3 * x0 ^ 2 * √7) * √7 =
+    (((2 - cos x0) - (x0 * sin x0)) / (2 - cos x0) ^ 2 * 7 * √7 - 3 * x0 ^ 2 * √7 * √7)  := by ring
+  have rhs:  ((1 / (2 - cos x0) - x0 * sin x0 / (2 - cos x0) ^ 2) * √7 - 3 * x0 ^ 2) * 7 =
+     ((1 / (2 - cos x0) - x0 * sin x0 / (2 - cos x0) ^ 2) * 7 * √7 - 3 * x0 ^ 2 * 7) := by ring
+  rw [lhs]
+  rw [rhs]
+  have lhs_simplify: (2 - cos x0 - x0 * sin x0) / (2 - cos x0) ^ 2 =
+     (2 - cos x0) / ((2 - cos x0) * (2 - cos x0)) - (x0 * sin x0) / (2 - cos x0) ^ 2 := by
+     ring
+  rw [lhs_simplify]
+  have lhs_cancel: (2 - cos x0) / ((2 - cos x0) * (2 - cos x0)) = 1 / (2 - cos x0) := by
+    field_simp [two_sub_cos_ne_zero]
+  rw [lhs_cancel]
+  have sqrt7: (7: ℝ) = √(7: ℝ) * √(7: ℝ) := by
+    nth_rewrite 1 [← sq_sqrt (by norm_num : 0 ≤ (7 : ℝ))]
+    field_simp
+  nth_rewrite 7 [sqrt7]
+  ring
+  exact differentiableAt_const 2
+  exact differentiableAt_cos
+  exact differentiableAt_pow 3
+  exact differentiableAt_const √7
+  apply ne_of_gt (sqrt_pos.mpr (by norm_num))
+  exact differentiableAt_id
+  exact DifferentiableAt.sub (differentiableAt_const 2) (differentiableAt_cos)
+  by_contra h2_contra
+  have h2_contra_a: cos x0 = 2 := by linarith
+  contradiction
+  have two_sub_cos_ne_zero: 2 - cos x0 ≠ 0 := by
+    by_contra h2_contra
+    have h2_contra_a: cos x0 = 2 := by linarith
+    contradiction
+  exact DifferentiableAt.div (differentiableAt_id) (DifferentiableAt.sub (differentiableAt_const 2) (differentiableAt_cos)) (two_sub_cos_ne_zero)
+  exact DifferentiableAt.div (differentiableAt_pow 3) (differentiableAt_const √7) (ne_of_gt (sqrt_pos.mpr (by norm_num)))
 
 -- 677f: y = 5 / sin x + ln x / x^2
 example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
@@ -241,3 +273,15 @@ example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
   have hx2_pos : 0 < x0 ^ 2 := pow_pos h 2
   have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt hx2_pos
   exact DifferentiableAt.div (differentiableAt_log (ne_of_gt h)) (differentiableAt_pow 2) (hx2_ne_zero)
+
+-- 692: $y=\\sin ^{2}(2 x-1)$
+
+-- 707: $y=x^{3} \\log _{5} x$
+
+-- 737: $y=x \\tan x+\\cot x$
+
+-- 767: $y=\\ln ^{3}(5 x+2)$
+
+-- 812: $y=\\tan 5 x$
+
+-- 842: $y=x^{x}$
