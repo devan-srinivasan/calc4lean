@@ -36,13 +36,14 @@ example (x0 : ℝ) (h : 0 < x0) (h2: cos x0 ≠ 0) :
   apply ne_of_gt (sqrt_pos.mpr (h))
 
 -- theorem deriv_const_pow {a x: ℝ} (ha: a > 0):
---   (deriv fun x : ℝ => a ^ x) = fun x => a ^ x * log a := by sorry
+--   (deriv fun x : ℝ => a ^ x) = fun x => a ^ x * log x := by sorry
 
 -- 137: y = 2^x * cos x
 example (x0 : ℝ) :
     deriv (λ x ↦ (2 : ℝ)^x * cos x) x0 = x0 := by
   rw [deriv_mul]
   rw [Real.deriv_cos]
+  -- rw [Real.deriv_rpow_const]
   sorry
 
 -- 152: y = arctan(sqrt(x))
@@ -275,13 +276,109 @@ example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
   exact DifferentiableAt.div (differentiableAt_log (ne_of_gt h)) (differentiableAt_pow 2) (hx2_ne_zero)
 
 -- 692: $y=\\sin ^{2}(2 x-1)$
+example (x0 : ℝ) : deriv (λ x ↦ (sin (2 * x - 1))^2) x0 = 4 * sin (2 * x0 - 1) * cos (2 * x0 - 1) := by
+  rw [deriv_pow'']
+  rw [← Function.comp_def]
+  rw [deriv_comp]
+  rw [Real.deriv_sin]
+  rw [deriv_sub]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact differentiableAt_const 1
+  exact differentiableAt_sin
+  exact DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const 1)
+  exact DifferentiableAt.sin (DifferentiableAt.sub (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const 1))
 
 -- 707: $y=x^{3} \\log _{5} x$
+example (x0 : ℝ) (hx : 0 < x0) : deriv (λ x ↦ x ^ 3 * (Real.log x / Real.log 5)) x02
+  = 3 * x0 ^ 2 * Real.log x0 / Real.log 5 + x0 ^ 2 / Real.log 5 := by
+  rw [deriv_mul]
+  rw [deriv_pow]
+  rw [deriv_div]
+  rw [Real.deriv_log]
+  rw [deriv_const]
+  field_simp [hx]
+  ring
+  exact differentiableAt_log (ne_of_gt hx)
+  exact differentiableAt_const (log 5)
+  apply log_ne_zero.mpr (by norm_num)
+  exact differentiableAt_pow 3
+  exact DifferentiableAt.div (differentiableAt_log (ne_of_gt hx)) (differentiableAt_const (log 5)) (log_ne_zero.mpr (by norm_num))
 
 -- 737: $y=x \\tan x+\\cot x$
+example (x0 : ℝ) (hx1 : Real.cos x0 ≠ 0) (hx2 : Real.sin x0 ≠ 0) :
+  deriv (λ x ↦ x * Real.tan x + 1 / Real.tan x) x0
+  = Real.tan x0 + x0 / Real.cos x0 ^ 2 - 1 / Real.sin x0 ^ 2 := by
+  rw [deriv_add]
+  rw [deriv_mul]
+  rw [deriv_id'']
+  rw [deriv_tan]
+  rw [deriv_div]
+  rw [deriv_const]
+  rw [deriv_tan]
+  nth_rewrite 3 [Real.tan_eq_sin_div_cos]
+  have simplify_lhs: (0 * tan x0 - 1 * (1 / cos x0 ^ 2)) / (sin x0 / cos x0) ^ 2 = - cos x0 ^ 2 / (cos x0 ^ 2 * sin x0 ^ 2) := by
+    field_simp [hx1, hx2]
+  rw [simplify_lhs]
+  have cancellation: cos x0 ^ 2 / (cos x0 ^ 2 * sin x0 ^ 2) = 1 / sin x0 ^ 2 := by field_simp
+  rw [← cancellation]
+  ring
+  exact differentiableAt_const 1
+  exact differentiableAt_tan.mpr hx1
+  rw [Real.tan_eq_sin_div_cos]
+  apply div_ne_zero hx2 hx1
+  exact differentiableAt_id
+  exact differentiableAt_tan.mpr hx1
+  exact DifferentiableAt.mul (differentiableAt_id) (differentiableAt_tan.mpr hx1)
+  exact DifferentiableAt.div (differentiableAt_const 1) (differentiableAt_tan.mpr hx1) (by rw [Real.tan_eq_sin_div_cos]; exact div_ne_zero hx2 hx1)
 
 -- 767: $y=\\ln ^{3}(5 x+2)$
+example (x0 : ℝ) (hx : 0 < 5 * x0 + 2) :
+  deriv (λ x ↦ (Real.log (5 * x + 2)) ^ 3) x0
+  = 15 * (Real.log (5 * x0 + 2)) ^ 2 / (5 * x0 + 2) := by
+  rw [deriv_pow'']
+  rw [← Function.comp_def]
+  rw [deriv_comp]
+  rw [deriv_log]
+  rw [deriv_add]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  rw [deriv_const]
+  ring
+  exact differentiableAt_id
+  exact DifferentiableAt.const_mul differentiableAt_id _
+  exact differentiableAt_const _
+  exact differentiableAt_log (ne_of_gt hx)
+  exact DifferentiableAt.add (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)
+  exact DifferentiableAt.log (DifferentiableAt.add (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)) (ne_of_gt hx)
 
 -- 812: $y=\\tan 5 x$
+example (x0 : ℝ) (hx : Real.cos (5 * x0) ≠ 0) :
+  deriv (λ x ↦ Real.tan (5 * x)) x0
+  = 5 / cos (5 * x0) ^ 2 := by
+  rw [← Function.comp_def]
+  rw [deriv_comp]
+  rw [deriv_tan]
+  rw [deriv_const_mul]
+  rw [deriv_id'']
+  ring
+  exact differentiableAt_id
+  exact differentiableAt_tan.mpr hx
+  exact DifferentiableAt.const_mul differentiableAt_id _
 
 -- 842: $y=x^{x}$
+example (x0 : ℝ) (hx : 0 < x0) :
+  deriv (λ x ↦ x ^ x) x0
+  = x0 ^ x0 * (Real.log x0 + 1) := by
+  -- nth_rewrite 1 [rpow_def_of_pos hx]
+  sorry
+
+-- 857: r=(\\sin \\varphi)^{\\cos 2 \\varphi}
+
+-- 872: z=\\frac{4 x^{2}}{\\sqrt[5]{(2-x)^{3}}}
+
+-- 887: Show that the function $y=\\cos 2 x$ satisfies the differential equation $y^{\\prime \\prime}+4 y=0$.
