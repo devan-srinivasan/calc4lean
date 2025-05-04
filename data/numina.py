@@ -129,5 +129,23 @@ def load_problems(in_file='data/llm_filtered_results.json'):
         with open(f"{k}.json", 'w') as f:
             json.dump(partitions[k], f, indent=4)
 
-load_problems()
+# load_problems()
 # main()
+with open("data/partitions/hard.json", 'r') as f:
+    problems = json.load(f)
+
+filtered_set = []
+for p in problems:
+    if any({k.lower() in p['original']['problem'].lower()
+            for k in {
+                'integrate', 'investigate', 'differential equation', 'Lagrange',
+                'Rolle', 'integral', 'continuous', 'continuity', 'limit', 'find', 
+                'flux', 'field', 'mass', 'verify', 'determine', 'divergence', 'convergence', 
+                'series', '\\int', '\\lim', 'Plot', 'Dirichlet', 'Cauchy', 
+            }}):
+        continue
+    filtered_set.append(p)
+
+with open("data/partitions/hard_filtered.json", 'w') as f:
+    print(len(filtered_set))
+    json.dump(filtered_set, f, indent=4)
