@@ -16,20 +16,25 @@ open Set
 -- 137: For functions $f(x)$ and $g(x)$, it is known that $f(0)=g(0)>0$ and $f^{\\prime}(x) \\sqrt{g^{\\prime}(x)}=3$ for any $x \\in[0 ; 1]$. Prove that if $x \\in[0 ; 1]$, then $2 f(x)+3 g(x)>9 x$.
 
 -- invented:
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': (deriv p * deriv q) x = 1) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p x * deriv q x = 1) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
   let f := (λ x ↦ p x + 9 * q x - 6 * x)
   let D := Icc (0: ℝ) (1: ℝ)
   have increasing: deriv f x ≥ 0 := by
     simp [f]
-    have reciprocal_deriv: deriv q x = 1 / deriv p x := by
+    have p_deriv_ne_zero: deriv p x > 0 := by
       sorry
+
+    have reciprocal_deriv: deriv q x = 1 / deriv p x := by
+      have hf'_iff: deriv p x * deriv q x = 1 ↔ deriv q x = 1 / deriv p x := by
+        field_simp [p_deriv_ne_zero]
+        ring
+      exact hf'_iff.mp hf'
     rw [deriv_sub]
     rw [deriv_add]
     rw [deriv_const_mul]
     rw [reciprocal_deriv]
     rw [deriv_const_mul]
     rw [deriv_id'']
-    have p_deriv_ne_zero: deriv p x > 0 := by sorry
     have sq_iff : 0 ≤ deriv p x * (deriv p x + 9 * (1 / deriv p x) - 6) ↔
       0 ≤ deriv p x + 9 * (1 / deriv p x) - 6 := by
       apply mul_nonneg_iff_of_pos_left p_deriv_ne_zero
