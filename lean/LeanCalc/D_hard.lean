@@ -19,8 +19,36 @@ open Set
 example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': (deriv p * deriv q) x = 1) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
   let f := (λ x ↦ p x + 9 * q x - 6 * x)
   let D := Icc (0: ℝ) (1: ℝ)
-  have increasing: deriv f x > 0 := by
+  have increasing: deriv f x ≥ 0 := by
+    simp [f]
+    have reciprocal_deriv: deriv q x = 1 / deriv p x := by
+      sorry
+    rw [deriv_sub]
+    rw [deriv_add]
+    rw [deriv_const_mul]
+    rw [reciprocal_deriv]
+    rw [deriv_const_mul]
+    rw [deriv_id'']
+    have p_deriv_ne_zero: deriv p x > 0 := by sorry
+    have sq_iff : 0 ≤ deriv p x * (deriv p x + 9 * (1 / deriv p x) - 6) ↔
+      0 ≤ deriv p x + 9 * (1 / deriv p x) - 6 := by
+      apply mul_nonneg_iff_of_pos_left p_deriv_ne_zero
+    have quad_eq : deriv p x * (deriv p x + 9 * (1 / deriv p x) - 6)
+             = deriv p x ^ 2 + 9 - 6 * deriv p x := by
+      field_simp [p_deriv_ne_zero]
+      ring
+    have quad_sq : deriv p x ^ 2 + 9 - 6 * deriv p x = (deriv p x - 3) ^ 2 := by ring
+    have simplify: deriv p x + 9 * (1 / deriv p x) - 6 * (fun x ↦ 1) x = deriv p x + 9 * (1 / deriv p x) - 6 := by ring
+    rw [quad_eq, quad_sq] at sq_iff
+    rw [simplify]
+    exact sq_iff.mp (by apply sq_nonneg)
+    exact differentiableAt_id
     sorry
+    sorry
+    sorry
+    sorry
+    sorry
+
   have gt_zero: f 0 > 0 := by
     simp [f, h0.left]
     rw [← one_add_mul]
