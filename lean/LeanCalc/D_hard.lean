@@ -16,17 +16,15 @@ open Set
 -- 137: For functions $f(x)$ and $g(x)$, it is known that $f(0)=g(0)>0$ and $f^{\\prime}(x) \\sqrt{g^{\\prime}(x)}=3$ for any $x \\in[0 ; 1]$. Prove that if $x \\in[0 ; 1]$, then $2 f(x)+3 g(x)>9 x$.
 
 -- invented:
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p x * deriv q x = 1) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p x * deriv q x = 1)
+  (hP: deriv p x > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
   let f := (λ x ↦ p x + 9 * q x - 6 * x)
   let D := Icc (0: ℝ) (1: ℝ)
   have increasing: deriv f x ≥ 0 := by
-    simp [f]
-    have p_deriv_ne_zero: deriv p x > 0 := by
-      sorry
-
+    -- simp [f]
     have reciprocal_deriv: deriv q x = 1 / deriv p x := by
       have hf'_iff: deriv p x * deriv q x = 1 ↔ deriv q x = 1 / deriv p x := by
-        field_simp [p_deriv_ne_zero]
+        field_simp [hP]
         ring
       exact hf'_iff.mp hf'
     rw [deriv_sub]
@@ -37,10 +35,10 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
     rw [deriv_id'']
     have sq_iff : 0 ≤ deriv p x * (deriv p x + 9 * (1 / deriv p x) - 6) ↔
       0 ≤ deriv p x + 9 * (1 / deriv p x) - 6 := by
-      apply mul_nonneg_iff_of_pos_left p_deriv_ne_zero
+      apply mul_nonneg_iff_of_pos_left hP
     have quad_eq : deriv p x * (deriv p x + 9 * (1 / deriv p x) - 6)
              = deriv p x ^ 2 + 9 - 6 * deriv p x := by
-      field_simp [p_deriv_ne_zero]
+      field_simp [hP]
       ring
     have quad_sq : deriv p x ^ 2 + 9 - 6 * deriv p x = (deriv p x - 3) ^ 2 := by ring
     have simplify: deriv p x + 9 * (1 / deriv p x) - 6 * (fun x ↦ 1) x = deriv p x + 9 * (1 / deriv p x) - 6 := by ring
@@ -60,7 +58,9 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
     apply mul_pos
     · norm_num
     · exact h0.right
-  have monotonic: MonotoneOn f D := by sorry
+  have monotonic: MonotoneOn f D := by
+    have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by sorry
+    apply monotoneOn_of_deriv_nonneg (convex_Icc (0: ℝ) 1) (sorry) (sorry) (interior_increasing)
   have f_pos: f x > 0 := by
     have x_pos: x ≥ 0 := by
       apply (mem_Icc.mp hD).1
@@ -71,7 +71,6 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
   have equiv: p x + 9 * q x > 6 * x ↔ p x + 9 * q x - 6 * x > 0 := by constructor <;> intro h <;> linarith
   rw [equiv]
   exact f_pos
-
 
 example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
   let f := fun x : ℝ ↦ x ^ 2
@@ -88,7 +87,6 @@ example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
     apply (continuous_pow 2).continuousOn
   change MonotoneOn f D
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
-
 
 -- DOMAIN / RANGE -TYPE QUESTIONS
 -- 182: "Task 3. II variant.\n\nFor what values of the parameter $a$ does the function $y=\\frac{8}{x^{2}+4 x+44}$ increase on the interval $[a-3 ; 3 a]?$"
