@@ -59,7 +59,9 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
     · norm_num
     · exact h0.right
   have monotonic: MonotoneOn f D := by
-    have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by sorry
+    have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by
+
+     sorry
     apply monotoneOn_of_deriv_nonneg (convex_Icc (0: ℝ) 1) (sorry) (sorry) (interior_increasing)
   have f_pos: f x > 0 := by
     have x_pos: x ≥ 0 := by
@@ -87,6 +89,7 @@ example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
     apply (continuous_pow 2).continuousOn
   change MonotoneOn f D
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
 
 -- DOMAIN / RANGE -TYPE QUESTIONS
 -- 182: "Task 3. II variant.\n\nFor what values of the parameter $a$ does the function $y=\\frac{8}{x^{2}+4 x+44}$ increase on the interval $[a-3 ; 3 a]?$"
