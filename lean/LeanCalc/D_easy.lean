@@ -48,11 +48,15 @@ example (x0 : ℝ) :
 
 -- 152: y = arctan(sqrt(x))
 example (x0 : ℝ) (h : 0 ≤ x0) :
-    deriv arctan (sqrt x0) = 1 / (1 + x0) := by
+    deriv (λ x ↦ arctan (sqrt x)) x0 = (1:ℝ) / ((1:ℝ) + x0) := by
+  rw [← Function.comp_def]
+  rw [deriv_comp]
   rw [Real.deriv_arctan]
-  ring_nf
-  rw [sq_sqrt]
-  exact h
+  rw [deriv_sqrt]
+  field_simp
+  sorry
+  -- rw [sq_sqrt]
+  -- exact h
 
 -- 167: y = cos(ln x)
 example (x0 : ℝ) (h : 0 < x0) :
@@ -61,7 +65,7 @@ example (x0 : ℝ) (h : 0 < x0) :
   rw [deriv_comp]
   rw [Real.deriv_cos]
   rw [Real.deriv_log]
-  field_simp
+  ring
   exact Real.differentiableAt_cos
   exact Real.differentiableAt_log (ne_of_gt h)
 
