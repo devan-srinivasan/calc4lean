@@ -80,8 +80,7 @@ example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
   have hD: Convex ℝ D := by
     apply convex_Icc (0: ℝ) (1: ℝ)
   have hf': ∀ x ∈ interior D, 0 < deriv f x := by
-    rw [deriv_pow']
-    simp
+    simp [f]
     intros x hx
     rw [interior_Icc] at hx
     exact hx.1
@@ -90,6 +89,55 @@ example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
   change MonotoneOn f D
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
 
+example: MonotoneOn (λ x ↦ 3 * x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
+  let f := fun x : ℝ ↦ 3 * x ^ 2
+  let D := Icc (0: ℝ) (1: ℝ)
+  have hD: Convex ℝ D := by
+    apply convex_Icc (0: ℝ) (1: ℝ)
+  have hf': ∀ x ∈ interior D, 0 < deriv f x := by
+    simp [f]
+    intros x hx
+    rw [interior_Icc] at hx
+    exact hx.1
+  have hf: ContinuousOn f D := by
+    simp [f]
+    apply (Continuous.mul (continuous_const) (continuous_pow 2)).continuousOn
+  change MonotoneOn f D
+  apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
+example: MonotoneOn (λ x ↦ 3 * x ^ 2 + 3) (Icc (0: ℝ) (1: ℝ)) := by
+  let f := fun x : ℝ ↦ 3 * x ^ 2 + 3
+  let D := Icc (0: ℝ) (1: ℝ)
+  have hD: Convex ℝ D := by
+    apply convex_Icc (0: ℝ) (1: ℝ)
+  have hf': ∀ x ∈ interior D, 0 < deriv f x := by
+    simp [f]
+    intros x hx
+    rw [interior_Icc] at hx
+    exact hx.1
+  have hf: ContinuousOn f D := by
+    simp [f]
+    apply (Continuous.add (Continuous.mul (continuous_const) (continuous_pow 2)) (continuous_const)).continuousOn
+  change MonotoneOn f D
+  apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
+example: MonotoneOn (λ x ↦ 3 * x ^ 2 + 5 * x + 3) (Icc (0: ℝ) (1: ℝ)) := by
+  let f := fun x : ℝ ↦ 3 * x ^ 2 + 5 * x + 3
+  let D := Icc (0: ℝ) (1: ℝ)
+  have hD: Convex ℝ D := by
+    apply convex_Icc (0: ℝ) (1: ℝ)
+  have hf': ∀ x ∈ interior D, 0 < deriv f x := by
+    simp [f]
+    -- @bindu help me please
+    rw [deriv_add]
+    intros x hx
+    rw [interior_Icc] at hx
+    exact hx.1
+  have hf: ContinuousOn f D := by
+    simp [f]
+    apply (Continuous.add (Continuous.add (Continuous.mul (continuous_const) (continuous_pow 2)) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
+  change MonotoneOn f D
+  apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
 
 -- DOMAIN / RANGE -TYPE QUESTIONS
 -- 182: "Task 3. II variant.\n\nFor what values of the parameter $a$ does the function $y=\\frac{8}{x^{2}+4 x+44}$ increase on the interval $[a-3 ; 3 a]?$"
