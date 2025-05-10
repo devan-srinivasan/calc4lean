@@ -282,7 +282,7 @@ example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
   exact differentiableAt_log (ne_of_gt h)
   exact differentiableAt_pow 2
   have hx2_pos : 0 < x0 ^ 2 := pow_pos h 2
-  have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt hx2_pos
+  have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt (pow_pos h 2)
   exact hx2_ne_zero
   exact differentiableAt_const 5
   exact differentiableAt_sin

@@ -1,3 +1,10 @@
+"""
+There should be a way to make this all oneline derivatives (no exact ...) but I can't figure it out
+no time
+
+DO NOT USE
+"""
+
 class Node:
     def __init__(self, children: list,  parsed: bool = False):
         
@@ -68,17 +75,11 @@ class Mul(Node):
         
         self.children = children
         self.parsed = parsed
-        self.differentiability_proof = []
 
     def deriv_proof(self, stack):
-        self.differentiability_proof = [
-            self.children[0].differentiability(),
-            self.children[1].differentiability()
-        ]
-        stack.append(self.differentiability_proof)
         lhs_addition, stack = self.children[0].deriv_proof(stack)
         rhs_addition, stack = self.children[1].deriv_proof(stack)
-        proof = "nth_rewrite 1 [deriv_mul]\n" + lhs_addition + rhs_addition
+        proof = f"nth_rewrite 1 [deriv_mul ({self.children[0].differentiability()}) ({self.children[1].differentiability()})]\n" + lhs_addition + rhs_addition
         return proof, stack
 
     def differentiability(self):
@@ -89,17 +90,11 @@ class Add(Node):
         
         self.children = children
         self.parsed = parsed
-        self.differentiability_proof = []
 
     def deriv_proof(self, stack):
-        self.differentiability_proof = [
-            self.children[0].differentiability(),
-            self.children[1].differentiability()
-        ]
-        stack.append(self.differentiability_proof)
         lhs_addition, stack = self.children[0].deriv_proof(stack)
         rhs_addition, stack = self.children[1].deriv_proof(stack)
-        proof = "nth_rewrite 1 [deriv_add]\n" + lhs_addition + rhs_addition
+        proof = f"nth_rewrite 1 [deriv_add ({self.children[0].differentiability()}) ({self.children[1].differentiability()})]\n" + lhs_addition + rhs_addition
         return proof, stack
 
     def differentiability(self):
@@ -110,17 +105,11 @@ class Sub(Node):
         
         self.children = children
         self.parsed = parsed
-        self.differentiability_proof = []
 
     def deriv_proof(self, stack):
-        self.differentiability_proof = [
-            self.children[0].differentiability(),
-            self.children[1].differentiability()
-        ]
-        stack.append(self.differentiability_proof)
-        lhs_addition, stack = self.children[0].deriv_proof(stack)
-        rhs_addition, stack = self.children[1].deriv_proof(stack)
-        proof = "nth_rewrite 1 [deriv_sub]\n" + lhs_addition + rhs_addition
+        lhs_addition, stack= self.children[0].deriv_proof(stack)
+        rhs_addition, stack= self.children[1].deriv_proof(stack)
+        proof = f"nth_rewrite 1 [deriv_sub ({self.children[0].differentiability()}) ({self.children[1].differentiability()})]\n" + lhs_addition + rhs_addition
         return proof, stack
 
     def differentiability(self):
@@ -131,18 +120,11 @@ class Div(Node):
         
         self.children = children
         self.parsed = parsed
-        self.differentiability_proof = []
 
     def deriv_proof(self, stack):
-        self.differentiability_proof = [
-            self.children[0].differentiability(),
-            self.children[1].differentiability(),
-            f'ne_of_gt (h_ne_zero)'
-        ]
-        stack.append(self.differentiability_proof)
-        lhs_addition, stack = self.children[0].deriv_proof(stack)
-        rhs_addition, stack = self.children[1].deriv_proof(stack)
-        proof = "nth_rewrite 1 [deriv_div]\n" + lhs_addition + rhs_addition
+        lhs_addition, stack= self.children[0].deriv_proof(stack)
+        rhs_addition, stack= self.children[1].deriv_proof(stack)
+        proof = f"nth_rewrite 1 [deriv_div ({self.children[0].differentiability()}) ({self.children[1].differentiability()}) (ne_of_gt (h_ne_zero))]\n" + lhs_addition + rhs_addition
         return proof, stack
 
     def differentiability(self):
@@ -153,20 +135,17 @@ class Pow(Node):
         
         self.children = children
         self.parsed = parsed
-        self.differentiability_proof = []
 
     def deriv_proof(self, stack):
-        # if not isinstance(self.children[0], ID):
-        self.differentiability_proof = [self.children[0].differentiability()]
-        stack.append(self.differentiability_proof)
-        proof, stack = self.children[0].deriv_proof(stack)
-        return "nth_rewrite 1 [deriv_pow'']\n" + proof, stack
+        proof, stack= self.children[0].deriv_proof(stack)
+        return f"nth_rewrite 1 [deriv_pow'' (_) ({self.children[0].differentiability()})]\n" + proof, stack
     
     def differentiability(self):
         if not isinstance(self.children[0], ID):
             return f"DifferentiableAt.pow ({self.children[0].differentiability()}) _"
         return "differentiableAt_pow _"
         # return ""
+
 
 class Sin(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
@@ -318,7 +297,7 @@ tokens = parse_numbers_and_ID(tokens)
 root = Node(children=tokens)
 root.parse()
 
-proof, diff = root.deriv_proof()
+proof, diff_proof = root.deriv_proof()
 print(proof[:-1])
-print("sorry")
-print(diff)
+print('sorry')
+print(diff_proof)
