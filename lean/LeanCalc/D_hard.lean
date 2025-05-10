@@ -17,6 +17,7 @@ open Set
 
 -- invented:
 example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p x * deriv q x = 1)
+  (hqDeriv: DifferentiableAt ℝ q x) (hpDeriv: DifferentiableAt ℝ p x)
   (hP: deriv p x > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
   let f := (λ x ↦ p x + 9 * q x - 6 * x)
   let D := Icc (0: ℝ) (1: ℝ)
@@ -46,11 +47,11 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
     rw [simplify]
     exact sq_iff.mp (by apply sq_nonneg)
     exact differentiableAt_id
-    sorry
-    sorry
-    sorry
-    sorry
-    sorry
+    exact hqDeriv
+    exact hpDeriv
+    exact DifferentiableAt.const_mul hqDeriv _
+    exact DifferentiableAt.add hpDeriv (DifferentiableAt.const_mul hqDeriv _)
+    exact DifferentiableAt.const_mul differentiableAt_id _
 
   have gt_zero: f 0 > 0 := by
     simp [f, h0.left]
@@ -60,7 +61,8 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
     · exact h0.right
   have monotonic: MonotoneOn f D := by
     have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by
-
+     intros x2 hx2
+     -- Devan I think you can take on from here
      sorry
     apply monotoneOn_of_deriv_nonneg (convex_Icc (0: ℝ) 1) (sorry) (sorry) (interior_increasing)
   have f_pos: f x > 0 := by
@@ -129,10 +131,25 @@ example: MonotoneOn (λ x ↦ 3 * x ^ 2 + 5 * x + 3) (Icc (0: ℝ) (1: ℝ)) := 
   have hf': ∀ x ∈ interior D, 0 < deriv f x := by
     simp [f]
     -- @bindu help me please
-    rw [deriv_add]
+    -- Help Done
     intros x hx
     rw [interior_Icc] at hx
-    exact hx.1
+    rw [deriv_add]
+    rw [deriv_const_mul]
+    rw [deriv_pow]
+    rw [deriv_const_mul]
+    rw [deriv_id'']
+    ring_nf
+    rcases hx with ⟨hx0, hx1⟩
+    -- note that x * 6 < 6 since x < 1
+    have h1 : 0 < x * 6 := mul_pos hx0 (by norm_num)
+    have h2 : 0 < 5 + x * 6 := by linarith
+    exact h2
+    exact differentiableAt_id
+    exact differentiableAt_pow _
+    exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+    exact DifferentiableAt.const_mul differentiableAt_id _
+
   have hf: ContinuousOn f D := by
     simp [f]
     apply (Continuous.add (Continuous.add (Continuous.mul (continuous_const) (continuous_pow 2)) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
