@@ -1,5 +1,6 @@
 import Mathlib.Order.Monotone.Defs
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.Basic
 import Mathlib.Tactic
 open Real
 open Set
@@ -16,9 +17,9 @@ open Set
 -- 137: For functions $f(x)$ and $g(x)$, it is known that $f(0)=g(0)>0$ and $f^{\\prime}(x) \\sqrt{g^{\\prime}(x)}=3$ for any $x \\in[0 ; 1]$. Prove that if $x \\in[0 ; 1]$, then $2 f(x)+3 g(x)>9 x$.
 
 -- invented:
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p x * deriv q x = 1)
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 1)
   (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: deriv p x > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
+  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 9 * q x > 6 * x := by
   let f := (λ x ↦ p x + 9 * q x - 6 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -29,10 +30,22 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
     · norm_num
     · exact h0.right
   have monotonic: MonotoneOn f D := by
+    have hfDifferentiable: DifferentiableOn ℝ f (interior D) := by
+      have hf : Differentiable ℝ f := by
+        sorry
+      exact hf.differentiableOn.mono interior_subset
+
+    have hfContinuous: ContinuousOn f D:= by
+      sorry
+      
     have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by
       intros x2 hx2
+      let hpX2 := hP x2
       have reciprocal_deriv: deriv q x2 = 1 / deriv p x2 := by
-        sorry
+        have hf'_iff: deriv p x2 * deriv q x2 = 1 ↔ deriv q x2 = 1 / deriv p x2 := by
+          field_simp [hpX2]
+          ring
+        exact hf'_iff.mp (hf' x2)
       rw [deriv_sub]
       rw [deriv_add]
       rw [deriv_const_mul]
@@ -41,10 +54,11 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
       rw [deriv_id'']
       have sq_iff : 0 ≤ deriv p x2 * (deriv p x2 + 9 * (1 / deriv p x2) - 6) ↔
         0 ≤ deriv p x2 + 9 * (1 / deriv p x2) - 6 := by
-        sorry
+        apply mul_nonneg_iff_of_pos_left (hP x2)
       have quad_eq : deriv p x2 * (deriv p x2 + 9 * (1 / deriv p x2) - 6)
               = deriv p x2 ^ 2 + 9 - 6 * deriv p x2 := by
-        sorry
+        field_simp [hpX2]
+        ring
       have quad_sq : deriv p x2 ^ 2 + 9 - 6 * deriv p x2 = (deriv p x2 - 3) ^ 2 := by ring
       have simplify: deriv p x2 + 9 * (1 / deriv p x2) - 6 * (fun x2 ↦ 1) x = deriv p x2 + 9 * (1 / deriv p x2) - 6 := by ring
       rw [quad_eq, quad_sq] at sq_iff
@@ -57,7 +71,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
       exact DifferentiableAt.add (hpDeriv x2) (DifferentiableAt.const_mul (hqDeriv x2) _)
       exact DifferentiableAt.const_mul differentiableAt_id _
 
-    apply monotoneOn_of_deriv_nonneg (convex_Icc (0: ℝ) 1) (sorry) (sorry) (interior_increasing)
+    apply monotoneOn_of_deriv_nonneg (convex_Icc (0: ℝ) 1) (hfContinuous) (hfDifferentiable) (interior_increasing)
   have f_pos: f x > 0 := by
     have x_pos: x ≥ 0 := by
       apply (mem_Icc.mp hD).1
