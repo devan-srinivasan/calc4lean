@@ -48,11 +48,15 @@ example (x0 : ℝ) :
 
 -- 152: y = arctan(sqrt(x))
 example (x0 : ℝ) (h : 0 ≤ x0) :
-    deriv arctan (sqrt x0) = 1 / (1 + x0) := by
+    deriv (λ x ↦ arctan (sqrt x)) x0 = (1:ℝ) / ((1:ℝ) + x0) := by
+  rw [← Function.comp_def]
+  rw [deriv_comp]
   rw [Real.deriv_arctan]
-  ring_nf
-  rw [sq_sqrt]
-  exact h
+  rw [deriv_sqrt]
+  field_simp
+  sorry
+  -- rw [sq_sqrt]
+  -- exact h
 
 -- 167: y = cos(ln x)
 example (x0 : ℝ) (h : 0 < x0) :
@@ -61,7 +65,7 @@ example (x0 : ℝ) (h : 0 < x0) :
   rw [deriv_comp]
   rw [Real.deriv_cos]
   rw [Real.deriv_log]
-  field_simp
+  ring
   exact Real.differentiableAt_cos
   exact Real.differentiableAt_log (ne_of_gt h)
 
@@ -278,7 +282,7 @@ example (x0 : ℝ) (h : 0 < x0) (h2: sin x0 ≠ 0) :
   exact differentiableAt_log (ne_of_gt h)
   exact differentiableAt_pow 2
   have hx2_pos : 0 < x0 ^ 2 := pow_pos h 2
-  have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt hx2_pos
+  have hx2_ne_zero : x0 ^ 2 ≠ 0 := ne_of_gt (pow_pos h 2)
   exact hx2_ne_zero
   exact differentiableAt_const 5
   exact differentiableAt_sin
