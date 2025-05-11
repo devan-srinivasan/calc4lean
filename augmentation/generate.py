@@ -243,7 +243,7 @@ example: MonotoneOn (λ x ↦ {str(self)}) (Icc ({self.interval[0]}: ℝ) ({self
     with open('lean/LeanCalc/synthetic/monotone_shifted.lean', 'w') as f:
         f.write(file_str)
 
-expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
-# expand_generic_comp(funcs, funcs_derivs) # -> 25
+# expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
+expand_generic_comp(funcs, funcs_derivs) # -> 25
 # generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) # 4*5 -> 20
 # generate_monotonicity_shifted(n=20) # -> 20
