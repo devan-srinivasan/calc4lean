@@ -50,18 +50,13 @@ example (x0 : ℝ) (h : 0 < x0) :
   exact DifferentiableAt.sin (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id))
   exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_const _) (DifferentiableAt.sin (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)))) (Real.differentiableAt_sin)
 
-example (x0 : ℝ) (h_ne_zero : 0 < x0^4 + 1) :
-    deriv (λ x ↦ cos x / (x^4 + 1)) x0 = 1 / (cos x0)^2 := by
+example (x0 : ℝ) (h_ne_zero : 0 < x0) :
+    deriv (λ x ↦ 1 / x) x0 = -1 / (x0)^2 := by
   nth_rewrite 1 [deriv_div]
-  nth_rewrite 1 [Real.deriv_cos]
-  nth_rewrite 1 [deriv_add]
-  nth_rewrite 1 [deriv_pow'']
-  nth_rewrite 1 [deriv_id'']
   nth_rewrite 1 [deriv_const]
-  sorry
-  exact differentiableAt_id
-  exact differentiableAt_pow _
+  nth_rewrite 1 [deriv_id'']
+  field_simp
+  ring
   exact differentiableAt_const _
-  exact Real.differentiableAt_cos
-  exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
+  exact differentiableAt_id
   exact ne_of_gt (h_ne_zero)

@@ -41,7 +41,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
       field_simp [hP]
       ring
     have quad_sq : deriv p x ^ 2 + 9 - 6 * deriv p x = (deriv p x - 3) ^ 2 := by ring
-    have simplify: deriv p x + 9 * (1 / deriv p x) - 6 * (fun x ↦ 1) x = deriv p x + 9 * (1 / deriv p x) - 6 := by ring
+    have simplify: deriv p x + 9 * (1 / deriv p x) - 6 * (λ x ↦ 1) x = deriv p x + 9 * (1 / deriv p x) - 6 := by ring
     rw [quad_eq, quad_sq] at sq_iff
     rw [simplify]
     exact sq_iff.mp (by apply sq_nonneg)
@@ -75,7 +75,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': deriv p 
   exact f_pos
 
 example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
-  let f := fun x : ℝ ↦ x ^ 2
+  let f := λ x : ℝ ↦ x ^ 2
   let D := Icc (0: ℝ) (1: ℝ)
   have hD: Convex ℝ D := by
     apply convex_Icc (0: ℝ) (1: ℝ)
@@ -90,7 +90,7 @@ example: MonotoneOn (λ x ↦ x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
 
 example: MonotoneOn (λ x ↦ 3 * x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
-  let f := fun x : ℝ ↦ 3 * x ^ 2
+  let f := λ x : ℝ ↦ 3 * x ^ 2
   let D := Icc (0: ℝ) (1: ℝ)
   have hD: Convex ℝ D := by
     apply convex_Icc (0: ℝ) (1: ℝ)
@@ -106,7 +106,7 @@ example: MonotoneOn (λ x ↦ 3 * x ^ 2) (Icc (0: ℝ) (1: ℝ)) := by
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
 
 example: MonotoneOn (λ x ↦ 3 * x ^ 2 + 3) (Icc (0: ℝ) (1: ℝ)) := by
-  let f := fun x : ℝ ↦ 3 * x ^ 2 + 3
+  let f := λ x : ℝ ↦ 3 * x ^ 2 + 3
   let D := Icc (0: ℝ) (1: ℝ)
   have hD: Convex ℝ D := by
     apply convex_Icc (0: ℝ) (1: ℝ)
@@ -122,22 +122,100 @@ example: MonotoneOn (λ x ↦ 3 * x ^ 2 + 3) (Icc (0: ℝ) (1: ℝ)) := by
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
 
 example: MonotoneOn (λ x ↦ 3 * x ^ 2 + 5 * x + 3) (Icc (0: ℝ) (1: ℝ)) := by
-  let f := fun x : ℝ ↦ 3 * x ^ 2 + 5 * x + 3
+  let f := λ x : ℝ ↦ 3 * x ^ 2 + 5 * x + 3
   let D := Icc (0: ℝ) (1: ℝ)
   have hD: Convex ℝ D := by
     apply convex_Icc (0: ℝ) (1: ℝ)
-  have hf': ∀ x ∈ interior D, 0 < deriv f x := by
-    simp [f]
-    -- @bindu help me please
-    rw [deriv_add]
-    intros x hx
+  have hf': ∀ x0 ∈ interior D, 0 < deriv f x0 := by
+    intro x hx
+    unfold f
+    nth_rewrite 1 [deriv_add]
+    nth_rewrite 1 [deriv_add]
+    nth_rewrite 1 [deriv_mul]
+    nth_rewrite 1 [deriv_const]
+    nth_rewrite 1 [deriv_pow'']
+    nth_rewrite 1 [deriv_id'']
+    nth_rewrite 1 [deriv_mul]
+    nth_rewrite 1 [deriv_const]
+    nth_rewrite 1 [deriv_id'']
+    nth_rewrite 1 [deriv_const]
+    ring
     rw [interior_Icc] at hx
-    exact hx.1
+    linarith [hx.1]
+    exact differentiableAt_const _
+    exact differentiableAt_id
+    exact differentiableAt_id
+    exact differentiableAt_const _
+    exact differentiableAt_pow _
+    exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)
+    exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)
+    exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id))
+    exact differentiableAt_const _
+
   have hf: ContinuousOn f D := by
     simp [f]
     apply (Continuous.add (Continuous.add (Continuous.mul (continuous_const) (continuous_pow 2)) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
   change MonotoneOn f D
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
+example: MonotoneOn (λ x ↦ 3 * x ^ 3 + 5 * x ^ 2 + 8 * x + 3) (Icc (0: ℝ) (1: ℝ)) := by
+  let f := λ x : ℝ ↦ 3 * x ^ 3 + 5 * x ^ 2 + 8 * x + 3
+  let D := Icc (0: ℝ) (1: ℝ)
+  have hD: Convex ℝ D := by
+    apply convex_Icc (0: ℝ) (1: ℝ)
+  have hf': ∀ x0 ∈ interior D, 0 < deriv f x0 := by
+    intro x hx
+    unfold f
+    nth_rewrite 1 [deriv_add]
+    nth_rewrite 1 [deriv_add]
+    nth_rewrite 1 [deriv_add]
+    nth_rewrite 1 [deriv_mul]
+    nth_rewrite 1 [deriv_const]
+    nth_rewrite 1 [deriv_pow'']
+    nth_rewrite 1 [deriv_id'']
+    nth_rewrite 1 [deriv_mul]
+    nth_rewrite 1 [deriv_const]
+    nth_rewrite 1 [deriv_pow'']
+    nth_rewrite 1 [deriv_id'']
+    nth_rewrite 1 [deriv_mul]
+    nth_rewrite 1 [deriv_const]
+    nth_rewrite 1 [deriv_id'']
+    nth_rewrite 1 [deriv_const]
+    ring
+    rw [interior_Icc] at hx
+    have zero: 0 < 8 := by norm_num
+    have one: 0 < 10 * x := by linarith [hx.1]
+    have two: 0 < 9 * x^2 := by
+      have power_pos: 0 < x^2 := by
+        apply pow_pos (hx.1)
+      linarith [hx.1, (pow_pos (hx.1))]
+    linarith [zero, one, two]
+    exact differentiableAt_const _
+    exact differentiableAt_id
+    exact differentiableAt_id
+    exact differentiableAt_const _
+    exact differentiableAt_pow _
+    exact differentiableAt_id
+    exact differentiableAt_const _
+    exact differentiableAt_pow _
+    exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)
+    exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)
+    exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _))
+    exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)
+    exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _))) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id))
+    exact differentiableAt_const _
+
+  have hf: ContinuousOn f D := by
+    simp [f]
+    apply (Continuous.add (Continuous.add (Continuous.add (Continuous.mul (continuous_const) (continuous_pow _)) (Continuous.mul (continuous_const) (continuous_pow _))) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
+  change MonotoneOn f D
+  apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
+example (f : ℝ → ℝ) (x : ℝ) (s : Set ℝ)
+  (h_ext : IsLocalExtrOn f x s)
+  (h_diff : DifferentiableAt ℝ f x) :
+  deriv f x = 0 := by
+  apply IsLocalExtrOn.deriv_eq_zero h_ext h_diff
 
 -- DOMAIN / RANGE -TYPE QUESTIONS
 -- 182: "Task 3. II variant.\n\nFor what values of the parameter $a$ does the function $y=\\frac{8}{x^{2}+4 x+44}$ increase on the interval $[a-3 ; 3 a]?$"

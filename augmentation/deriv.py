@@ -27,6 +27,14 @@ class Node:
     
     def differentiability(self):
         return self.children[0].differentiability()
+    
+    def has_nontrivial_div(self) -> bool:
+        if isinstance(self, Div) and not isinstance(self.children[1], Const): 
+            return True
+        return any([child.has_nontrivial_div() for child in self.children])
+    
+    def derivative(self):
+        return self.children[0].derivative()
    
 class Const(Node):
     def __init__(self, value: int,  parsed: bool = False):
@@ -40,6 +48,12 @@ class Const(Node):
     
     def differentiability(self):
         return "differentiableAt_const _"
+    
+    def derivative(self):
+        return "0"
+    
+    def __repr__(self) -> str:
+        return f"{self.value}"
 
 class Expr(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
@@ -50,6 +64,12 @@ class Expr(Node):
     def deriv_proof(self, stack):
         proof, stack = self.children[0].deriv_proof(stack)
         return proof, stack
+
+    def derivative(self):
+        return f"({self.children[0].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"({self.children[0].__repr__()})"
 
 class ID(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
@@ -62,6 +82,12 @@ class ID(Node):
     
     def differentiability(self):
         return "differentiableAt_id"
+    
+    def derivative(self):
+        return "1"
+    
+    def __repr__(self):
+        return "x"
 
 class Mul(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
@@ -84,6 +110,12 @@ class Mul(Node):
     def differentiability(self):
         return f"DifferentiableAt.mul ({self.children[0].differentiability()}) ({self.children[1].differentiability()})"
 
+    def derivative(self):
+        return f"(({self.children[0].derivative()}) * ({self.children[1].__repr__()})) + (({self.children[0].__repr__()}) * ({self.children[1].derivative()}))"
+    
+    def __repr__(self) -> str:
+        return f"{self.children[0].__repr__()} * {self.children[1].__repr__()}"
+
 class Add(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
         
@@ -105,6 +137,12 @@ class Add(Node):
     def differentiability(self):
         return f"DifferentiableAt.add ({self.children[0].differentiability()}) ({self.children[1].differentiability()})"
 
+    def derivative(self):
+        return f"({self.children[0].derivative()}) + ({self.children[1].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"{self.children[0].__repr__()} + {self.children[1].__repr__()}"
+    
 class Sub(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
         
@@ -126,6 +164,12 @@ class Sub(Node):
     def differentiability(self):
         return f"DifferentiableAt.sub ({self.children[0].differentiability()}) ({self.children[1].differentiability()})"
 
+    def derivative(self):
+        return f"({self.children[0].derivative()}) - ({self.children[1].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"{self.children[0].__repr__()} - {self.children[1].__repr__()}"
+
 class Div(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
         
@@ -137,7 +181,7 @@ class Div(Node):
         self.differentiability_proof = [
             self.children[0].differentiability(),
             self.children[1].differentiability(),
-            f'ne_of_gt (h_ne_zero)'
+            f'h_div_ne_zero'
         ]
         stack.append(self.differentiability_proof)
         lhs_addition, stack = self.children[0].deriv_proof(stack)
@@ -147,7 +191,13 @@ class Div(Node):
 
     def differentiability(self):
         return f"DifferentiableAt.div ({self.children[0].differentiability()}) ({self.children[1].differentiability()}) (h_ne_zero)"
-        
+    
+    def derivative(self):
+        return f"(({self.children[0].derivative()}) * ({self.children[1].__repr__()}) - ({self.children[0].__repr__()}) * ({self.children[1].derivative()})) / ({self.children[1].__repr__()})^2"
+    
+    def __repr__(self) -> str:
+        return f"{self.children[0].__repr__()} / {self.children[1].__repr__()}"
+
 class Pow(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
         
@@ -166,7 +216,12 @@ class Pow(Node):
         if not isinstance(self.children[0], ID):
             return f"DifferentiableAt.pow ({self.children[0].differentiability()}) _"
         return "differentiableAt_pow _"
-        # return ""
+    
+    def derivative(self):
+        return f"{self.children[1].value} * ({self.children[0].__repr__()}) ^ ({self.children[1].value - 1}) * ({self.children[0].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"{self.children[0].__repr__()} ^ {self.children[1].__repr__()}"
 
 class Sin(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
@@ -192,6 +247,12 @@ class Sin(Node):
             return f"DifferentiableAt.sin ({self.children[0].differentiability()})"
         return "Real.differentiableAt_sin"
     
+    def derivative(self):
+        return f"Real.cos ({self.__repr__()}) * ({self.children[1].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"Real.sin ({self.children[0].__repr__()})"
+    
 class Cos(Node):
     def __init__(self, children: list[Node],  parsed: bool = False):
         
@@ -215,6 +276,103 @@ class Cos(Node):
         if not isinstance(self.children[0], ID):
             return f"DifferentiableAt.cos ({self.children[0].differentiability()})"
         return "Real.differentiableAt_cos"
+    
+    def derivative(self):
+        return f"-Real.sin ({self.__repr__()})) * ({self.children[1].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"Real.cos ({self.children[0].__repr__()})"
+
+class Tan(Node):
+    def __init__(self, children: list[Node],  parsed: bool = False):
+        
+        self.children = children
+        self.parsed = parsed
+        self.differentiability_proof = []
+
+    def deriv_proof(self, stack):
+        if not isinstance(self.children[0], ID):
+            self.differentiability_proof = [
+                'Real.differentiableAt_tan.mpr (h_tan_ne_zero)',
+                self.children[0].differentiability()
+            ]
+            stack.append(self.differentiability_proof)
+            addition, stack = self.children[0].deriv_proof(stack)
+            proof = "nth_rewrite 1 [← Function.comp_def]\nnth_rewrite 1 [deriv_comp]\nnth_rewrite 1 [Real.deriv_tan]\n" + addition
+            return proof, stack
+        return "nth_rewrite 1 [Real.deriv_tan]\n", stack
+    
+    def differentiability(self):
+        if not isinstance(self.children[0], ID):
+            return f"DifferentiableAt.tan ({self.children[0].differentiability()}) (h_tan_ne_zero)"
+        return "Real.differentiableAt_tan.mpr (h_tan_ne_zero)"
+    
+    def derivative(self):
+        return f"1 / (Real.cos ({self.children[1].derivative()}))^2"
+    
+    def __repr__(self) -> str:
+        return f"Real.tan ({self.children[0].__repr__()})"
+
+class Exp(Node):
+    def __init__(self, children: list[Node],  parsed: bool = False):
+        
+        self.children = children
+        self.parsed = parsed
+        self.differentiability_proof = []
+
+    def deriv_proof(self, stack):
+        if not isinstance(self.children[0], ID):
+            self.differentiability_proof = [
+                'Real.differentiableAt_exp',
+                self.children[0].differentiability()
+            ]
+            stack.append(self.differentiability_proof)
+            addition, stack = self.children[0].deriv_proof(stack)
+            proof = "nth_rewrite 1 [← Function.comp_def]\nnth_rewrite 1 [deriv_comp]\nnth_rewrite 1 [Real.deriv_exp]\n" + addition
+            return proof, stack
+        return "nth_rewrite 1 [Real.deriv_exp]\n", stack
+    
+    def differentiability(self):
+        if not isinstance(self.children[0], ID):
+            return f"DifferentiableAt.exp ({self.children[0].differentiability()})"
+        return "Real.differentiableAt_exp"
+    
+    def derivative(self):
+        return f"Real.exp ({self.children[0].__repr__()}) * ({self.children[0].derivative()})"
+    
+    def __repr__(self) -> str:
+        return f"Real.exp ({self.children[0].__repr__()})"
+
+class Log(Node):
+    def __init__(self, children: list[Node],  parsed: bool = False):
+        
+        self.children = children
+        self.parsed = parsed
+        self.differentiability_proof = []
+
+    def deriv_proof(self, stack):
+        if not isinstance(self.children[0], ID):
+            self.differentiability_proof = [
+                'Real.differentiableAt_log (h_log_ne_zero)',
+                self.children[0].differentiability(),
+                'h_log_ne_zero'
+            ]
+            stack.append(self.differentiability_proof)
+            addition, stack = self.children[0].deriv_proof(stack)
+            proof = "nth_rewrite 1 [← Function.comp_def]\nnth_rewrite 1 [deriv_comp]\nnth_rewrite 1 [Real.deriv_log]\n" + addition
+            return proof, stack
+        return "nth_rewrite 1 [Real.deriv_log]\n", stack
+    
+    def differentiability(self):
+        if not isinstance(self.children[0], ID):
+            return f"DifferentiableAt.log ({self.children[0].differentiability()}) (h_log_ne_zero)"
+        return "Real.differentiableAt_log (h_log_ne_zero)"
+
+    def derivative(self):
+        return f"({self.children[0].derivative()}) / ({self.children[0].__repr__()})"
+    
+    def __repr__(self) -> str:
+        return f"Real.log ({self.children[0].__repr__()})"
 
 # TODO add the rest of the functions
 
@@ -285,8 +443,16 @@ def parse_numbers_and_ID(tokens):
     return tokens
 
 FUNC_NODES = {
+    'Real.sin': Sin,
+    'Real.cos': Cos,
+    'Real.tan': Tan,
+    'Real.exp': Exp,
+    'Real.log': Log,
     'sin': Sin,
     'cos': Cos,
+    'tan': Tan,
+    'exp': Exp,
+    'log': Log,
 }
 
 OP_NODES = {
@@ -311,14 +477,26 @@ def tokenize(function: str):
     function = ''.join(chars).split()
     return [t for t in function if t.strip()]
 
-function = 'cos x / (x^4 + 1)'
-tokens = tokenize(function)
-tokens = parse_numbers_and_ID(tokens)
+function = 'log x * exp x'
 
-root = Node(children=tokens)
-root.parse()
+def parse(func: str):
+    tokens = tokenize(function)
+    tokens = parse_numbers_and_ID(tokens)
 
-proof, diff = root.deriv_proof()
-print(proof[:-1])
-print("sorry")
-print(diff)
+    root = Node(children=tokens)
+    root.parse()
+    return root
+
+def get_deriv_proof(func: str):
+    root = parse(func)
+    proof, diff = root.deriv_proof()
+    # print(proof[:-1])
+    # print("ring")
+    # print(diff)
+    
+    return proof + \
+        ("field_simp\n" if root.has_nontrivial_div() else "") + \
+            "ring\n" + diff
+
+node = parse(function)
+print(node.derivative())
