@@ -137,7 +137,7 @@ class Node:
         s = remove_outer_brackets(s)
         s = s.replace("(x)", "x")
         s = re.sub(r'\((\d+)\)', r'\1', s)
-        for pattern in [" * 1", " ^ 1", " + 0"]:
+        for pattern in [" * 1", " ^ 1", " + 0", " - 0", " / 1"]:
             s = s.replace(pattern, "")
         s = re.sub(r'\(\(([^()]+)\)\)', r'(\1)', s)
         return s
@@ -188,6 +188,10 @@ class Const(Node):
         if not as_pow: return f"({self.value}:ℝ)"
         else: return f"{self.value}"    # as natural
 
+    def is_zero(self): return self.value == '0'
+    def is_one(self): return self.value == '1'
+    def reduce(self): return self
+
 class Expr(Node):
 
     def deriv_proof(self, stack):
@@ -200,6 +204,16 @@ class Expr(Node):
     
     def __repr__(self) -> str:
         return f"({self.children[0].__repr__()})"
+    
+    def is_zero(self): return self.children[0].is_zero()
+    def is_one(self): return self.children[0].is_one()
+
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        if self.is_zero(): return Const("0")
+        if type(self.children[0]) in {Const, Expr, Exp, Log, Sin, Cos, Tan, ID}:
+            return self.children[0]
+        return self
 
 class ID(Node):
 
@@ -218,6 +232,10 @@ class ID(Node):
     
     def __repr__(self):
         return "x"
+    
+    def is_zero(self): return False
+    def is_one(self): return False
+    def reduce(self): return self
 
 class Mul(Node):
 
@@ -244,7 +262,21 @@ class Mul(Node):
 
     def __repr__(self) -> str:
         return f"{self.children[0].__repr__()} * {self.children[1].__repr__()}"
+    
+    def is_zero(self): return self.children[0].is_zero() or self.children[1].is_zero()
+    def is_one(self): return self.children[0].is_one() and self.children[1].is_one() # or they cancel (?)
 
+    def reduce(self):
+        if self.id == 19: 
+            print()
+        self.children[0] = self.children[0].reduce()
+        self.children[1] = self.children[1].reduce()
+        if self.children[0].is_zero() or self.children[1].is_zero():
+            return Const("0")
+        if self.children[1].is_one(): return self.children[0]
+        if self.children[0].is_one(): return self.children[1]
+        return self
+        
 class Add(Node):
 
     def deriv_proof(self, stack):
@@ -264,7 +296,6 @@ class Add(Node):
     def continuity(self):
         return f"Continuous.add ({self.children[0].continuity()}) ({self.children[1].continuity()})"
 
-
     def derivative(self):
         if self.derivative_repr: return self.derivative_repr
         return f"{self.children[0].derivative()} + {self.children[1].derivative()}"
@@ -272,6 +303,18 @@ class Add(Node):
     def __repr__(self) -> str:
         return f"{self.children[0].__repr__()} + {self.children[1].__repr__()}"
     
+    def is_zero(self): return self.children[0].is_zero() and self.children[1].is_zero()
+    def is_one(self): return (self.children[0].is_one() and self.children[1].is_zero()) or (self.children[1].is_one() and self.children[0].is_zero())
+    
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        self.children[1] = self.children[1].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        if self.children[0].is_zero(): return self.children[1]
+        if self.children[1].is_zero(): return self.children[0]
+        return self
+
 class Sub(Node):
 
     def deriv_proof(self, stack):
@@ -291,13 +334,24 @@ class Sub(Node):
     def continuity(self):
         return f"Continuous.sub ({self.children[0].continuity()}) ({self.children[1].continuity()})"
 
-
     def derivative(self):
         if self.derivative_repr: return self.derivative_repr
         return f"{self.children[0].derivative()} - ({self.children[1].derivative()})"
     
     def __repr__(self) -> str:
         return f"{self.children[0].__repr__()} - {self.children[1].__repr__()}"
+    
+    def is_zero(self): return self.children[0].is_zero() and self.children[1].is_zero()
+    def is_one(self): return self.children[0].is_one() and self.children[1].is_zero()
+    
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        self.children[1] = self.children[1].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        if self.children[0].is_zero(): return Mul(children=[Const(-1), self.children[1]])
+        if self.children[1].is_zero(): return self.children[0]
+        return self
 
 class Div(Node):
     def __init__(self, children: list[Node], derivative_repr: str = '', hyp_ne_zero: str = ''):
@@ -325,6 +379,18 @@ class Div(Node):
     
     def __repr__(self) -> str:
         return f"{self.children[0].__repr__()} / {self.children[1].__repr__()}"
+    
+    def is_zero(self): return self.children[0].is_zero()
+    def is_one(self): return self.children[0].is_one() and self.children[1].is_one() # or they equal
+
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        self.children[1] = self.children[1].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        if self.children[0].is_one(): self.children[0] = Const(1)
+        if self.children[1].is_one(): return self.children[0]
+        return self
 
 class Pow(Node):
 
@@ -349,6 +415,17 @@ class Pow(Node):
     
     def __repr__(self) -> str:
         return f"{self.children[0].__repr__()} ^ {self.children[1].__repr__(as_pow=True)}"
+    
+    def is_zero(self): return self.children[0].is_zero()
+    def is_one(self): return self.children[1].is_one()
+
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        self.children[1] = self.children[1].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        if self.children[1].is_one(): return self.children[0]
+        return self
 
 class Sin(Node):
 
@@ -376,6 +453,15 @@ class Sin(Node):
     def __repr__(self) -> str:
         return f"Real.sin ({self.children[0].__repr__()})"
     
+    def is_zero(self): return self.children[0].is_zero()
+    def is_one(self): return False
+
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        return self
+    
 class Cos(Node):
 
     def deriv_proof(self, stack):
@@ -397,10 +483,18 @@ class Cos(Node):
     
     def derivative(self):
         if self.derivative_repr: return self.derivative_repr
-        return f"-Real.sin ({self.children[0].__repr__()}) * ({self.children[0].derivative()})"
+        return f"(-1) * Real.sin ({self.children[0].__repr__()}) * ({self.children[0].derivative()})"
     
     def __repr__(self) -> str:
         return f"Real.cos ({self.children[0].__repr__()})"
+    
+    def is_zero(self): return False
+    def is_one(self): return self.children[0].is_zero()
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        return self
 
 class Tan(Node):
     def __init__(self, children: list[Node], derivative_repr: str = '', hyp_ne_zero: str = ''):
@@ -439,6 +533,14 @@ class Tan(Node):
             c_hyps = c.get_hyps()
             if c_hyps: hyps.extend(c_hyps)
         return hyps
+    
+    def is_zero(self): return self.children[0].is_zero()
+    def is_one(self): return False
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        return self
 
 class Exp(Node):
 
@@ -465,6 +567,14 @@ class Exp(Node):
     
     def __repr__(self) -> str:
         return f"Real.exp ({self.children[0].__repr__()})"
+    
+    def is_zero(self): return False
+    def is_one(self): return self.children[0].is_zero()
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        return self
 
 class Log(Node):
     def __init__(self, children: list[Node], derivative_repr: str = '', hyp_ne_zero: str = ''):
@@ -497,6 +607,14 @@ class Log(Node):
     
     def __repr__(self) -> str:
         return f"Real.log ({self.children[0].__repr__()})"
+    
+    def is_zero(self): return self.children[0].is_one()
+    def is_one(self): return False
+    def reduce(self):
+        self.children[0] = self.children[0].reduce()
+        if self.is_zero(): return Const("0")
+        if self.is_one(): return Const(1)
+        return self
 
 FUNC_NODES = {
     'Real.sin': Sin,

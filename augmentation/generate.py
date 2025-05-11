@@ -40,10 +40,10 @@ funcs = [
 ]
 
 funcs_derivs = [
-    "(exp x) * x^2 + (exp x) * 2 * x + 3 * exp x",
-    "-sin (log x) / x",
+    "(exp x) * (x^2 + 2 * x + 3)",
+    "(-1) * sin (log x) / x",
     "4 * sin (2 * x - 1) * cos (2 * x - 1)",
-    "3 * x ^ 2 * Real.log x / Real.log 5 + x ^ 2 / Real.log 5",
+    "3 * x ^ 2 * (Real.log x + 1) / Real.log 5",
     "15 * (Real.log (5 * x + 2)) ^ 2 / (5 * x + 2)",
     "5 / cos (5 * x) ^ 2",
 ]
@@ -54,6 +54,9 @@ def expand_generic_op(functions, derivatives):
         for j in range(i+1, len(functions)):
             node1 = deriv.parse(functions[i]).children[0]
             node2 = deriv.parse(functions[j]).children[0]
+            node1.derivative_repr = derivatives[i]
+            node2.derivative_repr = derivatives[j]
+
             node_list = [
                 func.Add(children=[node1, node2]),
                 func.Sub(children=[node1, node2]),
@@ -63,8 +66,10 @@ def expand_generic_op(functions, derivatives):
 
             for n in node_list:
                 n = deriv.parse(n.clean(n.__repr__())).children[0]
+                deriv_expr = n.clean(n.derivative())
+                deriv_node = deriv.parse(deriv_expr).children[0].reduce()
                 problems.append((
-                    f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {n.clean(n.__repr__())}) x = {n.clean(n.derivative())} := by", # theorem
+                    f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {n.clean(n.__repr__())}) x = {n.clean(str(deriv_node))} := by", # theorem
                     deriv.get_deriv_proof(n) # proof
                 ))
     
@@ -238,7 +243,7 @@ example: MonotoneOn (λ x ↦ {str(self)}) (Icc ({self.interval[0]}: ℝ) ({self
     with open('lean/LeanCalc/synthetic/monotone_shifted.lean', 'w') as f:
         f.write(file_str)
 
-# expand_generic_op(funcs[:-1], funcs_derivs[:-1])  -> 40
-# expand_generic_comp(funcs, funcs_derivs) -> 25
-# generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) 4*5 -> 20
-# generate_monotonicity_shifted(n=20) -> 20
+expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
+# expand_generic_comp(funcs, funcs_derivs) # -> 25
+# generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) # 4*5 -> 20
+# generate_monotonicity_shifted(n=20) # -> 20

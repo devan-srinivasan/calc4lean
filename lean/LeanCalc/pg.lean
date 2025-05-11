@@ -198,3 +198,25 @@ exact Real.differentiableAt_exp
 exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _))
 exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_1)) (DifferentiableAt.log (differentiableAt_const _) (h_log_ne_zero_2)) (h_div_ne_zero))
+
+example (x: ℝ)  (h_log_ne_zero_4: (Real.cos (x)) ≠ 0) : deriv (λ x ↦ (2:ℝ) * x + Real.cos x * Real.log (Real.cos x)) x = (0 * x) + (2:ℝ) + - Real.sin x * Real.log (cos x) - Real.sin x := by
+nth_rewrite 1 [deriv_add]
+nth_rewrite 1 [deriv_mul]
+nth_rewrite 1 [deriv_const]
+nth_rewrite 1 [deriv_id'']
+nth_rewrite 1 [deriv_mul]
+nth_rewrite 1 [Real.deriv_cos]
+nth_rewrite 2 [← Function.comp_def]
+nth_rewrite 1 [deriv_comp]
+nth_rewrite 1 [Real.deriv_log]
+nth_rewrite 1 [Real.deriv_cos]
+field_simp [h_log_ne_zero_4]
+ring
+exact Real.differentiableAt_log (h_log_ne_zero_4)
+exact Real.differentiableAt_cos
+exact Real.differentiableAt_cos
+exact DifferentiableAt.log (Real.differentiableAt_cos) (h_log_ne_zero_4)
+exact differentiableAt_const _
+exact differentiableAt_id
+exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)
+exact DifferentiableAt.mul (Real.differentiableAt_cos) (DifferentiableAt.log (Real.differentiableAt_cos) (h_log_ne_zero_4))
