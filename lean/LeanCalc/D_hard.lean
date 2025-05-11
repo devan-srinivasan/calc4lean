@@ -32,7 +32,9 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
   have monotonic: MonotoneOn f D := by
     have hfDifferentiable: DifferentiableOn ℝ f (interior D) := by
       have hf : Differentiable ℝ f := by
+        unfold f
         sorry
+        -- exact DifferentiableAt.sub (DifferentiableAt.add (DifferentiableAt.const_mul (hqDeriv) _) (hpDeriv)) (DifferentiableAt.const_mul (differentiableAt_id) _)
       exact hf.differentiableOn.mono interior_subset
 
     have hfContinuous: ContinuousOn f D:= by
@@ -188,13 +190,14 @@ example: MonotoneOn (λ x ↦ 3 * x ^ 3 + 5 * x ^ 2 + 8 * x + 3) (Icc (0: ℝ) (
     nth_rewrite 1 [deriv_const]
     ring
     rw [interior_Icc] at hx
-    have zero: 0 < 8 := by norm_num
-    have one: 0 < 10 * x := by linarith [hx.1]
-    have two: 0 < 9 * x^2 := by
+    have h0: 0 < 8 := by norm_num
+    have h1: 0 < 10 * x := by linarith [hx.1]
+    have h2: 0 < 9 * x^2 := by
       have power_pos: 0 < x^2 := by
         apply pow_pos (hx.1)
-      linarith [hx.1, (pow_pos (hx.1))]
-    linarith [zero, one, two]
+      linarith [power_pos]
+    linarith [h0, h1, h2]
+    -- linarith [hx.1]
     exact differentiableAt_const _
     exact differentiableAt_id
     exact differentiableAt_id
@@ -215,6 +218,126 @@ example: MonotoneOn (λ x ↦ 3 * x ^ 3 + 5 * x ^ 2 + 8 * x + 3) (Icc (0: ℝ) (
     apply (Continuous.add (Continuous.add (Continuous.add (Continuous.mul (continuous_const) (continuous_pow _)) (Continuous.mul (continuous_const) (continuous_pow _))) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
   change MonotoneOn f D
   apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
+example: MonotoneOn (λ x ↦ 3 * x ^ 2 - 12 * x + 12) (Icc (2: ℝ) (3: ℝ)) := by
+  let f := λ x : ℝ ↦ 3 * x ^ 2 - 12 * x + 12
+  let D := Icc (2: ℝ) (3: ℝ)
+  have hD: Convex ℝ D := by
+    apply convex_Icc (2: ℝ) (3: ℝ)
+  have hf': ∀ x ∈ interior D, 0 < deriv f x := by
+    simp [f]
+    intros x hx
+    rw [deriv_sub]
+    rw [deriv_const_mul]
+    rw [deriv_pow]
+    rw [deriv_const_mul]
+    rw [deriv_id'']
+    ring
+    rw [interior_Icc] at hx
+    -- have h0: 0 < 8 := by norm_num
+    -- have h1: 0 < 10 * x := by linarith [hx.1]
+    -- have h2: 0 < 9 * x^2 := by
+    --   have power_pos: 0 < x^2 := by
+    --     apply pow_pos (hx.1)
+    --   linarith [power_pos]
+    linarith [hx.1]
+    exact differentiableAt_id
+    exact differentiableAt_pow _
+    exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+    exact DifferentiableAt.const_mul differentiableAt_id _
+
+example: MonotoneOn (λ x ↦ 3 * x ^ 2 - 12 * x + 12) (Icc (2: ℝ) (3: ℝ)) := by
+  let f := λ x : ℝ ↦ 3 * x ^ 2 - 12 * x + 12
+  let D := Icc (2: ℝ) (3: ℝ)
+  have hD: Convex ℝ D := by
+    apply convex_Icc (2: ℝ) (3: ℝ)
+  have hf': ∀ x ∈ interior D, 0 < deriv f x := by
+    simp [f]
+    intros x hx
+    rw [deriv_sub]
+    rw [deriv_const_mul]
+    rw [deriv_pow]
+    rw [deriv_const_mul]
+    rw [deriv_id'']
+    ring
+    rw [interior_Icc] at hx
+    -- have h0: 0 < 8 := by norm_num
+    -- have h1: 0 < 10 * x := by linarith [hx.1]
+    -- have h2: 0 < 9 * x^2 := by
+    --   have power_pos: 0 < x^2 := by
+    --     apply pow_pos (hx.1)
+    --   linarith [power_pos]
+    linarith [hx.1]
+    exact differentiableAt_id
+    exact differentiableAt_pow _
+    exact DifferentiableAt.const_mul (differentiableAt_pow _) _
+    exact DifferentiableAt.const_mul differentiableAt_id _
+
+  have hf: ContinuousOn f D := by
+    simp [f]
+    apply (Continuous.add (Continuous.sub (Continuous.mul (continuous_const) (continuous_pow _)) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
+  change MonotoneOn f D
+  apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
+
+example: MonotoneOn (λ x ↦ 2 * x ^ 3 + 3 * x ^ 2 + 2 * x + 3) (Icc (0: ℝ) (5: ℝ)) := by
+    let f := λ x : ℝ ↦ 2 * x ^ 3 + 3 * x ^ 2 + 2 * x + 3
+    let D := Icc (0: ℝ) (5: ℝ)
+    have hD: Convex ℝ D := by
+        apply convex_Icc (0: ℝ) (5: ℝ)
+    have hf': ∀ x0 ∈ interior D, 0 < deriv f x0 := by
+        intro x hx
+        unfold f
+        nth_rewrite 1 [deriv_add]
+        nth_rewrite 1 [deriv_add]
+        nth_rewrite 1 [deriv_add]
+        nth_rewrite 1 [deriv_mul]
+        nth_rewrite 1 [deriv_const]
+        nth_rewrite 1 [deriv_pow'']
+        nth_rewrite 1 [deriv_id'']
+        nth_rewrite 1 [deriv_mul]
+        nth_rewrite 1 [deriv_const]
+        nth_rewrite 1 [deriv_pow'']
+        nth_rewrite 1 [deriv_id'']
+        nth_rewrite 1 [deriv_mul]
+        nth_rewrite 1 [deriv_const]
+        nth_rewrite 1 [deriv_id'']
+        nth_rewrite 1 [deriv_const]
+
+        ring
+        rw [interior_Icc] at hx
+        have h0: 0 < 3 := by norm_num
+        have h1: 0 < 2 * x := by linarith [hx.1]
+
+        have h2: 0 < 3 * x ^ 2 := by
+            have power_pos: 0 < x ^ 2 := by
+                apply pow_pos (hx.1)
+            linarith [power_pos]
+
+        have h3: 0 < 2 * x ^ 3 := by
+            have power_pos: 0 < x ^ 3 := by
+                apply pow_pos (hx.1)
+            linarith [power_pos]
+        linarith [h0, h1, h2, h3]
+        exact differentiableAt_const _
+        exact differentiableAt_id
+        exact differentiableAt_id
+        exact differentiableAt_const _
+        exact differentiableAt_pow _
+        exact differentiableAt_id
+        exact differentiableAt_const _
+        exact differentiableAt_pow _
+        exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)
+        exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)
+        exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _))
+        exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)
+        exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _)) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_pow _))) (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id))
+        exact differentiableAt_const _
+
+    have hf: ContinuousOn f D := by
+        simp [f]
+        apply (Continuous.add (Continuous.add (Continuous.add (Continuous.mul (continuous_const) (Continuous.pow (continuous_id) _)) (Continuous.mul (continuous_const) (Continuous.pow (continuous_id) _))) (Continuous.mul (continuous_const) (continuous_id))) (continuous_const)).continuousOn
+    change MonotoneOn f D
+    apply (strictMonoOn_of_deriv_pos hD hf hf').monotoneOn
 
 example (f : ℝ → ℝ) (x : ℝ) (s : Set ℝ)
   (h_ext : IsLocalExtrOn f x s)

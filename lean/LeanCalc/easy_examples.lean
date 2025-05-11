@@ -94,9 +94,9 @@ example (x0 : ℝ) (hx : 0 < 5 * x0 + 2) :
   exact DifferentiableAt.add (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)
   exact DifferentiableAt.log (DifferentiableAt.add (DifferentiableAt.const_mul differentiableAt_id _) (differentiableAt_const _)) (ne_of_gt hx)
 
-example (x0 : ℝ) (hx : Real.cos (5 * x0) ≠ 0) :
-  deriv (λ x ↦ Real.tan (5 * x)) x0
-  = 5 / cos (5 * x0) ^ 2 := by
+example (x : ℝ) (hx : Real.cos (5 * x) ≠ 0) :
+  deriv (λ x ↦ Real.tan (5 * x)) x
+  = 5 / cos (5 * x) ^ 2 := by
   rw [← Function.comp_def]
   rw [deriv_comp]
   rw [deriv_tan]
