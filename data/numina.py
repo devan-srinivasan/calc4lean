@@ -131,21 +131,33 @@ def load_problems(in_file='data/llm_filtered_results.json'):
 
 # load_problems()
 # main()
-with open("data/partitions/hard.json", 'r') as f:
-    problems = json.load(f)
+# with open("data/partitions/hard.json", 'r') as f:
+#     problems = json.load(f)
 
-filtered_set = []
-for p in problems:
-    if any({k.lower() in p['original']['problem'].lower()
-            for k in {
-                'integrate', 'investigate', 'differential equation', 'Lagrange',
-                'Rolle', 'integral', 'continuous', 'continuity', 'limit', 'find', 
-                'flux', 'field', 'mass', 'verify', 'determine', 'divergence', 'convergence', 
-                'series', '\\int', '\\lim', 'Plot', 'Dirichlet', 'Cauchy', 
-            }}):
-        continue
-    filtered_set.append(p)
+# filtered_set = []
+# for p in problems:
+#     if any({k.lower() in p['original']['problem'].lower()
+#             for k in {
+#                 'integrate', 'investigate', 'differential equation', 'Lagrange',
+#                 'Rolle', 'integral', 'continuous', 'continuity', 'limit', 'find', 
+#                 'flux', 'field', 'mass', 'verify', 'determine', 'divergence', 'convergence', 
+#                 'series', '\\int', '\\lim', 'Plot', 'Dirichlet', 'Cauchy', 
+#             }}):
+#         continue
+#     filtered_set.append(p)
 
-with open("data/partitions/hard_filtered.json", 'w') as f:
-    print(len(filtered_set))
-    json.dump(filtered_set, f, indent=4)
+# with open("data/partitions/hard_filtered.json", 'w') as f:
+#     print(len(filtered_set))
+#     json.dump(filtered_set, f, indent=4)
+            
+# print(len(calcds))
+
+monotonic_maybe = calcds.filter(lambda p: all(k in p['problem'] for k in {'monoton', 'prove', 'on'}))
+print(len(monotonic_maybe))
+
+c = 0
+for p in monotonic_maybe:
+    print(p['problem'])
+    print()
+    c+=1
+    if c == 50: break

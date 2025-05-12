@@ -2,6 +2,9 @@ from func import *
 # import re
 
 def parse_numbers_and_ID(tokens):
+    """
+    replace numbers with constants, and x with ID functions
+    """
     for i in range(len(tokens)):
         if isinstance(tokens[i], str):
             if tokens[i].isnumeric() or \
@@ -11,6 +14,9 @@ def parse_numbers_and_ID(tokens):
     return tokens
 
 def tokenize(function: str):
+    """
+    add spaces where necessary so it's standardized
+    """
     chars = list[Node](function)
     for i, c in enumerate(chars):
         if c == '(' and i+1 < len(chars) and chars[i+1] != ' ':
@@ -30,6 +36,7 @@ def tokenize(function: str):
     return [t for t in function if t.strip()]
 
 def parse(func: str):
+    # not much here, some preprocessing to make sure it looks fine for parsing
     import re
     func = func.replace("Real.", "").replace(":ℝ", "")
     func = re.sub(r'\((\d+)\)', r'\1', func)
@@ -38,11 +45,13 @@ def parse(func: str):
     tokens = parse_numbers_and_ID(tokens)
 
     root = Node(children=tokens)
-    root.parse()
-    root.assign_ids()   # numbers hypotheses
+    root.parse()    # parse yourself
+    root.assign_ids()   # important, this ensure hypothesis names are unique (by numbering the nodes)
     return root
 
 def get_deriv_proof(root: Node, separate=False):
+    # gets the derivative proof, then formats it as needed. returns as whole proof, or 
+    # separate (used for some templates)
     proof, diff = root.deriv_proof(stack=[])
     diff.reverse()
     diff_proof = []
@@ -57,6 +66,8 @@ def get_deriv_proof(root: Node, separate=False):
             root.field_simp_str() + \
                 "ring\n" + diff_proof
     
+
+# ========== BELOW IS FOR DEBUGGING ============= 
 
 # f = '(((Real.exp (x) * (x ^ 2 + (3:ℝ))) + (Real.exp (x) * ((2:ℝ) * (1:ℝ)))) * ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) - (Real.exp (x) * (x ^ 2 + (3:ℝ))) * ((((3:ℝ) * x ^ 2) * (Real.log (x) / Real.log ((5:ℝ)))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log ((5:ℝ))) / Real.log ((5:ℝ)) ^ 2)))) / ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ^ 2'
 # node = parse(f).children[0]
