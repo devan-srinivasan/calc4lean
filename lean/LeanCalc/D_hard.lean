@@ -345,6 +345,45 @@ example (f : ℝ → ℝ) (x : ℝ) (s : Set ℝ)
   deriv f x = 0 := by
   apply IsLocalExtrOn.deriv_eq_zero h_ext h_diff
 
+
+-- Tangent line equation problem
+-- (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) = 0 is basically the equation of the curve
+-- (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) (x-3, y-4) (3, 4) = 0) is the equation of the tangent the the point (3,4) 
+-- We are trying to prove that the equations are exactly the same
+-- The proof should work for all polynomial type equations (so we can do circle, ellipse, parabolas)
+example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) (x-3, y-4) (3, 4) = 0) → (3 * x + 4 * y - 25 = 0) := by
+  intro h
+  rw [fderiv_sub, fderiv_add] at h
+  simp at h
+
+  have h1 : fderiv ℝ (fun p : ℝ × ℝ => p.1 ^ 2) (x-3, y-4) (3, 4) = 6 * x - 18 := by
+    have hp1comp : (fun p : ℝ × ℝ => p.1 ^ 2) = (fun x => x ^ 2) ∘ (fun p => p.1) := rfl
+    rw [hp1comp]
+    rw [fderiv_comp]
+    simp [fderiv_fst] --This is the part I would Ideally like to change. I.e. not use simp. But can't find how to do it without simp
+    -- @Devan if you find a solution let me know
+    ring
+    exact differentiableAt_pow _
+    exact differentiableAt_fst
+
+  have h2 : fderiv ℝ (fun p : ℝ × ℝ => p.2 ^ 2) (x-3, y-4) (3, 4) = 8 * y - 32  := by
+    have hp2comp : (fun p : ℝ × ℝ => p.2 ^ 2) = (fun y => y ^ 2) ∘ (fun p => p.2) := rfl
+    rw [hp2comp]
+    rw [fderiv_comp]
+    simp [fderiv_snd]
+    ring
+    exact differentiableAt_pow _
+    exact differentiableAt_snd
+
+  rw [h1] at h
+  rw [h2] at h
+  ring_nf at h
+  linarith
+  exact differentiableAt_fst.pow _
+  exact differentiableAt_snd.pow _
+  exact DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_snd.pow _)
+  exact differentiableAt_const _
+
 -- DOMAIN / RANGE -TYPE QUESTIONS
 -- 182: "Task 3. II variant.\n\nFor what values of the parameter $a$ does the function $y=\\frac{8}{x^{2}+4 x+44}$ increase on the interval $[a-3 ; 3 a]?$"
 
