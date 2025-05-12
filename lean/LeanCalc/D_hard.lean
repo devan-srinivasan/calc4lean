@@ -1,6 +1,9 @@
 import Mathlib.Order.Monotone.Defs
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
 import Mathlib.Analysis.Calculus.Deriv.Basic
+import Mathlib.Analysis.Calculus.FDeriv.Add
+import Mathlib.Analysis.Calculus.FDeriv.Mul
+import Mathlib.Analysis.Calculus.FDeriv.Basic
 import Mathlib.Tactic
 open Real
 open Set
@@ -30,15 +33,12 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
     · norm_num
     · exact h0.right
   have monotonic: MonotoneOn f D := by
+    have hfDifferentiableInReal : Differentiable ℝ f := by
+        exact ((hpDeriv).add (hqDeriv.const_mul _)).sub (differentiable_id.const_mul _)
     have hfDifferentiable: DifferentiableOn ℝ f (interior D) := by
-      have hf : Differentiable ℝ f := by
-        unfold f
-        sorry
-        -- exact DifferentiableAt.sub (DifferentiableAt.add (DifferentiableAt.const_mul (hqDeriv) _) (hpDeriv)) (DifferentiableAt.const_mul (differentiableAt_id) _)
-      exact hf.differentiableOn.mono interior_subset
-
+      exact hfDifferentiableInReal.differentiableOn.mono interior_subset
     have hfContinuous: ContinuousOn f D:= by
-      sorry
+      exact hfDifferentiableInReal.continuous.continuousOn
 
     have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by
       intros x2 hx2
