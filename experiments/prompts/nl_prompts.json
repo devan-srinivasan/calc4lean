@@ -1,0 +1,5 @@
+{
+   "deepseek": "",
+   "llemma": "",
+   "theoremllama": "<|start_header_id|>system<|end_header_id|>You are a Lean4 expert who can write good Lean4 code based on natural language mathematical theorem and proof<|eot_id|><|start_header_id>user<|end_header_id|>\n\n{Example1}\n\n---\n\n{Example2}\n\n---\n\nNatural language version of theorem and proof:{informalProof}\n\n### Lean4 version of theorem statement:{theorem}\n\n### Lean4 version of theorem and proof:\n<|eot_id|><|start_header_id|>assistant<|end_header_id|>" 
+}

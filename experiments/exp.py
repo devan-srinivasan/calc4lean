@@ -27,3 +27,23 @@ def validate_proof(imports: str, problem: str, proof_lines: str) -> bool:
     # return any({msg['severity'] == 'error' for msg in result_json['messages']})
 
 # TODO given a dataset, and some theorem prover, run the experiment
+
+def run_exp_nohint():
+    return
+
+class ProblemSolver:
+    def __init__(self, name: str = ""):
+        self.name = name
+
+    #TODO
+    def get_prompt(self, type):
+        raise NotImplementedError
+
+    def solve_nohint(self):
+        raise NotImplementedError
+
+    def solve_hint(self):
+        raise NotImplementedError
+    
+    def solve_augmented(self):
+        raise NotImplementedError
