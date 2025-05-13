@@ -194,6 +194,11 @@ class Node:
         for pattern in [" * 1", " ^ 1", " + 0", " - 0", " / 1"]:
             s = s.replace(pattern, "")
         s = re.sub(r'\(\(([^()]+)\)\)', r'(\1)', s)
+        # simplify where we can
+        s = re.sub(r'\((\d+):ℝ\)\s*\+\s*\((\d+):ℝ\)', lambda m: f"({int(m[1]) + int(m[2])}:ℝ)", s)
+        s = re.sub(r'\((\d+):ℝ\)\s*-\s*\((\d+):ℝ\)', lambda m: f"({int(m[1]) - int(m[2])}:ℝ)", s)
+        s = re.sub(r'\((\d+):ℝ\)\s*\*\s*\((\d+):ℝ\)', lambda m: f"({int(m[1]) * int(m[2])}:ℝ)", s)
+        # s = re.sub(r'\((\d+):ℝ\)\s*/\s*\((\d+):ℝ\)', lambda m: f"({int(m[1]) / int(m[2])}:ℝ)", s)
         return s
     
     def field_simp_str(self) -> bool:
@@ -218,7 +223,7 @@ class Node:
             c_hyps = c.get_hyps()
             if c_hyps: hyps.extend(c_hyps)
         return hyps
-   
+
 class Const(Node):
     def __init__(self, value: int):
         super().__init__()
@@ -321,12 +326,12 @@ class Mul(Node):
     def is_one(self): return self.children[0].is_one() and self.children[1].is_one() # or they cancel (?)
 
     def reduce(self):
-        if self.id == 19: 
-            print()
         self.children[0] = self.children[0].reduce()
         self.children[1] = self.children[1].reduce()
         if self.children[0].is_zero() or self.children[1].is_zero():
             return Const("0")
+        if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
+            return int(self.children[0].value) * int(self.children[1].value)
         if self.children[1].is_one(): return self.children[0]
         if self.children[0].is_one(): return self.children[1]
         return self
@@ -359,12 +364,14 @@ class Add(Node):
     
     def is_zero(self): return self.children[0].is_zero() and self.children[1].is_zero()
     def is_one(self): return (self.children[0].is_one() and self.children[1].is_zero()) or (self.children[1].is_one() and self.children[0].is_zero())
-    
+
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         self.children[1] = self.children[1].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
+        if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
+            return int(self.children[0].value) + int(self.children[1].value)
         if self.children[0].is_zero(): return self.children[1]
         if self.children[1].is_zero(): return self.children[0]
         return self
@@ -402,7 +409,9 @@ class Sub(Node):
         self.children[0] = self.children[0].reduce()
         self.children[1] = self.children[1].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
+        if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
+            return int(self.children[0].value) - int(self.children[1].value)
         if self.children[0].is_zero(): return Mul(children=[Const(-1), self.children[1]])
         if self.children[1].is_zero(): return self.children[0]
         return self
@@ -441,8 +450,11 @@ class Div(Node):
         self.children[0] = self.children[0].reduce()
         self.children[1] = self.children[1].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
-        if self.children[0].is_one(): self.children[0] = Const(1)
+        if self.is_one(): return Const("1")
+        # if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
+        #     assert(not self.children[1].value == "0")
+        #     return int(self.children[0].value) / int(self.children[1].value)
+        if self.children[0].is_one(): self.children[0] = Const("1")
         if self.children[1].is_one(): return self.children[0]
         return self
 
@@ -471,13 +483,13 @@ class Pow(Node):
         return f"{self.children[0].__repr__()} ^ {self.children[1].__repr__(as_pow=True)}"
     
     def is_zero(self): return self.children[0].is_zero()
-    def is_one(self): return self.children[1].is_one()
+    def is_one(self): return self.children[1].is_zero()
 
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         self.children[1] = self.children[1].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
         if self.children[1].is_one(): return self.children[0]
         return self
 
@@ -513,7 +525,7 @@ class Sin(Node):
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
         return self
     
 class Cos(Node):
@@ -547,7 +559,7 @@ class Cos(Node):
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
         return self
 
 class Tan(Node):
@@ -594,7 +606,7 @@ class Tan(Node):
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
         return self
 
 class Exp(Node):
@@ -628,7 +640,7 @@ class Exp(Node):
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
         return self
 
 class Log(Node):
@@ -668,7 +680,7 @@ class Log(Node):
     def reduce(self):
         self.children[0] = self.children[0].reduce()
         if self.is_zero(): return Const("0")
-        if self.is_one(): return Const(1)
+        if self.is_one(): return Const("1")
         return self
 
 FUNC_NODES = {

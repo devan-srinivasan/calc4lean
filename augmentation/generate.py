@@ -249,7 +249,151 @@ example: MonotoneOn (λ x ↦ {str(self)}) (Icc ({self.interval[0]}: ℝ) ({self
     with open('lean/LeanCalc/synthetic/monotone_shifted.lean', 'w') as f:
         f.write(file_str)
 
+def generate_pq_easy(n):
+    
+    a, b, c, d = 1, 9, 6, 1
+    mu = 3
+    template = f"""
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = {d})
+  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
+  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + {b} * q x > {c} * x := by
+  let f := (λ x ↦ p x + 9 * q x - {c} * x)
+  let D := Icc (0: ℝ) (1: ℝ)
+
+  have gt_zero: f 0 > 0 := by
+    simp [f, h0.left]
+    rw [← one_add_mul]
+    apply mul_pos
+    · norm_num
+    · exact h0.right
+  have monotonic: MonotoneOn f D := by
+    have hfDifferentiableInReal : Differentiable ℝ f := by
+        exact ((hpDeriv).add (hqDeriv.const_mul _)).sub (differentiable_id.const_mul _)
+    have hfDifferentiable: DifferentiableOn ℝ f (interior D) := by
+      exact hfDifferentiableInReal.differentiableOn.mono interior_subset
+    have hfContinuous: ContinuousOn f D:= by
+      exact hfDifferentiableInReal.continuous.continuousOn
+
+    have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by
+      intros x2 hx2
+      let hpX2 := hP x2
+      have reciprocal_deriv: deriv q x2 = {d} / deriv p x2 := by
+        have hf'_iff: deriv p x2 * deriv q x2 = 1 ↔ deriv q x2 = {d} / deriv p x2 := by
+          field_simp [hpX2]
+          ring
+        exact hf'_iff.mp (hf' x2)
+      rw [deriv_sub]
+      rw [deriv_add]
+      rw [deriv_const_mul]
+      rw [reciprocal_deriv]
+      rw [deriv_const_mul]
+      rw [deriv_id'']
+      have sq_iff : 0 ≤ deriv p x2 * (deriv p x2 + {b} * ({d} / deriv p x2) - {c}) ↔
+        0 ≤ deriv p x2 + {b} * ({d} / deriv p x2) - {c} := by
+        apply mul_nonneg_iff_of_pos_left (hP x2)
+      have quad_eq : deriv p x2 * (deriv p x2 + {b} * ({d} / deriv p x2) - {c})
+              = deriv p x2 ^ 2 + {b} - {c} * deriv p x2 := by
+        field_simp [hpX2]
+        ring
+      have quad_sq : deriv p x2 ^ 2 + {b} - {c} * deriv p x2 = (deriv p x2 - {mu}) ^ 2 := by ring
+      have simplify: deriv p x2 + {b} * ({d} / deriv p x2) - {c} * (fun x2 ↦ 1) x = deriv p x2 + {b} * ({d} / deriv p x2) - {c} := by ring
+      rw [quad_eq, quad_sq] at sq_iff
+      rw [simplify]
+      exact sq_iff.mp (by apply sq_nonneg)
+      exact differentiableAt_id
+      exact hqDeriv x2
+      exact hpDeriv x2
+      exact DifferentiableAt.const_mul (hqDeriv x2) _
+      exact DifferentiableAt.add (hpDeriv x2) (DifferentiableAt.const_mul (hqDeriv x2) _)
+      exact DifferentiableAt.const_mul differentiableAt_id _
+
+    apply monotoneOn_of_deriv_nonneg (convex_Icc (0: ℝ) 1) (hfContinuous) (hfDifferentiable) (interior_increasing)
+  have f_pos: f x > 0 := by
+    have x_pos: x ≥ 0 := by
+      apply (mem_Icc.mp hD).1
+    have fx_gt_f_zero: f x ≥ f 0 := by
+      apply monotonic (left_mem_Icc.mpr (by norm_num)) hD
+      exact x_pos
+    apply lt_of_lt_of_le gt_zero fx_gt_f_zero
+  have equiv: p x + {b} * q x > {c} * x ↔ p x + {b} * q x - {c} * x > 0 := by constructor <;> intro h <;> linarith
+  rw [equiv]
+  exact f_pos
+"""
+    
+    file_str = monotone_header
+    # TODO
+            # p = Poly()
+            # problem_str = p.get_monotonicity_problem()
+            # problem_str = problem_str.replace('\t', '  ')   # no tabs
+            # file_str += problem_str
+    
+    with open('lean/LeanCalc/synthetic/pq_easy.lean', 'w') as f:
+        f.write(file_str)
+
+def generate_tangent(n):
+    
+    x_portion = 'p.1 ^ 2 + p.1'
+    y_portion = 'p.2 ^ 2'
+    point = (3,4)
+
+    x_subbed_node = deriv.parse(x_portion.replace('p.1', f"(x - {point[0]})")).children[0]
+    y_subbed_node = deriv.parse(y_portion.replace('p.2', f"(x - {point[1]})")).children[0]
+
+    deriv_x_subbed_node = deriv.parse(x_subbed_node.derivative()).children[0].reduce()
+    deriv_y_subbed_node = deriv.parse(y_subbed_node.derivative()).children[0].reduce()
+
+    dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(point[0])), func.Expr(children=[deriv_x_subbed_node])]).reduce()
+    dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(point[1])), func.Expr(children=[deriv_y_subbed_node])]).reduce()
+
+    c = 25
+    template = f"""
+example (x y : ℝ) : (fderiv ℝ (fun p ↦ {x_portion} + {y_portion} - {c}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = 0) → ({dir_deriv_x_subbed_node.clean(str(dir_deriv_x_subbed_node))} + {dir_deriv_y_subbed_node.clean(str(dir_deriv_y_subbed_node)).replace("x", "y")} = 0) := by
+  intro h
+  rw [fderiv_sub, fderiv_add] at h
+  simp at h
+
+  have h1 : fderiv ℝ (fun p : ℝ × ℝ => {x_portion}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = {dir_deriv_x_subbed_node.clean(str(dir_deriv_x_subbed_node))} := by
+    have hp1comp : (fun p : ℝ × ℝ => {x_portion}) = (fun x => {x_portion.replace("p.1", "x")}) ∘ (fun p => p.1) := rfl
+    rw [hp1comp]
+    rw [fderiv_comp]
+    simp [fderiv_fst]
+    ring
+    exact differentiableAt_pow _
+    exact differentiableAt_fst
+
+  have h2 : fderiv ℝ (fun p : ℝ × ℝ => {y_portion}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = {dir_deriv_y_subbed_node.clean(str(dir_deriv_y_subbed_node)).replace("x", "y")}  := by
+    have hp2comp : (fun p : ℝ × ℝ => {y_portion}) = (fun y => {y_portion.replace("p.2", "y")}) ∘ (fun p => p.2) := rfl
+    rw [hp2comp]
+    rw [fderiv_comp]
+    simp [fderiv_snd]
+    ring
+    exact differentiableAt_pow _
+    exact differentiableAt_snd
+
+  rw [h1] at h
+  rw [h2] at h
+  ring_nf at h
+  linarith
+  exact differentiableAt_fst.pow _
+  exact differentiableAt_snd.pow _
+  exact DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_snd.pow _)
+  exact differentiableAt_const _
+"""
+    
+    file_str = monotone_header
+    # TODO
+            # p = Poly()
+            # problem_str = p.get_monotonicity_problem()
+            # problem_str = problem_str.replace('\t', '  ')   # no tabs
+            # file_str += problem_str
+    
+    file_str += template
+    
+    with open('lean/LeanCalc/synthetic/multivar.lean', 'w') as f:
+        f.write(file_str)
 # expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
 # expand_generic_comp(funcs, funcs_derivs) # -> 25
 # generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) # 4*5 -> 20
 # generate_monotonicity_shifted(n=20) # -> 20
+        
+generate_tangent(1)
