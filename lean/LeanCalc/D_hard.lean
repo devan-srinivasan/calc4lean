@@ -353,9 +353,17 @@ example (f : ℝ → ℝ) (x : ℝ) (s : Set ℝ)
 -- The proof should work for all polynomial type equations (so we can do circle, ellipse, parabolas)
 example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) (x-3, y-4) (3, 4) = 0) → (3 * x + 4 * y - 25 = 0) := by
   intro h
-  rw [fderiv_sub, fderiv_add] at h
-  simp at h
+  rw [fderiv_sub] at h
+  rw [fderiv_add] at h
+  rw [ContinuousLinearMap.sub_apply] at h
+  rw [ContinuousLinearMap.add_apply] at h
 
+  -- I am explaining the idea here. We have 3 hypotheis.
+  -- First is for the first variable,i.e. p.1. Every expression that uses p.1 goes here.
+  -- Second is for the second variable, i.e. p.2. Every expression that uses p.2 goes afterwards.
+  -- Third is for const
+  -- For now keep the expressions with p.1 next to each other and expressions with p.2 next to each other. 
+  -- And don't do p.1*p.2 (I have no idea how to solve them and can't think I can figure that out by the deadline)
   have h1 : fderiv ℝ (fun p : ℝ × ℝ => p.1 ^ 2) (x-3, y-4) (3, 4) = 6 * x - 18 := by
     have hp1comp : (fun p : ℝ × ℝ => p.1 ^ 2) = (fun x => x ^ 2) ∘ (fun p => p.1) := rfl
     rw [hp1comp]
@@ -375,8 +383,12 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) (x-3, y-4) 
     exact differentiableAt_pow _
     exact differentiableAt_snd
 
+  have h3 : fderiv ℝ (fun p : ℝ × ℝ => (25:ℝ)) (x-3, y-4) (3, 4) = 0 := by
+    simp [fderiv_const]
+
   rw [h1] at h
   rw [h2] at h
+  rw [h3] at h
   ring_nf at h
   linarith
   exact differentiableAt_fst.pow _
@@ -386,8 +398,10 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) (x-3, y-4) 
 
 example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 3 + p.2 ^ 2 - 25) (x-3, y-4) (3, 4) = 0) → (9 * x^2 - 54*x + 8 * y + 49 = 0) := by
   intro h
-  rw [fderiv_sub, fderiv_add] at h
-  simp at h
+  rw [fderiv_sub] at h
+  rw [fderiv_add] at h
+  rw [ContinuousLinearMap.sub_apply] at h
+  rw [ContinuousLinearMap.add_apply] at h
 
   have h1 : fderiv ℝ (fun p : ℝ × ℝ => p.1 ^ 3) (x-3, y-4) (3, 4) = 9 * (x-3)^2 := by
     have hp1comp : (fun p : ℝ × ℝ => p.1 ^ 3) = (fun x => x ^ 3) ∘ (fun p => p.1) := rfl
@@ -407,8 +421,12 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 3 + p.2 ^ 2 - 25) (x-3, y-4) 
     exact differentiableAt_pow _
     exact differentiableAt_snd
 
+  have h3 : fderiv ℝ (fun p : ℝ × ℝ => (25:ℝ)) (x-3, y-4) (3, 4) = 0 := by
+    simp [fderiv_const]
+
   rw [h1] at h
   rw [h2] at h
+  rw [h3] at h
   ring_nf at h
   linarith
   exact differentiableAt_fst.pow _
@@ -419,8 +437,10 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 3 + p.2 ^ 2 - 25) (x-3, y-4) 
 -- @bindu
 example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.1 + p.2 ^ 2 - 25) (x-3, y-4) (3, 4) = 0) → ((3:ℝ) * ((2:ℝ) * (x - (3:ℝ)) + (1:ℝ)) + (4:ℝ) * ((2:ℝ) * (y - (4:ℝ))) = 0) := by
   intro h
-  rw [fderiv_sub, fderiv_add] at h
-  simp at h
+  rw [fderiv_sub] at h
+  rw [fderiv_add] at h
+  rw [ContinuousLinearMap.sub_apply] at h
+  rw [ContinuousLinearMap.add_apply] at h
 
   have h1 : fderiv ℝ (fun p : ℝ × ℝ => p.1 ^ 2 + p.1) (x-3, y-4) (3, 4) = (3:ℝ) * ((2:ℝ) * (x - (3:ℝ)) + (1:ℝ)) := by
     have hp1comp : (fun p : ℝ × ℝ => p.1 ^ 2 + p.1) = (fun x => x ^ 2 + x) ∘ (fun p => p.1) := rfl
@@ -428,8 +448,7 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.1 + p.2 ^ 2 - 25) (x-3,
     rw [fderiv_comp]
     simp [fderiv_fst]
     ring
-    exact DifferentiableAt () (differentiableAt_fst.pow _)
-    exact differentiableAt_pow _
+    exact DifferentiableAt.add (differentiableAt_id) (differentiableAt_pow _)
     exact differentiableAt_fst
 
   have h2 : fderiv ℝ (fun p : ℝ × ℝ => p.2 ^ 2) (x-3, y-4) (3, 4) = (4:ℝ) * ((2:ℝ) * (y - (4:ℝ)))  := by
@@ -441,13 +460,17 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.1 + p.2 ^ 2 - 25) (x-3,
     exact differentiableAt_pow _
     exact differentiableAt_snd
 
+  have h3 : fderiv ℝ (fun p : ℝ × ℝ => (25:ℝ)) (x-3, y-4) (3, 4) = 0 := by
+    simp [fderiv_const]
+
   rw [h1] at h
   rw [h2] at h
+  rw [h3] at h
   ring_nf at h
   linarith
-  exact differentiableAt_fst.pow _
+  exact DifferentiableAt.add (differentiableAt_fst.pow _) differentiableAt_fst
   exact differentiableAt_snd.pow _
-  exact DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_snd.pow _)
+  exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) differentiableAt_fst) (differentiableAt_snd.pow _)
   exact differentiableAt_const _
 
 -- DOMAIN / RANGE -TYPE QUESTIONS
