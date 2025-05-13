@@ -250,14 +250,26 @@ example: MonotoneOn (λ x ↦ {str(self)}) (Icc ({self.interval[0]}: ℝ) ({self
         f.write(file_str)
 
 def generate_pq_easy(n):
-    
-    a, b, c, d = 1, 9, 6, 1
-    mu = 3
-    template = f"""
+    # no a coefficient for now
+    def get_random_instance():
+        from random import randint
+
+        def factor(num):
+            for i in range(2, int(num**0.5) + 1):
+                if num % i == 0:
+                    return i, num // i
+            raise ValueError(f"{num} is prime, and cannot be prime for this to work")
+
+        k = randint(2, 20)
+        c = 2*k
+        b, d = factor(k**2)
+
+        mu = 3
+        template = f"""
 example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = {d})
   (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
   (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + {b} * q x > {c} * x := by
-  let f := (λ x ↦ p x + 9 * q x - {c} * x)
+  let f := (λ x ↦ p x + {b} * q x - {c} * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
   have gt_zero: f 0 > 0 := by
@@ -278,7 +290,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
       intros x2 hx2
       let hpX2 := hP x2
       have reciprocal_deriv: deriv q x2 = {d} / deriv p x2 := by
-        have hf'_iff: deriv p x2 * deriv q x2 = 1 ↔ deriv q x2 = {d} / deriv p x2 := by
+        have hf'_iff: deriv p x2 * deriv q x2 = {d} ↔ deriv q x2 = {d} / deriv p x2 := by
           field_simp [hpX2]
           ring
         exact hf'_iff.mp (hf' x2)
@@ -292,10 +304,10 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
         0 ≤ deriv p x2 + {b} * ({d} / deriv p x2) - {c} := by
         apply mul_nonneg_iff_of_pos_left (hP x2)
       have quad_eq : deriv p x2 * (deriv p x2 + {b} * ({d} / deriv p x2) - {c})
-              = deriv p x2 ^ 2 + {b} - {c} * deriv p x2 := by
+              = deriv p x2 ^ 2 + {b} * {d} - {c} * deriv p x2 := by
         field_simp [hpX2]
         ring
-      have quad_sq : deriv p x2 ^ 2 + {b} - {c} * deriv p x2 = (deriv p x2 - {mu}) ^ 2 := by ring
+      have quad_sq : deriv p x2 ^ 2 + {b} * {d} - {c} * deriv p x2 = (deriv p x2 - {int(c/2)}) ^ 2 := by ring
       have simplify: deriv p x2 + {b} * ({d} / deriv p x2) - {c} * (fun x2 ↦ 1) x = deriv p x2 + {b} * ({d} / deriv p x2) - {c} := by ring
       rw [quad_eq, quad_sq] at sq_iff
       rw [simplify]
@@ -319,6 +331,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
   rw [equiv]
   exact f_pos
 """
+        return template
     
     file_str = monotone_header
     # TODO
@@ -326,7 +339,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
             # problem_str = p.get_monotonicity_problem()
             # problem_str = problem_str.replace('\t', '  ')   # no tabs
             # file_str += problem_str
-    
+    file_str += get_random_instance()
     with open('lean/LeanCalc/synthetic/pq_easy.lean', 'w') as f:
         f.write(file_str)
 
@@ -396,4 +409,5 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ {x_portion} + {y_portion} - {c}) (x
 # generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) # 4*5 -> 20
 # generate_monotonicity_shifted(n=20) # -> 20
         
-generate_tangent(1)
+# generate_tangent(1)
+generate_pq_easy(1)
