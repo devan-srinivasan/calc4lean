@@ -31,7 +31,4 @@ class Llemma_Autoformalizer(ProblemSolver):
 
     def solve_hint(self, prompt, max_new_tokens: int = 64):
         return
-        
-    def solve_nohint(imports: List[str], problem: Problem) -> Problem:
-        prompt = self.get_prompt("fl",problem)
-        out = self.solve(prompt)
+ 

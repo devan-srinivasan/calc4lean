@@ -25,7 +25,4 @@ class TL_Autoformalizer(ProblemSolver):
         result_str = self.tokenizer.decode(results[0])
         return result_str[len(prompt):]
 
-    def solve_nohint(imports: List[str], problem: Problem) -> Problem:
-        prompt = self.get_prompt("fl",problem)
-        out = self.solve(prompt)
         

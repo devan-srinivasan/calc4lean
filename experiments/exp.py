@@ -177,8 +177,14 @@ class ProblemSolver:
             prompt = prompt_template.format(**example_params, theorem = problem.problem)
         return prompt
 
-    def solve_nohint(self, imports: List[str], problem: Problem) -> Problem:
+    def solve(self,prompt):
         raise NotImplementedError
+
+    def solve_nohint(self,imports: List[str], problem: Problem) -> Problem:
+        prompt = self.get_prompt("fl",problem)
+        out = self.solve(prompt)
+        problem.proof = out
+        return problem
 
     def solve_hint(self):
         raise NotImplementedError
