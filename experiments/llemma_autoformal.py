@@ -15,7 +15,7 @@ class Llemma_Autoformalizer(ProblemSolver):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self.model.to(self.device)
 
-    def solve_hint(self, prompt, max_new_tokens: int = 64):
+    def solve(self, prompt):
         inputs = self.tokenizer(prompt, return_tensors='pt').to(self.device)
         output_ids = self.model.generate(
             **inputs,
@@ -28,6 +28,11 @@ class Llemma_Autoformalizer(ProblemSolver):
             skip_special_tokens=True,
             clean_up_tokenization_spaces=True,
         )
-        
-    def solve_nohint():
+
+    def solve_hint(self, prompt, max_new_tokens: int = 64):
         return
+        
+    def solve_nohint(imports: List[str], problem: Problem) -> Problem:
+        prompt_template = self.get_prompt("fl")
+        #add the problem into the prompt
+        out = self.solve(prompt)

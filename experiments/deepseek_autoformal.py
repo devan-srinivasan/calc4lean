@@ -30,8 +30,7 @@ Translate the problem to Lean 4 (only the core declaration):
         response = re.sub(r"\s*['\"]\s*$", "", text)
         return response
 
-    def solve_hint(self, informal_proof):
-        prompt = self.format_prompt(informal_proof)
+    def solve(self, prompt):
         model_outputs = self.model.generate(
             [prompt],
             self.sampling_params,
@@ -42,8 +41,10 @@ Translate the problem to Lean 4 (only the core declaration):
         statement = self.extract(generated_text)
         return statement
 
-    def solve_nohint():
-        return
+    def solve_nohint(imports: List[str], problem: Problem) -> Problem:
+        prompt_template = self.get_prompt("fl")
+        #TODO: format prompt
+        out = self.solve(prompt)
 
 # response is in the format: {$formal_statement}
 # “‘

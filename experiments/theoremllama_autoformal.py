@@ -14,7 +14,7 @@ class TL_Autoformalizer(ProblemSolver):
                self.tokenizer.convert_tokens_to_ids("<|eot_id|>"), 
                self.tokenizer.convert_tokens_to_ids("<|reserved_special_token_26|>")]
 
-    def solve_hint(self, prompt):
+    def solve(self, prompt):
         tokenized_prompt = self.tokenizer(prompt, return_tensors="pt")
         results = self.model.generate(tokenized_prompt["input_ids"].to(torch.device("cuda")), 
                          max_new_tokens=1024,
@@ -25,5 +25,7 @@ class TL_Autoformalizer(ProblemSolver):
         result_str = self.tokenizer.decode(results[0])
         return result_str[len(prompt):]
 
-    def solve_nohint():
-        return
+    def solve_nohint(imports: List[str], problem: Problem) -> Problem:
+        prompt_template = self.get_prompt("fl")
+        out = self.solve(prompt)
+        

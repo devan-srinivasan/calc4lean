@@ -31,6 +31,8 @@ class Problem:
         self.name = name
         self.problem = problem
         self.proof = proof
+        self.complete = False
+        self.out = []
 
 def parse_lean_file(file_path: str) -> Tuple[str, List[Problem]]:
     """
@@ -151,7 +153,7 @@ class ProblemSolver:
             data = json.load(file)
         return data[self.name]
 
-    def solve_nohint(self, imports: List[str], problem: Problem):
+    def solve_nohint(self, imports: List[str], problem: Problem) -> Problem:
         raise NotImplementedError
 
     def solve_hint(self):
