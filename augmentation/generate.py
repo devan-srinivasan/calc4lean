@@ -427,52 +427,155 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 def generate_tangent(n):
     
-    x_portion = 'p.1 ^ 2 + p.1'
-    y_portion = 'p.2 ^ 2'
-    point = (3,4)
+    class Poly:
+        def __init__(self, terms = []):
+            self.terms = terms
+            if not self.terms:
+                # TODO generate randomly
+                pass
+        def __repr__(self):
+            def format_x(c,e):
+                if c > 1:
+                    coeff=f"{c}" + (' * ' if e > 0 else '')
+                else:
+                    coeff = ""
+                if e == 1:
+                    p = "x"
+                elif e > 1:
+                    p = f"x ^ {e}"
+                else:
+                    p = ""
+                return coeff + p
+            
+            return ' + '.join([format_x(c,e) for c, e in self.terms])
+    
+    class PolyDeriv(Poly):
+        def __init__(self, terms):
+            self.terms = terms
+            for i, (c, e) in enumerate(self.terms):
+                self.terms[i] = (c*e, e-1)
+            self.terms = [(c,e) for c,e in self.terms if e >= 0]
 
-    x_subbed_node = deriv.parse(x_portion.replace('p.1', f"(x - {point[0]})")).children[0]
-    y_subbed_node = deriv.parse(y_portion.replace('p.2', f"(x - {point[1]})")).children[0]
+    x_f = Poly([(1, 3), (5, 2), (2, 1)])
+    y_f = Poly([(1, 5), (1, 3)])
+    dx_f = PolyDeriv([e for e in x_f.terms])
+    dy_f = PolyDeriv([e for e in y_f.terms])
+
+    a, b = 3, 4
+
+    x_subbed_node = deriv.parse(str(x_f).replace('p.1', f"(x - {a})")).children[0]
+    y_subbed_node = deriv.parse(str(y_f).replace('p.2', f"(x - {b})")).children[0]
 
     deriv_x_subbed_node = deriv.parse(x_subbed_node.derivative()).children[0].reduce()
     deriv_y_subbed_node = deriv.parse(y_subbed_node.derivative()).children[0].reduce()
 
-    dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(point[0])), func.Expr(children=[deriv_x_subbed_node])]).reduce()
-    dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(point[1])), func.Expr(children=[deriv_y_subbed_node])]).reduce()
+    x_proof, _, _, x_diff = deriv.get_deriv_proof(deriv_x_subbed_node, separate=True)
+    y_proof, _, _, y_diff = deriv.get_deriv_proof(deriv_y_subbed_node, separate=True)
+    
+    indent = lambda s: '\n'.join([f"    {l}" for l in s.split('\n')])
+    x_proof, x_diff, y_proof, y_diff = list(map(indent, [x_proof, x_diff, y_proof, y_diff]))
+
+    dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(a)), func.Expr(children=[deriv_x_subbed_node])]).reduce()
+    dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(b)), func.Expr(children=[deriv_y_subbed_node])]).reduce()
 
     c = 25
     template = f"""
-example (x y : ℝ) : (fderiv ℝ (fun p ↦ {x_portion} + {y_portion} - {c}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = 0) → ({dir_deriv_x_subbed_node.clean(str(dir_deriv_x_subbed_node))} + {dir_deriv_y_subbed_node.clean(str(dir_deriv_y_subbed_node)).replace("x", "y")} = 0) := by
+example (x y : ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * (3*(x-{a})^2 + 10*(x-{a}) + 2) + {b} * (5*(y-{b})^4 + 3*(y-{b})^2) = 0) := by
   intro h
-  rw [fderiv_sub, fderiv_add] at h
-  simp at h
+  -- fderiv_sub or fderiv_add based on we subtract or add the constant
+  rw [fderiv_sub] at h
 
-  have h1 : fderiv ℝ (fun p : ℝ × ℝ => {x_portion}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = {dir_deriv_x_subbed_node.clean(str(dir_deriv_x_subbed_node))} := by
-    have hp1comp : (fun p : ℝ × ℝ => {x_portion}) = (fun x => {x_portion.replace("p.1", "x")}) ∘ (fun p => p.1) := rfl
+  -- This is to split the expression into p.1 and p.2
+  have h_split 
+  -- We assume they are differentiable (anyways we will prove that later)
+  (hp1: DifferentiableAt ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}))
+  (hp2: DifferentiableAt ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})): 
+    fderiv ℝ (fun p : ℝ × ℝ => 
+      {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})
+      = 
+      fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}) +
+      fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b}) := by
+    rw [←fderiv_add]
+    congr 1
+    ext p
+    ring
+    exact hp1
+    exact hp2
+
+  rw [h_split] at h
+  rw [ContinuousLinearMap.sub_apply] at h
+  rw [ContinuousLinearMap.add_apply] at h
+
+  -- Now we are back on track
+  have h1 : (fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b})) ({a}, {b}) = {a} * ({str(dx_f).replace('x', f'(x-{a})')})  := by
+    have hp1comp : (fun p : ℝ × ℝ => {str(x_f).replace('x', 'p.1')}) = (fun x => {str(x_f)}) ∘ (fun p => p.1) := rfl
     rw [hp1comp]
     rw [fderiv_comp]
-    simp [fderiv_fst]
+    rw [fderiv_fst]
+    rw [←deriv_fderiv]
+    -- expandable part 1 --
+{x_proof}
+    -- end --
+    rw [ContinuousLinearMap.comp_apply]
+    rw [ContinuousLinearMap.smulRight_apply]
+    rw [ContinuousLinearMap.coe_fst']
+    field_simp
     ring
-    exact differentiableAt_pow _
+    -- expandable part 2 --
+{x_diff}
+    -- ends --
     exact differentiableAt_fst
 
-  have h2 : fderiv ℝ (fun p : ℝ × ℝ => {y_portion}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = {dir_deriv_y_subbed_node.clean(str(dir_deriv_y_subbed_node)).replace("x", "y")}  := by
-    have hp2comp : (fun p : ℝ × ℝ => {y_portion}) = (fun y => {y_portion.replace("p.2", "y")}) ∘ (fun p => p.2) := rfl
+  -- Let's solve part 2
+  have h2 : (fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})) ({a}, {b}) = {b} * ({str(dy_f).replace('x', f'(y-{b})')})  := by
+    have hp2comp : (fun p : ℝ × ℝ => {str(y_f).replace('x', 'p.2')}) = (fun x => {str(y_f)}) ∘ (fun p => p.2) := rfl
     rw [hp2comp]
     rw [fderiv_comp]
-    simp [fderiv_snd]
+    rw [fderiv_snd]
+    rw [←deriv_fderiv]
+    -- expandable part 1 --
+{y_proof}
+    -- end --
+    rw [ContinuousLinearMap.comp_apply]
+    rw [ContinuousLinearMap.smulRight_apply]
+    rw [ContinuousLinearMap.coe_snd']
+    field_simp
     ring
-    exact differentiableAt_pow _
+    -- expandable part 2 --
+{y_diff}
+    -- ends --
     exact differentiableAt_snd
+
+  have h3 : fderiv ℝ (fun p : ℝ × ℝ => ({c}:ℝ)) (x - {a}, y - {b}) ({a}, {b}) = 0 := by
+    rw [fderiv_const]
+    field_simp
 
   rw [h1] at h
   rw [h2] at h
+  rw [h3] at h
   ring_nf at h
   linarith
-  exact differentiableAt_fst.pow _
-  exact differentiableAt_snd.pow _
-  exact DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_snd.pow _)
+
+  -- Now this part is tricky, but let me help you out with a hint --
+  -- This is different from the normal differentiableAt. Here we write the entire expression in one go
+  -- Notice the exact statement matches (+ (+ (x^3) (5x^2))) (2x))
+  -- Since you have the tree you can generate this. 
+
+  exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)
+
+  -- Let's do the same for p.2
+  exact DifferentiableAt.add (differentiableAt_snd.pow _) (differentiableAt_snd.pow _)
+  
+  -- Now we add the p.1 expression and p.2 expression
+  -- This can be done, but don't tree p.1 and p.2 as separate expressions,
+  -- It's a nested DifferentiableAt.add that adds one term in order
+  -- I.e. given p.1 ^ 3 + 5*p.1^2 + 2*p.1 + p.2 ^ 5 + p.2^3
+  -- We are basically doing (((p.1 ^ 3 + 5*p.1^2) + 2*p.1) + p.2 ^ 5) + p.2^3
+  exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)) (differentiableAt_snd.pow _)) (differentiableAt_snd.pow _)
+
+  -- Finally for the const part
   exact differentiableAt_const _
+  -- And we are done :)
 """
     
     file_str = monotone_header
@@ -580,9 +683,9 @@ def clean_mistakes(file: str):
 #         ]
 #     )
 
-generate_monotonicity_simple(n = 100) # 4*5 -> 20
+# generate_monotonicity_simple(n = 100) # 4*5 -> 20
 # generate_monotonicity_shifted(n = 100) # -> 20
 # generate_pq_easy(5)
 
 # TODO implement 
-# generate_tangent(1)
+generate_tangent(1)
