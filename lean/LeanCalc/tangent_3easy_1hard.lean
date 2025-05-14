@@ -298,6 +298,8 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 3 + 5*p.1^2 + 2*p.1 + p.2 ^ 5
   -- Now we add the p.1 expression and p.2 expression
   -- This can be done, but don't tree p.1 and p.2 as separate expressions,
   -- It's a nested DifferentiableAt.add that adds one term in order
+  -- I.e. given p.1 ^ 3 + 5*p.1^2 + 2*p.1 + p.2 ^ 5 + p.2^3
+  -- We are basically doing (((p.1 ^ 3 + 5*p.1^2) + 2*p.1) + p.2 ^ 5) + p.2^3
   exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)) (differentiableAt_snd.pow _)) (differentiableAt_snd.pow _)
 
   -- Finally for the const part
