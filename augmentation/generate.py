@@ -1,4 +1,4 @@
-import func, deriv, json
+import func, deriv, json, re, random
 
 """
 This is the file for creating synthetic problems. Not much to see here
@@ -42,7 +42,7 @@ funcs = [
     "(Real.sin (2 * x - 1))^2",
     "(x ^ 3) * (Real.log x / Real.log 5)",
     "(Real.log (5 * x + 2)) ^ 3",
-    "Real.tan (5 * x)",
+    # "Real.tan (5 * x)",
 ]
 
 funcs_derivs = [
@@ -51,9 +51,89 @@ funcs_derivs = [
     "4 * sin (2 * x - 1) * cos (2 * x - 1)",
     "3 * x ^ 2 * (Real.log x + 1) / Real.log 5",
     "15 * (Real.log (5 * x + 2)) ^ 2 / (5 * x + 2)",
-    "5 / cos (5 * x) ^ 2",
+    # "5 / cos (5 * x) ^ 2",
 ]
 
+def parse_functions(seed_file: str):
+    with open(seed_file, 'r') as f:
+        lines = f.readlines()
+    fs, dfs, theorems, proofs = [], [], [], []
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if 'example' not in line: 
+            i += 1
+            continue
+        f, df = re.search(r"deriv\s*\(λ x ↦ (.*?)\)\s*x\s*=\s*(.*?)\s*:=\s*by", line).groups()
+        t = line
+        j = i + 1
+        while j < len(lines) and len(lines[j].replace('\n', '').strip()) > 0:
+            j += 1
+        p = ''.join(lines[i+1:j])
+        fs.append(f)
+        dfs.append(df)
+        theorems.append(t)
+        proofs.append(p)
+        i = j
+    
+    return fs, dfs, theorems, proofs
+
+def create_seed(functions, derivatives, fn='seed_1', comp_only=False):
+    problems = []
+    if not comp_only:
+      c = 3
+      for i in range(len(functions) - 1):
+          for j in random.sample(range(i+1, len(functions)), min(c, len(functions) - i - 1)):
+              node1 = deriv.parse(functions[i]).children[0]
+              node2 = deriv.parse(functions[j]).children[0]
+              node1.derivative_repr = derivatives[i]
+              node2.derivative_repr = derivatives[j]
+
+              node_list = [
+                  func.Add(children=[node1, node2]),
+                  func.Sub(children=[node1, node2]),
+                  func.Mul(children=[node1, node2]),
+                  func.Div(children=[node1, node2], hyp_ne_zero='h_div_ne_zero'),
+              ]
+
+              for n in node_list:
+                  n = deriv.parse(n.clean(n.__repr__())).children[0]
+                  deriv_expr = n.clean(n.derivative())
+                  deriv_node = deriv.parse(deriv_expr).children[0].reduce()
+                  f, df = n.clean(n.__repr__()), n.clean(str(deriv_node))
+                  problems.append((
+                      f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {f}) x = {df} := by", # theorem
+                      deriv.get_deriv_proof(n), # proof
+                  ))
+      
+    for i in range(len(functions) - 1):
+        node1 = deriv.parse(functions[i]).children[0]
+        node_list = [
+            func.Sin(children=[node1]),
+            func.Cos(children=[node1]),
+            # func.Tan(children=[node1], hyp_ne_zero='h_tan_ne_zero'),
+            func.Exp(children=[node1]),
+            func.Log(children=[node1], hyp_ne_zero='h_div_ne_zero'),
+        ]
+
+        for n in node_list:
+            n = deriv.parse(n.clean(n.__repr__())).children[0]
+            problems.append((
+                f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {n.clean(n.__repr__())}) x = {n.clean(n.derivative())} := by", # theorem
+                deriv.get_deriv_proof(n) # proof
+            ))
+    
+    file_str = header
+    for theorem, proof in problems:
+        file_str += theorem + '\n' + proof + '\n\n'
+    
+    with open(f'lean/LeanCalc/synthetic/{fn}.lean', 'w') as f:
+        f.write(file_str)
+    
+    print(len(problems))
+
+# === not used
 def expand_generic_op(functions, derivatives):
     problems = []
     for i in range(len(functions) - 1):
@@ -74,13 +154,15 @@ def expand_generic_op(functions, derivatives):
                 n = deriv.parse(n.clean(n.__repr__())).children[0]
                 deriv_expr = n.clean(n.derivative())
                 deriv_node = deriv.parse(deriv_expr).children[0].reduce()
-                problems.append((
-                    f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {n.clean(n.__repr__())}) x = {n.clean(str(deriv_node))} := by", # theorem
-                    deriv.get_deriv_proof(n) # proof
-                ))
+                f, df = n.clean(n.__repr__()), n.clean(str(deriv_node))
+                problems.append({
+                    "theorem": f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {f}) x = {df} := by", # theorem
+                    "proof": deriv.get_deriv_proof(n), # proof
+                })
     
     file_str = header
-    for theorem, proof in problems:
+    for p in problems:
+        theorem, proof = p['theorem'], p['proof']
         file_str += theorem + '\n' + proof + '\n\n'
     
     with open('lean/LeanCalc/synthetic/generic_op.lean', 'w') as f:
@@ -115,13 +197,14 @@ def expand_generic_comp(functions, derivatives):
         f.write(file_str)
     
     print(len(problems))
+# ===
 
-def generate_monotonicity_simple(min_deg, max_deg, n_per_deg):
+def generate_monotonicity_simple(n):
     class Poly:
         def __init__(self, degree: int):
             from random import randint
             self.terms = [
-                (randint(2, 5), i) for i in range(degree+1)
+                (randint(2, 20), i) for i in range(degree+1) if i in random.sample(range(8), random.randint(2, 8))
             ]
 
             self.interval = (0, randint(1, 10))
@@ -135,19 +218,19 @@ def generate_monotonicity_simple(min_deg, max_deg, n_per_deg):
         def get_pos_proof(self):
             lns = []
             for i, (coeff, exp) in enumerate(self.terms):
-                if exp == 0:
-                    lns.append(f"    have h{i}: 0 < {coeff} := by norm_num")
-                elif exp == 1:
-                    lns.append(f"    have h{i}: 0 < {coeff} * x := by linarith [hx.1]")
+                # if exp == 0:
+                #     lns.append(f"    have h{i}: 0 < {coeff} := by norm_num")
+                if exp == 1:
+                    lns.append(f"    have h{i}: 0 < {coeff} := by linarith [hx.1]")
                 elif exp > 1:
                     lns.append(
 f"""
-    have h{i}: 0 < {coeff} * x ^ {exp} := by
-      have power_pos: 0 < x ^ {exp} := by
+    have h{i}: 0 < {coeff * exp} * x ^ {exp - 1} := by
+      have power_pos: 0 < x ^ {exp - 1} := by
         apply pow_pos (hx.1)
       linarith [power_pos]"""
                 )
-            lns.append(f"    linarith [{', '.join([f'h{i}' for i in range(len(self.terms))])}]")
+            lns.append(f"    linarith [{', '.join([f'h{i}' for i in range(1, len(self.terms))])}]")
             return '\n'.join(lns)
 
         def get_monotonicity_problem(self):
@@ -180,12 +263,11 @@ example: MonotoneOn (λ x ↦ {str(self)}) (Icc ({self.interval[0]}: ℝ) ({self
             return template
     
     file_str = monotone_header
-    for i in range(min_deg, max_deg):
-        for j in range(n_per_deg):
-            p = Poly(degree=i)
-            problem_str = p.get_monotonicity_problem()
-            problem_str = problem_str.replace('\t', '  ')   # no tabs
-            file_str += problem_str
+    for _ in range(n):
+        p = Poly(degree=7)
+        problem_str = p.get_monotonicity_problem()
+        problem_str = problem_str.replace('\t', '  ')   # no tabs
+        file_str += problem_str
     
     with open('lean/LeanCalc/synthetic/monotone_simple.lean', 'w') as f:
         f.write(file_str)
@@ -263,8 +345,6 @@ def generate_pq_easy(n):
         k = randint(2, 20)
         c = 2*k
         b, d = factor(k**2)
-
-        mu = 3
         template = f"""
 example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = {d})
   (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
@@ -339,58 +419,162 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
             # problem_str = p.get_monotonicity_problem()
             # problem_str = problem_str.replace('\t', '  ')   # no tabs
             # file_str += problem_str
-    file_str += get_random_instance()
+    for _ in range(n):
+        file_str += get_random_instance() + '\n\n'
     with open('lean/LeanCalc/synthetic/pq_easy.lean', 'w') as f:
         f.write(file_str)
 
 def generate_tangent(n):
     
-    x_portion = 'p.1 ^ 2 + p.1'
-    y_portion = 'p.2 ^ 2'
-    point = (3,4)
+    class Poly:
+        def __init__(self, terms = []):
+            self.terms = terms
+            if not self.terms:
+                # TODO generate randomly
+                pass
+        def __repr__(self):
+            def format_x(c,e):
+                if c > 1:
+                    coeff=f"{c}" + (' * ' if e > 0 else '')
+                else:
+                    coeff = ""
+                if e == 1:
+                    p = "x"
+                elif e > 1:
+                    p = f"x ^ {e}"
+                else:
+                    p = ""
+                return coeff + p
+            
+            return ' + '.join([format_x(c,e) for c, e in self.terms])
+    
+    class PolyDeriv(Poly):
+        def __init__(self, terms):
+            self.terms = terms
+            for i, (c, e) in enumerate(self.terms):
+                self.terms[i] = (c*e, e-1)
+            self.terms = [(c,e) for c,e in self.terms if e >= 0]
 
-    x_subbed_node = deriv.parse(x_portion.replace('p.1', f"(x - {point[0]})")).children[0]
-    y_subbed_node = deriv.parse(y_portion.replace('p.2', f"(x - {point[1]})")).children[0]
+    x_f = Poly([(1, 3), (5, 2), (2, 1)])
+    y_f = Poly([(1, 5), (1, 3)])
+    dx_f = PolyDeriv([e for e in x_f.terms])
+    dy_f = PolyDeriv([e for e in y_f.terms])
+
+    a, b = 3, 4
+
+    x_subbed_node = deriv.parse(str(x_f).replace('p.1', f"(x - {a})")).children[0]
+    y_subbed_node = deriv.parse(str(y_f).replace('p.2', f"(x - {b})")).children[0]
 
     deriv_x_subbed_node = deriv.parse(x_subbed_node.derivative()).children[0].reduce()
     deriv_y_subbed_node = deriv.parse(y_subbed_node.derivative()).children[0].reduce()
 
-    dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(point[0])), func.Expr(children=[deriv_x_subbed_node])]).reduce()
-    dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(point[1])), func.Expr(children=[deriv_y_subbed_node])]).reduce()
+    x_proof, _, _, x_diff = deriv.get_deriv_proof(deriv_x_subbed_node, separate=True)
+    y_proof, _, _, y_diff = deriv.get_deriv_proof(deriv_y_subbed_node, separate=True)
+    
+    indent = lambda s: '\n'.join([f"    {l}" for l in s.split('\n')])
+    x_proof, x_diff, y_proof, y_diff = list(map(indent, [x_proof, x_diff, y_proof, y_diff]))
+
+    dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(a)), func.Expr(children=[deriv_x_subbed_node])]).reduce()
+    dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(b)), func.Expr(children=[deriv_y_subbed_node])]).reduce()
 
     c = 25
     template = f"""
-example (x y : ℝ) : (fderiv ℝ (fun p ↦ {x_portion} + {y_portion} - {c}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = 0) → ({dir_deriv_x_subbed_node.clean(str(dir_deriv_x_subbed_node))} + {dir_deriv_y_subbed_node.clean(str(dir_deriv_y_subbed_node)).replace("x", "y")} = 0) := by
+example (x y : ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * (3*(x-{a})^2 + 10*(x-{a}) + 2) + {b} * (5*(y-{b})^4 + 3*(y-{b})^2) = 0) := by
   intro h
-  rw [fderiv_sub, fderiv_add] at h
-  simp at h
+  -- fderiv_sub or fderiv_add based on we subtract or add the constant
+  rw [fderiv_sub] at h
 
-  have h1 : fderiv ℝ (fun p : ℝ × ℝ => {x_portion}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = {dir_deriv_x_subbed_node.clean(str(dir_deriv_x_subbed_node))} := by
-    have hp1comp : (fun p : ℝ × ℝ => {x_portion}) = (fun x => {x_portion.replace("p.1", "x")}) ∘ (fun p => p.1) := rfl
+  -- This is to split the expression into p.1 and p.2
+  have h_split 
+  -- We assume they are differentiable (anyways we will prove that later)
+  (hp1: DifferentiableAt ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}))
+  (hp2: DifferentiableAt ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})): 
+    fderiv ℝ (fun p : ℝ × ℝ => 
+      {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})
+      = 
+      fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}) +
+      fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b}) := by
+    rw [←fderiv_add]
+    congr 1
+    ext p
+    ring
+    exact hp1
+    exact hp2
+
+  rw [h_split] at h
+  rw [ContinuousLinearMap.sub_apply] at h
+  rw [ContinuousLinearMap.add_apply] at h
+
+  -- Now we are back on track
+  have h1 : (fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b})) ({a}, {b}) = {a} * ({str(dx_f).replace('x', f'(x-{a})')})  := by
+    have hp1comp : (fun p : ℝ × ℝ => {str(x_f).replace('x', 'p.1')}) = (fun x => {str(x_f)}) ∘ (fun p => p.1) := rfl
     rw [hp1comp]
     rw [fderiv_comp]
-    simp [fderiv_fst]
+    rw [fderiv_fst]
+    rw [←deriv_fderiv]
+    -- expandable part 1 --
+{x_proof}
+    -- end --
+    rw [ContinuousLinearMap.comp_apply]
+    rw [ContinuousLinearMap.smulRight_apply]
+    rw [ContinuousLinearMap.coe_fst']
+    field_simp
     ring
-    exact differentiableAt_pow _
+    -- expandable part 2 --
+{x_diff}
+    -- ends --
     exact differentiableAt_fst
 
-  have h2 : fderiv ℝ (fun p : ℝ × ℝ => {y_portion}) (x-{point[0]}, y-{point[1]}) ({point[0]}, {point[1]}) = {dir_deriv_y_subbed_node.clean(str(dir_deriv_y_subbed_node)).replace("x", "y")}  := by
-    have hp2comp : (fun p : ℝ × ℝ => {y_portion}) = (fun y => {y_portion.replace("p.2", "y")}) ∘ (fun p => p.2) := rfl
+  -- Let's solve part 2
+  have h2 : (fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})) ({a}, {b}) = {b} * ({str(dy_f).replace('x', f'(y-{b})')})  := by
+    have hp2comp : (fun p : ℝ × ℝ => {str(y_f).replace('x', 'p.2')}) = (fun x => {str(y_f)}) ∘ (fun p => p.2) := rfl
     rw [hp2comp]
     rw [fderiv_comp]
-    simp [fderiv_snd]
+    rw [fderiv_snd]
+    rw [←deriv_fderiv]
+    -- expandable part 1 --
+{y_proof}
+    -- end --
+    rw [ContinuousLinearMap.comp_apply]
+    rw [ContinuousLinearMap.smulRight_apply]
+    rw [ContinuousLinearMap.coe_snd']
+    field_simp
     ring
-    exact differentiableAt_pow _
+    -- expandable part 2 --
+{y_diff}
+    -- ends --
     exact differentiableAt_snd
+
+  have h3 : fderiv ℝ (fun p : ℝ × ℝ => ({c}:ℝ)) (x - {a}, y - {b}) ({a}, {b}) = 0 := by
+    rw [fderiv_const]
+    field_simp
 
   rw [h1] at h
   rw [h2] at h
+  rw [h3] at h
   ring_nf at h
   linarith
-  exact differentiableAt_fst.pow _
-  exact differentiableAt_snd.pow _
-  exact DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_snd.pow _)
+
+  -- Now this part is tricky, but let me help you out with a hint --
+  -- This is different from the normal differentiableAt. Here we write the entire expression in one go
+  -- Notice the exact statement matches (+ (+ (x^3) (5x^2))) (2x))
+  -- Since you have the tree you can generate this. 
+
+  exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)
+
+  -- Let's do the same for p.2
+  exact DifferentiableAt.add (differentiableAt_snd.pow _) (differentiableAt_snd.pow _)
+  
+  -- Now we add the p.1 expression and p.2 expression
+  -- This can be done, but don't tree p.1 and p.2 as separate expressions,
+  -- It's a nested DifferentiableAt.add that adds one term in order
+  -- I.e. given p.1 ^ 3 + 5*p.1^2 + 2*p.1 + p.2 ^ 5 + p.2^3
+  -- We are basically doing (((p.1 ^ 3 + 5*p.1^2) + 2*p.1) + p.2 ^ 5) + p.2^3
+  exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)) (differentiableAt_snd.pow _)) (differentiableAt_snd.pow _)
+
+  -- Finally for the const part
   exact differentiableAt_const _
+  -- And we are done :)
 """
     
     file_str = monotone_header
@@ -404,10 +588,103 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ {x_portion} + {y_portion} - {c}) (x
     
     with open('lean/LeanCalc/synthetic/multivar.lean', 'w') as f:
         f.write(file_str)
+
 # expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
 # expand_generic_comp(funcs, funcs_derivs) # -> 25
-# generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) # 4*5 -> 20
-# generate_monotonicity_shifted(n=20) # -> 20
-        
+
+def check_valid(lines: list[str]) -> bool:
+    import subprocess, json, os, time
+    # RUN FROM ROOT
+    if os.getcwd().endswith("calc4lean"): os.chdir("./lean")
+    os.makedirs("LeanCalc/synthetic/tmp", exist_ok=True)
+    file_path = f"LeanCalc/synthetic/tmp/tmp.lean"
+    # creates the temp lean file and writes to it
+    with open(file_path, "w") as lean_file:
+        lean_file.writelines(lines)
+    lean_file.close()
+    # gets proof state back from lean compiler
+    result = subprocess.run(
+        ["bash", "-c", f"echo '{{\"path\": \"{file_path}\", \"allTactics\": true}}' | lake exe repl"],
+        text=True,
+        capture_output=True,
+        check=True
+    )
+    # Delete Temp Lean file
+    # os.remove(file_path)
+    # load to dict
+    result_json = json.loads(result.stdout)
+    return result_json
+    # see if any messages are error message
+    # return any({msg['severity'] == 'error' for msg in result_json['messages']})
+
+def clean_mistakes(file: str):
+    import tqdm as tqdm
+
+    with open('lean/' + file, 'r') as f:
+        lines = f.readlines()
+    
+    print("Round 1 Cleaning")
+    r = check_valid(lines)
+    errors = list(filter(lambda msg: msg['severity'] == 'error', r['messages']))
+    original = len(errors)
+    for err in errors:
+      ln = err['pos']['line'] - 1
+      if 'Function.comp_def' in lines[ln - 1]:
+          lines[ln - 1] = re.sub(r'\d+', lambda m: str(int(m.group()) + 1), lines[ln - 1])
+    
+    print("Round 2 Cleaning")
+    r = check_valid(lines)
+    errors = list(filter(lambda msg: msg['severity'] == 'error', r['messages']))
+    if not errors:
+        with open(file, 'w') as f:
+            f.writelines(lines)
+    for err in errors:
+      ln = err['pos']['line'] - 1
+      if 'field_simp' in lines[ln - 1]:
+          lines[ln - 1] = '-- ' + lines[ln - 1]
+      elif 'field_simp' in lines[ln - 2]:
+          lines[ln - 2] = '-- ' + lines[ln - 2]
+    
+    print("Round 3 Cleaning")
+    r = check_valid(lines)
+    errors = list(filter(lambda msg: msg['severity'] == 'error', r['messages']))
+    if not errors:
+        with open(file, 'w') as f:
+            f.writelines(lines)
+    for err in errors:
+      ln = err['pos']['line'] - 1
+      if 'Function.comp_def' in lines[ln - 1]:
+          lines[ln - 1] = re.sub(r'\d+', lambda m: str(int(m.group()) + 1), lines[ln - 1])
+    
+    print("Checking Result")
+    r = check_valid(lines)
+    errors = list(map(lambda msg: msg['severity'] == 'error', r['messages']))
+    print("Done")
+    if len(errors) < original:
+        with open(file, 'w') as f:
+            f.writelines(lines)
+
+# create_seed(funcs, funcs_derivs)
+# clean_mistakes("LeanCalc/synthetic/seed_1.lean")
+
+# fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed_1.lean')
+# create_seed(fs, dfs, 'seed_1_1')
+# clean_mistakes("LeanCalc/synthetic/seed_1_1.lean")
+# nfs, ndfs, nts, nps = parse_functions('lean/LeanCalc/synthetic/seed_1_1.lean')
+# print(len(fs), len(nfs))
+            
+# with open("lean/LeanCalc/synthetic/seed_1_1.lean", 'r') as f:
+#     lines = f.readlines()
+# with open("lean/LeanCalc/synthetic/seed_1_1.lean", 'w') as f:
+#     f.writelines(
+#         [
+#             ln for ln in lines if '--' not in ln
+#         ]
+#     )
+
+# generate_monotonicity_simple(n = 100) # 4*5 -> 20
+# generate_monotonicity_shifted(n = 100) # -> 20
+generate_pq_easy(10)
+
+# TODO implement 
 # generate_tangent(1)
-generate_pq_easy(1)

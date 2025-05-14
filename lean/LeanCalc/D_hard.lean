@@ -362,7 +362,7 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.2 ^ 2 - 25) (x-3, y-4) 
   -- First is for the first variable,i.e. p.1. Every expression that uses p.1 goes here.
   -- Second is for the second variable, i.e. p.2. Every expression that uses p.2 goes afterwards.
   -- Third is for const
-  -- For now keep the expressions with p.1 next to each other and expressions with p.2 next to each other. 
+  -- For now keep the expressions with p.1 next to each other and expressions with p.2 next to each other.
   -- And don't do p.1*p.2 (I have no idea how to solve them and can't think I can figure that out by the deadline)
   have h1 : fderiv ℝ (fun p : ℝ × ℝ => p.1 ^ 2) (x-3, y-4) (3, 4) = 6 * x - 18 := by
     have hp1comp : (fun p : ℝ × ℝ => p.1 ^ 2) = (fun x => x ^ 2) ∘ (fun p => p.1) := rfl
@@ -471,6 +471,47 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 2 + p.1 + p.2 ^ 2 - 25) (x-3,
   exact DifferentiableAt.add (differentiableAt_fst.pow _) differentiableAt_fst
   exact differentiableAt_snd.pow _
   exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) differentiableAt_fst) (differentiableAt_snd.pow _)
+  exact differentiableAt_const _
+
+example (x y : ℝ) : (fderiv ℝ (fun p ↦ p.1 ^ 3 + p.1 ^ 2 + p.1 + p.2 ^ 2 - 25) (x-3, y-4) (3, 4) = 0) → ((3:ℝ) * ((3:ℝ) * (x - (3:ℝ)) ^ 2 + (2:ℝ) * (x - (3:ℝ)) + (1:ℝ)) + (4:ℝ) * ((2:ℝ) * (y - (4:ℝ))) = 0) := by
+  intro h
+  rw [fderiv_sub, fderiv_add] at h
+  simp at h
+
+  have h1 : fderiv ℝ (fun p : ℝ × ℝ => p.1 ^ 3 + p.1 ^ 2 + p.1) (x-3, y-4) (3, 4) = (3:ℝ) * ((3:ℝ) * (x - (3:ℝ)) ^ 2 + (2:ℝ) * (x - (3:ℝ)) + (1:ℝ)) := by
+    have hp1comp : (fun p : ℝ × ℝ => p.1 ^ 3 + p.1 ^ 2 + p.1) = (fun x => x ^ 3 + x ^ 2 + x) ∘ (fun p => p.1) := rfl
+    rw [hp1comp]
+    rw [fderiv_comp]
+    simp [fderiv_fst]
+    rw [deriv_add]
+    rw [deriv_add]
+    rw [deriv_pow]
+    rw [deriv_pow]
+    rw [deriv_id'']
+    ring
+    exact differentiableAt_pow _
+    exact differentiableAt_pow _
+    exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_pow _)
+    exact differentiableAt_id'
+    exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_pow _)) (differentiableAt_id')
+    exact differentiableAt_fst
+
+  have h2 : fderiv ℝ (fun p : ℝ × ℝ => p.2 ^ 2) (x-3, y-4) (3, 4) = (4:ℝ) * ((2:ℝ) * (y - (4:ℝ)))  := by
+    have hp2comp : (fun p : ℝ × ℝ => p.2 ^ 2) = (fun y => y ^ 2) ∘ (fun p => p.2) := rfl
+    rw [hp2comp]
+    rw [fderiv_comp]
+    simp [fderiv_snd]
+    ring
+    exact differentiableAt_pow _
+    exact differentiableAt_snd
+
+  rw [h1] at h
+  rw [h2] at h
+  ring_nf at h
+  linarith
+  exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_fst.pow _)) (differentiableAt_fst)
+  exact differentiableAt_snd.pow _
+  exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (differentiableAt_fst.pow _)) (differentiableAt_fst)) (differentiableAt_snd.pow _)
   exact differentiableAt_const _
 
 -- DOMAIN / RANGE -TYPE QUESTIONS

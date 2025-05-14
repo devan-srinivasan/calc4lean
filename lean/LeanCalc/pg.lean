@@ -220,3 +220,19 @@ exact differentiableAt_const _
 exact differentiableAt_id
 exact DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)
 exact DifferentiableAt.mul (Real.differentiableAt_cos) (DifferentiableAt.log (Real.differentiableAt_cos) (h_log_ne_zero_4))
+
+example (x: ℝ)  : deriv (λ x ↦ x ^ 3 + x ^ 2 + x) x = 3 * x ^ 2 + 2 * x + 1 := by
+nth_rewrite 1 [deriv_add]
+nth_rewrite 1 [deriv_add]
+nth_rewrite 1 [deriv_pow'']
+nth_rewrite 1 [deriv_id'']
+nth_rewrite 1 [deriv_pow'']
+nth_rewrite 1 [deriv_id'']
+nth_rewrite 1 [deriv_id'']
+ring
+exact differentiableAt_id
+exact differentiableAt_id
+exact differentiableAt_pow _
+exact differentiableAt_pow _
+exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_pow _)
+exact differentiableAt_id

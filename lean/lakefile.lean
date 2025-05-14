@@ -11,6 +11,9 @@ package «leanCalc» where
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git"
 
+require REPL from git
+  "https://github.com/leanprover-community/repl.git"
+
 @[default_target]
 lean_lib «LeanCalc» where
   -- add any library configuration options here
