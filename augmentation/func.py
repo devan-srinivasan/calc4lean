@@ -331,7 +331,7 @@ class Mul(Node):
         if self.children[0].is_zero() or self.children[1].is_zero():
             return Const("0")
         if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
-            return int(self.children[0].value) * int(self.children[1].value)
+            return Const(str(int(self.children[0].value) * int(self.children[1].value)))
         if self.children[1].is_one(): return self.children[0]
         if self.children[0].is_one(): return self.children[1]
         return self
@@ -371,7 +371,7 @@ class Add(Node):
         if self.is_zero(): return Const("0")
         if self.is_one(): return Const("1")
         if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
-            return int(self.children[0].value) + int(self.children[1].value)
+            return Const(str(int(self.children[0].value) + int(self.children[1].value)))
         if self.children[0].is_zero(): return self.children[1]
         if self.children[1].is_zero(): return self.children[0]
         return self
@@ -411,7 +411,7 @@ class Sub(Node):
         if self.is_zero(): return Const("0")
         if self.is_one(): return Const("1")
         if isinstance(self.children[0], Const) and isinstance(self.children[1], Const):
-            return int(self.children[0].value) - int(self.children[1].value)
+            return Const(str(int(self.children[0].value) - int(self.children[1].value)))
         if self.children[0].is_zero(): return Mul(children=[Const(-1), self.children[1]])
         if self.children[1].is_zero(): return self.children[0]
         return self

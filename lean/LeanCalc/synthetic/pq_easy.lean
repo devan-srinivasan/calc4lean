@@ -6,10 +6,10 @@ import Mathlib.Tactic
 open Real
 open Set
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 13)
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75)
   (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 13 * q x > 26 * x := by
-  let f := (λ x ↦ p x + 13 * q x - 26 * x)
+  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
+  let f := (λ x ↦ p x + 3 * q x - 30 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
   have gt_zero: f 0 > 0 := by
@@ -29,8 +29,8 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
     have interior_increasing: ∀ x2 ∈ interior D, deriv f x2 ≥ 0 := by
       intros x2 hx2
       let hpX2 := hP x2
-      have reciprocal_deriv: deriv q x2 = 13 / deriv p x2 := by
-        have hf'_iff: deriv p x2 * deriv q x2 = 13 ↔ deriv q x2 = 13 / deriv p x2 := by
+      have reciprocal_deriv: deriv q x2 = 75 / deriv p x2 := by
+        have hf'_iff: deriv p x2 * deriv q x2 = 75 ↔ deriv q x2 = 75 / deriv p x2 := by
           field_simp [hpX2]
           ring
         exact hf'_iff.mp (hf' x2)
@@ -40,15 +40,15 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
       rw [reciprocal_deriv]
       rw [deriv_const_mul]
       rw [deriv_id'']
-      have sq_iff : 0 ≤ deriv p x2 * (deriv p x2 + 13 * (13 / deriv p x2) - 26) ↔
-        0 ≤ deriv p x2 + 13 * (13 / deriv p x2) - 26 := by
+      have sq_iff : 0 ≤ deriv p x2 * (deriv p x2 + 3 * (75 / deriv p x2) - 30) ↔
+        0 ≤ deriv p x2 + 3 * (75 / deriv p x2) - 30 := by
         apply mul_nonneg_iff_of_pos_left (hP x2)
-      have quad_eq : deriv p x2 * (deriv p x2 + 13 * (13 / deriv p x2) - 26)
-              = deriv p x2 ^ 2 + 13 * 13 - 26 * deriv p x2 := by
+      have quad_eq : deriv p x2 * (deriv p x2 + 3 * (75 / deriv p x2) - 30)
+              = deriv p x2 ^ 2 + 3 * 75 - 30 * deriv p x2 := by
         field_simp [hpX2]
         ring
-      have quad_sq : deriv p x2 ^ 2 + 13 * 13 - 26 * deriv p x2 = (deriv p x2 - 13) ^ 2 := by ring
-      have simplify: deriv p x2 + 13 * (13 / deriv p x2) - 26 * (fun x2 ↦ 1) x = deriv p x2 + 13 * (13 / deriv p x2) - 26 := by ring
+      have quad_sq : deriv p x2 ^ 2 + 3 * 75 - 30 * deriv p x2 = (deriv p x2 - 15) ^ 2 := by ring
+      have simplify: deriv p x2 + 3 * (75 / deriv p x2) - 30 * (fun x2 ↦ 1) x = deriv p x2 + 3 * (75 / deriv p x2) - 30 := by ring
       rw [quad_eq, quad_sq] at sq_iff
       rw [simplify]
       exact sq_iff.mp (by apply sq_nonneg)
@@ -67,6 +67,6 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
       apply monotonic (left_mem_Icc.mpr (by norm_num)) hD
       exact x_pos
     apply lt_of_lt_of_le gt_zero fx_gt_f_zero
-  have equiv: p x + 13 * q x > 26 * x ↔ p x + 13 * q x - 26 * x > 0 := by constructor <;> intro h <;> linarith
+  have equiv: p x + 3 * q x > 30 * x ↔ p x + 3 * q x - 30 * x > 0 := by constructor <;> intro h <;> linarith
   rw [equiv]
   exact f_pos

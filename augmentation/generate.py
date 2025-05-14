@@ -1,4 +1,4 @@
-import func, deriv, json
+import func, deriv, json, re, random
 
 """
 This is the file for creating synthetic problems. Not much to see here
@@ -42,7 +42,7 @@ funcs = [
     "(Real.sin (2 * x - 1))^2",
     "(x ^ 3) * (Real.log x / Real.log 5)",
     "(Real.log (5 * x + 2)) ^ 3",
-    "Real.tan (5 * x)",
+    # "Real.tan (5 * x)",
 ]
 
 funcs_derivs = [
@@ -51,9 +51,89 @@ funcs_derivs = [
     "4 * sin (2 * x - 1) * cos (2 * x - 1)",
     "3 * x ^ 2 * (Real.log x + 1) / Real.log 5",
     "15 * (Real.log (5 * x + 2)) ^ 2 / (5 * x + 2)",
-    "5 / cos (5 * x) ^ 2",
+    # "5 / cos (5 * x) ^ 2",
 ]
 
+def parse_functions(seed_file: str):
+    with open(seed_file, 'r') as f:
+        lines = f.readlines()
+    fs, dfs, theorems, proofs = [], [], [], []
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if 'example' not in line: 
+            i += 1
+            continue
+        f, df = re.search(r"deriv\s*\(λ x ↦ (.*?)\)\s*x\s*=\s*(.*?)\s*:=\s*by", line).groups()
+        t = line
+        j = i + 1
+        while j < len(lines) and len(lines[j].replace('\n', '').strip()) > 0:
+            j += 1
+        p = ''.join(lines[i+1:j])
+        fs.append(f)
+        dfs.append(df)
+        theorems.append(t)
+        proofs.append(p)
+        i = j
+    
+    return fs, dfs, theorems, proofs
+
+def create_seed(functions, derivatives, fn='seed_1', comp_only=False):
+    problems = []
+    if not comp_only:
+      c = 3
+      for i in range(len(functions) - 1):
+          for j in random.sample(range(i+1, len(functions)), min(c, len(functions) - i - 1)):
+              node1 = deriv.parse(functions[i]).children[0]
+              node2 = deriv.parse(functions[j]).children[0]
+              node1.derivative_repr = derivatives[i]
+              node2.derivative_repr = derivatives[j]
+
+              node_list = [
+                  func.Add(children=[node1, node2]),
+                  func.Sub(children=[node1, node2]),
+                  func.Mul(children=[node1, node2]),
+                  func.Div(children=[node1, node2], hyp_ne_zero='h_div_ne_zero'),
+              ]
+
+              for n in node_list:
+                  n = deriv.parse(n.clean(n.__repr__())).children[0]
+                  deriv_expr = n.clean(n.derivative())
+                  deriv_node = deriv.parse(deriv_expr).children[0].reduce()
+                  f, df = n.clean(n.__repr__()), n.clean(str(deriv_node))
+                  problems.append((
+                      f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {f}) x = {df} := by", # theorem
+                      deriv.get_deriv_proof(n), # proof
+                  ))
+      
+    for i in range(len(functions) - 1):
+        node1 = deriv.parse(functions[i]).children[0]
+        node_list = [
+            func.Sin(children=[node1]),
+            func.Cos(children=[node1]),
+            # func.Tan(children=[node1], hyp_ne_zero='h_tan_ne_zero'),
+            func.Exp(children=[node1]),
+            func.Log(children=[node1], hyp_ne_zero='h_div_ne_zero'),
+        ]
+
+        for n in node_list:
+            n = deriv.parse(n.clean(n.__repr__())).children[0]
+            problems.append((
+                f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {n.clean(n.__repr__())}) x = {n.clean(n.derivative())} := by", # theorem
+                deriv.get_deriv_proof(n) # proof
+            ))
+    
+    file_str = header
+    for theorem, proof in problems:
+        file_str += theorem + '\n' + proof + '\n\n'
+    
+    with open(f'lean/LeanCalc/synthetic/{fn}.lean', 'w') as f:
+        f.write(file_str)
+    
+    print(len(problems))
+
+# === not used
 def expand_generic_op(functions, derivatives):
     problems = []
     for i in range(len(functions) - 1):
@@ -74,13 +154,15 @@ def expand_generic_op(functions, derivatives):
                 n = deriv.parse(n.clean(n.__repr__())).children[0]
                 deriv_expr = n.clean(n.derivative())
                 deriv_node = deriv.parse(deriv_expr).children[0].reduce()
-                problems.append((
-                    f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {n.clean(n.__repr__())}) x = {n.clean(str(deriv_node))} := by", # theorem
-                    deriv.get_deriv_proof(n) # proof
-                ))
+                f, df = n.clean(n.__repr__()), n.clean(str(deriv_node))
+                problems.append({
+                    "theorem": f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {f}) x = {df} := by", # theorem
+                    "proof": deriv.get_deriv_proof(n), # proof
+                })
     
     file_str = header
-    for theorem, proof in problems:
+    for p in problems:
+        theorem, proof = p['theorem'], p['proof']
         file_str += theorem + '\n' + proof + '\n\n'
     
     with open('lean/LeanCalc/synthetic/generic_op.lean', 'w') as f:
@@ -115,13 +197,14 @@ def expand_generic_comp(functions, derivatives):
         f.write(file_str)
     
     print(len(problems))
+# ===
 
-def generate_monotonicity_simple(min_deg, max_deg, n_per_deg):
+def generate_monotonicity_simple(n):
     class Poly:
         def __init__(self, degree: int):
             from random import randint
             self.terms = [
-                (randint(2, 5), i) for i in range(degree+1)
+                (randint(2, 20), i) for i in range(degree+1) if i in random.sample(range(8), random.randint(2, 8))
             ]
 
             self.interval = (0, randint(1, 10))
@@ -135,19 +218,19 @@ def generate_monotonicity_simple(min_deg, max_deg, n_per_deg):
         def get_pos_proof(self):
             lns = []
             for i, (coeff, exp) in enumerate(self.terms):
-                if exp == 0:
-                    lns.append(f"    have h{i}: 0 < {coeff} := by norm_num")
-                elif exp == 1:
-                    lns.append(f"    have h{i}: 0 < {coeff} * x := by linarith [hx.1]")
+                # if exp == 0:
+                #     lns.append(f"    have h{i}: 0 < {coeff} := by norm_num")
+                if exp == 1:
+                    lns.append(f"    have h{i}: 0 < {coeff} := by linarith [hx.1]")
                 elif exp > 1:
                     lns.append(
 f"""
-    have h{i}: 0 < {coeff} * x ^ {exp} := by
-      have power_pos: 0 < x ^ {exp} := by
+    have h{i}: 0 < {coeff * exp} * x ^ {exp - 1} := by
+      have power_pos: 0 < x ^ {exp - 1} := by
         apply pow_pos (hx.1)
       linarith [power_pos]"""
                 )
-            lns.append(f"    linarith [{', '.join([f'h{i}' for i in range(len(self.terms))])}]")
+            lns.append(f"    linarith [{', '.join([f'h{i}' for i in range(1, len(self.terms))])}]")
             return '\n'.join(lns)
 
         def get_monotonicity_problem(self):
@@ -180,12 +263,11 @@ example: MonotoneOn (λ x ↦ {str(self)}) (Icc ({self.interval[0]}: ℝ) ({self
             return template
     
     file_str = monotone_header
-    for i in range(min_deg, max_deg):
-        for j in range(n_per_deg):
-            p = Poly(degree=i)
-            problem_str = p.get_monotonicity_problem()
-            problem_str = problem_str.replace('\t', '  ')   # no tabs
-            file_str += problem_str
+    for _ in range(n):
+        p = Poly(degree=7)
+        problem_str = p.get_monotonicity_problem()
+        problem_str = problem_str.replace('\t', '  ')   # no tabs
+        file_str += problem_str
     
     with open('lean/LeanCalc/synthetic/monotone_simple.lean', 'w') as f:
         f.write(file_str)
@@ -404,10 +486,103 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ {x_portion} + {y_portion} - {c}) (x
     
     with open('lean/LeanCalc/synthetic/multivar.lean', 'w') as f:
         f.write(file_str)
+
 # expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
 # expand_generic_comp(funcs, funcs_derivs) # -> 25
-# generate_monotonicity_simple(min_deg=2, max_deg=6, n_per_deg=5) # 4*5 -> 20
-# generate_monotonicity_shifted(n=20) # -> 20
-        
+
+def check_valid(lines: list[str]) -> bool:
+    import subprocess, json, os, time
+    # RUN FROM ROOT
+    if os.getcwd().endswith("calc4lean"): os.chdir("./lean")
+    os.makedirs("LeanCalc/synthetic/tmp", exist_ok=True)
+    file_path = f"LeanCalc/synthetic/tmp/tmp.lean"
+    # creates the temp lean file and writes to it
+    with open(file_path, "w") as lean_file:
+        lean_file.writelines(lines)
+    lean_file.close()
+    # gets proof state back from lean compiler
+    result = subprocess.run(
+        ["bash", "-c", f"echo '{{\"path\": \"{file_path}\", \"allTactics\": true}}' | lake exe repl"],
+        text=True,
+        capture_output=True,
+        check=True
+    )
+    # Delete Temp Lean file
+    # os.remove(file_path)
+    # load to dict
+    result_json = json.loads(result.stdout)
+    return result_json
+    # see if any messages are error message
+    # return any({msg['severity'] == 'error' for msg in result_json['messages']})
+
+def clean_mistakes(file: str):
+    import tqdm as tqdm
+
+    with open('lean/' + file, 'r') as f:
+        lines = f.readlines()
+    
+    print("Round 1 Cleaning")
+    r = check_valid(lines)
+    errors = list(filter(lambda msg: msg['severity'] == 'error', r['messages']))
+    original = len(errors)
+    for err in errors:
+      ln = err['pos']['line'] - 1
+      if 'Function.comp_def' in lines[ln - 1]:
+          lines[ln - 1] = re.sub(r'\d+', lambda m: str(int(m.group()) + 1), lines[ln - 1])
+    
+    print("Round 2 Cleaning")
+    r = check_valid(lines)
+    errors = list(filter(lambda msg: msg['severity'] == 'error', r['messages']))
+    if not errors:
+        with open(file, 'w') as f:
+            f.writelines(lines)
+    for err in errors:
+      ln = err['pos']['line'] - 1
+      if 'field_simp' in lines[ln - 1]:
+          lines[ln - 1] = '-- ' + lines[ln - 1]
+      elif 'field_simp' in lines[ln - 2]:
+          lines[ln - 2] = '-- ' + lines[ln - 2]
+    
+    print("Round 3 Cleaning")
+    r = check_valid(lines)
+    errors = list(filter(lambda msg: msg['severity'] == 'error', r['messages']))
+    if not errors:
+        with open(file, 'w') as f:
+            f.writelines(lines)
+    for err in errors:
+      ln = err['pos']['line'] - 1
+      if 'Function.comp_def' in lines[ln - 1]:
+          lines[ln - 1] = re.sub(r'\d+', lambda m: str(int(m.group()) + 1), lines[ln - 1])
+    
+    print("Checking Result")
+    r = check_valid(lines)
+    errors = list(map(lambda msg: msg['severity'] == 'error', r['messages']))
+    print("Done")
+    if len(errors) < original:
+        with open(file, 'w') as f:
+            f.writelines(lines)
+
+# create_seed(funcs, funcs_derivs)
+# clean_mistakes("LeanCalc/synthetic/seed_1.lean")
+
+# fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed_1.lean')
+# create_seed(fs, dfs, 'seed_1_1')
+# clean_mistakes("LeanCalc/synthetic/seed_1_1.lean")
+# nfs, ndfs, nts, nps = parse_functions('lean/LeanCalc/synthetic/seed_1_1.lean')
+# print(len(fs), len(nfs))
+            
+# with open("lean/LeanCalc/synthetic/seed_1_1.lean", 'r') as f:
+#     lines = f.readlines()
+# with open("lean/LeanCalc/synthetic/seed_1_1.lean", 'w') as f:
+#     f.writelines(
+#         [
+#             ln for ln in lines if '--' not in ln
+#         ]
+#     )
+
+generate_monotonicity_simple(n = 100) # 4*5 -> 20
+# generate_monotonicity_shifted(n = 100) # -> 20
+# generate_pq_easy(5)
+
+# TODO implement 
 # generate_tangent(1)
-generate_pq_easy(1)

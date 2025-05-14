@@ -69,7 +69,7 @@ def get_deriv_proof(root: Node, separate=False):
 
 # ========== BELOW IS FOR DEBUGGING ============= 
 
-# f = '(((Real.exp (x) * (x ^ 2 + (3:ℝ))) + (Real.exp (x) * ((2:ℝ) * (1:ℝ)))) * ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) - (Real.exp (x) * (x ^ 2 + (3:ℝ))) * ((((3:ℝ) * x ^ 2) * (Real.log (x) / Real.log ((5:ℝ)))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log ((5:ℝ))) / Real.log ((5:ℝ)) ^ 2)))) / ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ^ 2'
+# f = 'x ^ 3 + x ^ 2 + x'
 # node = parse(f).children[0]
 # print(str(node))
 # node = node.reduce()
