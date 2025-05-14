@@ -31,15 +31,18 @@ Translate the problem to Lean 4 (only the core declaration):
         return response
 
     def solve(self, prompt):
-        model_outputs = self.model.generate(
-            [prompt],
-            self.sampling_params,
-            use_tqdm=False,
-        )
+        try:
+            model_outputs = self.model.generate(
+                [prompt],
+                self.sampling_params,
+                use_tqdm=False,
+            )
 
-        generated_text = model_outputs[0].outputs[0].text
-        statement = self.extract(generated_text)
-        return statement
+            generated_text = model_outputs[0].outputs[0].text
+            statement = self.extract(generated_text)
+            return statement, True
+        except Exception as e:
+            return e, False
 
 
 
