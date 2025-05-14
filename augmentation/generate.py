@@ -345,8 +345,6 @@ def generate_pq_easy(n):
         k = randint(2, 20)
         c = 2*k
         b, d = factor(k**2)
-
-        mu = 3
         template = f"""
 example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = {d})
   (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
@@ -421,7 +419,8 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
             # problem_str = p.get_monotonicity_problem()
             # problem_str = problem_str.replace('\t', '  ')   # no tabs
             # file_str += problem_str
-    file_str += get_random_instance()
+    for _ in range(n):
+        file_str += get_random_instance() + '\n\n'
     with open('lean/LeanCalc/synthetic/pq_easy.lean', 'w') as f:
         f.write(file_str)
 
@@ -685,7 +684,7 @@ def clean_mistakes(file: str):
 
 # generate_monotonicity_simple(n = 100) # 4*5 -> 20
 # generate_monotonicity_shifted(n = 100) # -> 20
-# generate_pq_easy(5)
+generate_pq_easy(10)
 
 # TODO implement 
-generate_tangent(1)
+# generate_tangent(1)
