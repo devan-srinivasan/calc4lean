@@ -1,10 +1,12 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+from exp import ProblemSolver
 
 #use prompt example from huggingface? Or get few shot examples to use in the prompts
 
-class TL_Autoformalizer():
-    def __init__(self):
+class TL_Autoformalizer(ProblemSolver):
+    def __init__(self, name: str = ""):
+        self.name = name
         self.model = AutoModelForCausalLM.from_pretrained("RickyDeSkywalker/TheoremLlama")
         self.model = self.model.to(torch.device("cuda"))
         self.tokenizer = AutoTokenizer.from_pretrained("RickyDeSkywalker/TheoremLlama")
@@ -12,7 +14,7 @@ class TL_Autoformalizer():
                self.tokenizer.convert_tokens_to_ids("<|eot_id|>"), 
                self.tokenizer.convert_tokens_to_ids("<|reserved_special_token_26|>")]
 
-    def formalize(self, prompt):
+    def solve_hint(self, prompt):
         tokenized_prompt = self.tokenizer(prompt, return_tensors="pt")
         results = self.model.generate(tokenized_prompt["input_ids"].to(torch.device("cuda")), 
                          max_new_tokens=1024,
@@ -22,3 +24,6 @@ class TL_Autoformalizer():
                          top_p=0.9)
         result_str = self.tokenizer.decode(results[0])
         return result_str[len(prompt):]
+
+    def solve_nohint():
+        return

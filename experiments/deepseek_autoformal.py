@@ -2,10 +2,11 @@ import re
 import torch
 from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
+from exp import ProblemSolver
 
-
-class DS_Autoformalizer():
-    def __init__(self):
+class DS_Autoformalizer(ProblemSolver):
+    def __init__(self, name: str = ""):
+        self.name = name
         model_name = "deepseek-ai/DeepSeek-Prover-V1.5-RL"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = LLM(model=model_name, max_num_batched_tokens=8192, seed=1, trust_remote_code=True)
@@ -29,7 +30,7 @@ Translate the problem to Lean 4 (only the core declaration):
         response = re.sub(r"\s*['\"]\s*$", "", text)
         return response
 
-    def formalize(self, informal_proof):
+    def solve_hint(self, informal_proof):
         prompt = self.format_prompt(informal_proof)
         model_outputs = self.model.generate(
             [prompt],
@@ -40,6 +41,9 @@ Translate the problem to Lean 4 (only the core declaration):
         generated_text = model_outputs[0].outputs[0].text
         statement = self.extract(generated_text)
         return statement
+
+    def solve_nohint():
+        return
 
 # response is in the format: {$formal_statement}
 # “‘
