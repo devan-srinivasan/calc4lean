@@ -1,4 +1,5 @@
 import tqdm, json
+from langchain.prompts import PromptTemplate
 
 def validate_proof(imports: str, problem: str, proof_lines: str) -> bool:
     import subprocess, json, os, time
@@ -27,12 +28,13 @@ def validate_proof(imports: str, problem: str, proof_lines: str) -> bool:
     # return any({msg['severity'] == 'error' for msg in result_json['messages']})
 
 class Problem:
-    def __init__(self, problem: str, proof: List[str], name: str = ""):
+    def __init__(self, problem: str, proof: List[str], name: str = "", informal_hints: str = ""):
         self.name = name
         self.problem = problem
         self.proof = proof
         self.complete = False
         self.out = []
+        self.informal_hints = informal_hints
 
 def parse_lean_file(file_path: str) -> Tuple[str, List[Problem]]:
     """
@@ -143,15 +145,37 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
     print(f"Experiment completed. Results saved to {outfile}")
 
 class ProblemSolver:
-    def __init__(self, name: str = ""):
+    def __init__(self, name: str = "", shots: int = 2):
         self.name = name
+        examples = ["Example" + str(i) for i in shots]
+        self.input_variables = {
+            'fl': examples + ['theorem'],
+            'nl': examples + ['informalProof', 'theorem']
+        }
+        self.shots = shots
 
     #TODO
-    def get_prompt(self, prompt_type: str):
+    def get_prompt(self, prompt_type: str, problem:Problem):
         dir = "prompts/" + prompt_type + "_prompts.json"
         with open('your_file.json', 'r') as file:
             data = json.load(file)
-        return data[self.name]
+        template = data[self.name]
+        prompt_template = PromptTemplate(
+            input_variables = self.input_variables[prompt_type],
+            template = template
+        )
+        # get examples
+        example_params = {}
+        for shot in self.shots:
+            example_name = "Example" + str(shot)
+            example = data[example_name]
+            example_params[example_name] = example
+
+        if problem_type == 'nl':
+            prompt = prompt_template.format(**example_params, informal_proof = problem.informal_hints, theorem = problem.problem)
+        else:
+            prompt = prompt_template.format(**example_params, theorem = problem.problem)
+        return prompt
 
     def solve_nohint(self, imports: List[str], problem: Problem) -> Problem:
         raise NotImplementedError

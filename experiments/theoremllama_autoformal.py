@@ -26,6 +26,6 @@ class TL_Autoformalizer(ProblemSolver):
         return result_str[len(prompt):]
 
     def solve_nohint(imports: List[str], problem: Problem) -> Problem:
-        prompt_template = self.get_prompt("fl")
+        prompt = self.get_prompt("fl",problem)
         out = self.solve(prompt)
         

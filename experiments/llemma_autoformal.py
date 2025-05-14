@@ -33,6 +33,5 @@ class Llemma_Autoformalizer(ProblemSolver):
         return
         
     def solve_nohint(imports: List[str], problem: Problem) -> Problem:
-        prompt_template = self.get_prompt("fl")
-        #add the problem into the prompt
+        prompt = self.get_prompt("fl",problem)
         out = self.solve(prompt)

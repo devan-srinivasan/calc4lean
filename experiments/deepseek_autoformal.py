@@ -42,8 +42,7 @@ Translate the problem to Lean 4 (only the core declaration):
         return statement
 
     def solve_nohint(imports: List[str], problem: Problem) -> Problem:
-        prompt_template = self.get_prompt("fl")
-        #TODO: format prompt
+        prompt = self.get_prompt("fl",problem)
         out = self.solve(prompt)
 
 # response is in the format: {$formal_statement}
