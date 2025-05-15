@@ -525,6 +525,9 @@ def generate_random_tangent_instance():
         def __repr__(self):
             def format_x(c,e):
 
+                if c == 0:
+                    return ""
+
                 op = "+ "
                 if c < 0:
                     op = "- "
@@ -563,22 +566,27 @@ def generate_random_tangent_instance():
             return self.differentiability_proof
 
     # DONOT MAKE THE FIRST COEFFICIENT NEGATIVE
-    d1, d2 = random.randint(3,8), random.randint(3,8)
+    d1, d2 = random.randint(3,5), random.randint(3,5)
     # @binduchange (2,20) to (-20,20) and you'll hit the error
-    x_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d1+1)]
-    y_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d2+1)]
+    x_expression_as_a_list = [(random.randint(-5,5), i) for i in range(1, d1+1)]
+    y_expression_as_a_list = [(random.randint(-5,5), i) for i in range(1, d2+1)]
 
     random_mask1 = random.sample(range(len(x_expression_as_a_list)-1), random.randint(2, len(x_expression_as_a_list) - 1))
     random_mask2 = random.sample(range(len(y_expression_as_a_list)-1), random.randint(2, len(y_expression_as_a_list) - 1))
 
     x_expression_as_a_list = [term for i,term in enumerate(x_expression_as_a_list) if i in random_mask1]
+    x_expression_as_a_list = [(1,e) if c==0 else (c,e) for c,e in x_expression_as_a_list]
     y_expression_as_a_list = [term for i,term in enumerate(y_expression_as_a_list) if i in random_mask2]
+    y_expression_as_a_list = [(1,e) if c==0 else (c,e) for c,e in y_expression_as_a_list]
 
     # leading coeff is positive :D
     if x_expression_as_a_list[-1][0] < 0: x_expression_as_a_list[-1] = (x_expression_as_a_list[-1][0]*-1, x_expression_as_a_list[-1][1])
     if y_expression_as_a_list[-1][0] < 0: y_expression_as_a_list[-1] = (y_expression_as_a_list[-1][0]*-1, y_expression_as_a_list[-1][1])
 
-    # Adding (1,1) at the end is a neat little trick. Since it gives me the final expression too.
+    x_expression_as_a_list = x_expression_as_a_list[::-1]
+    y_expression_as_a_list = y_expression_as_a_list[::-1]
+
+    # Adding (1,0) at the end is a neat little trick. Since it gives me the final expression too.
     # (Almost gives me the final expression, since I still have to make some changes)
     x_f_hack = Poly(x_expression_as_a_list + [(1,0)])
     y_f_hack = Poly(y_expression_as_a_list + [(1,0)])
@@ -589,7 +597,7 @@ def generate_random_tangent_instance():
     dx_f = PolyDeriv([e for e in x_f_hack.terms])
     dy_f = PolyDeriv([e for e in y_f_hack.terms])
 
-    a, b = random.randint(2,20), random.randint(2,20)
+    a, b = random.randint(2,6), random.randint(2,6)
 
     x_subbed_node = deriv.parse(str(x_f_hack).replace('p.1', f"(x - {a})")).children[0]
     y_subbed_node = deriv.parse(str(y_f_hack).replace('p.2', f"(x - {b})")).children[0]
@@ -736,6 +744,9 @@ def generate_extrema_instance():
         def __repr__(self):
             def format_x(c,e):
 
+                if c == 0:
+                    return ""
+
                 op = "+ "
                 if c < 0:
                     op = "- "
@@ -767,18 +778,28 @@ def generate_extrema_instance():
     # I need three things
     # One: the array denoting the polynomial
     # We will use the format @Devan has been using.
-    d = random.randint(2,7)
-    polynomial = [(random.randint(2,20), i) for i in range(1, d+1)]
+    d = random.randint(3,7)
+    polynomial = [(random.randint(-5,5), i) for i in range(1, d+1)]
+    p_copy = polynomial[::]
+    polynomial = [(1,e) if c==0 else (c,e) for c,e in polynomial]
 
     random_mask = random.sample(range(len(polynomial)-1), random.randint(2, len(polynomial) - 1))
 
     polynomial = [term for i,term in enumerate(polynomial) if i in random_mask]
+
+    # leading coeff is positive :D
+    if polynomial[-1][0] < 0: polynomial[-1] = (polynomial[-1][0]*-1, polynomial[-1][1])
+    polynomial = polynomial[::-1]
+    max_degree = max([e for _,e in polynomial])
     
     # Second: We want to generate a Maxima, Minima or SaddlePoint question
     QU_TYPES = ["Maxima", "Minima", "SaddlePoint"]
-    qu_type = QU_TYPES[0]
+    if max_degree > 2:
+        qu_type = random.choice(QU_TYPES)
+    else:
+        qu_type = QU_TYPES[1]
     #Third the point at which we are evaluating
-    point = 2
+    point = random.randint(-6,6)
 
     fx = Poly(polynomial)
     deriv_fx = PolyDeriv([e for e in fx.terms])
@@ -879,8 +900,12 @@ example (f:ℝ→ℝ) : (f = fun x:ℝ => {str(fx)}) → (deriv f ({point}:ℝ) 
   {final_expression}
     """
 
+    return template
+
+def generate_extrema_problems(n):
     file_str = extrema_headers
-    file_str += template
+    for i in range(n):
+      file_str += generate_extrema_instance()
     
     with open('lean/LeanCalc/synthetic/extrema_problems.lean', 'w') as f:
         f.write(file_str)
@@ -1017,7 +1042,8 @@ def shitty_cleanup_script(file: str = 'lean/LeanCalc/synthetic/seed_2.lean'):
 
 # TODO implement 
 # generate_random_tangent_instance()
-# generate_tangent_problems(150)
+generate_tangent_problems(170)
+generate_extrema_problems(170)
             
 # fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed2_good.lean')
 # print(len(fs))         
