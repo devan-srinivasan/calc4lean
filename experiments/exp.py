@@ -101,13 +101,13 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
     imports, problems = parse_lean_file(problem_file)
     
     # Ensure the results directory exists
-    os.makedirs(f"results/{solver.name}", exist_ok=True)
+    os.makedirs(f"results/fl/{solver.name}", exist_ok=True)
     
     # Define the output file
     filename = re.search(r'([^/]+)\.[^/.]+$', problem_file)
     filename = filename.group(1)
     #print(filename)
-    outfile = f"results/{solver.name}/{filename}.json"
+    outfile = f"results/fl/{solver.name}/{filename}.json"
     solved: Set[str] = set()  # Set to keep track of already solved problems
 
     # Load existing results if the outfile already exists
@@ -125,8 +125,15 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
 
     # Go through each problem and solve if not already solved
     pbar = tqdm.tqdm(initial=len(solved), total=len(problems), unit='problem')
-    for problem in problems:
+    examples = []
+    for i, problem in enumerate(problems):
         print(problem.name)
+        # use the first 4 problems from the file as examples
+        if i < 4:
+            examples.append(problem)
+            continue
+        if i == 4:
+            solver.examples = examples
         if problem.name not in solved:
             result = solver.solve_nohint(imports, problem)  # Solve the problem
             result_entry = {
@@ -145,16 +152,16 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
     print(f"Experiment completed. Results saved to {outfile}")
 
 class ProblemSolver:
-    def __init__(self, name: str = "", shots: int = 2):
+    def __init__(self, name: str = "", shots: int = 4, examples: list = []):
         self.name = name
-        examples = ["Example" + str(i) for i in shots]
+        self.examples = examples
+        example_names = ["Example" + str(i) for i in shots]
         self.input_variables = {
-            'fl': examples + ['theorem'],
-            'nl': examples + ['informalProof', 'theorem']
+            'fl': example_names + ['theorem'],
+            'nl': example_names + ['informalProof', 'theorem']
         }
         self.shots = shots
 
-    #TODO
     def get_prompt(self, prompt_type: str, problem:Problem):
         dir = "prompts/" + prompt_type + "_prompts.json"
         with open('your_file.json', 'r') as file:
@@ -168,7 +175,7 @@ class ProblemSolver:
         example_params = {}
         for shot in self.shots:
             example_name = "Example" + str(shot)
-            example = data[example_name]
+            example = self.examples[shot]
             example_params[example_name] = example
 
         if problem_type == 'nl':
