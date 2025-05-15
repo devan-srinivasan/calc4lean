@@ -99,7 +99,77 @@ def parse_functions(seed_file: str):
     
     return fs, dfs, theorems, proofs
 
-def create_seed(functions, derivatives, fn='seed_1', comp_only=False):
+def expand_seed(original_functions, functions):
+    
+    def deduplicate_terms(theorem, proof):
+        # ChatGPT
+        # Step 1: Extract all (hname: desc) pairs
+        pattern = r"\((h\w+): ([^)]+)\)"
+        matches = re.findall(pattern, theorem)
+
+        hm = {}
+
+        for hname, desc in matches:
+            if desc not in hm:
+                # Duplicate desc: map the new hname to the original one
+                hm[desc] = [hname]
+            else:
+                hm[desc].append(hname)
+
+        for desc in hm.keys():
+            for dup in hm[desc][1:]:
+                theorem = theorem.replace(f"({dup}: {desc})", "")
+                proof = proof.replace(dup, hm[desc][0])
+        return theorem, proof
+
+    problems = []
+    for f in functions:
+        node1 = deriv.parse(f).children[0]
+        
+        compositions = [
+            func.Sin(children=[node1]),
+            func.Cos(children=[node1]),
+            func.Tan(children=[node1], hyp_ne_zero='h_tan_ne_zero'),
+            func.Exp(children=[node1]),
+            func.Log(children=[node1], hyp_ne_zero='h_div_ne_zero'),
+        ]
+
+        # ... tweak inside (?)
+
+        candidate_op_functions = [
+            f for f in original_functions if f not in str(node1)
+        ]
+
+        for f2 in candidate_op_functions:
+            node2 = deriv.parse(f2).children[0]
+            compositions.extend([
+                func.Add(children=[node1, node2]),
+                # func.Sub(children=[node1, node2]),
+                func.Mul(children=[node1, node2]),
+                # func.Div(children=[node1, node2], hyp_ne_zero='h_div_ne_zero'),
+            ])
+
+        for n in compositions:
+            n = deriv.parse(n.clean(n.__repr__())).children[0]
+            deriv_expr = n.clean(n.derivative())
+            deriv_node = deriv.parse(deriv_expr).children[0].reduce()
+            f, df = n.clean(n.__repr__()), n.clean(str(deriv_node))
+            theorem = f"example (x: ℝ) {n.hypotheses_str()}: deriv (λ x ↦ {f}) x = {df} := by" # theorem
+            proof = deriv.get_deriv_proof(n)
+            theorem, proof = deduplicate_terms(theorem, proof) # ... clean up hypotheses ...
+            problems.append((theorem, proof))
+
+    file_str = header
+    for theorem, proof in problems:
+        file_str += theorem + '\n' + proof + '\n\n'
+    
+    with open(f'lean/LeanCalc/synthetic/seed_2.lean', 'w') as f:
+        f.write(file_str)
+    
+    print(len(problems))    
+        
+
+def create_seed(functions, derivatives, fn='seed_2', comp_only=False):
     problems = []
     if not comp_only:
       c = 3
@@ -526,9 +596,6 @@ def generate_tangent(n):
     indent = lambda s: '\n'.join([f"    {l}" for l in s.split('\n')])
     x_proof, x_diff, y_proof, y_diff = list(map(indent, [x_proof, x_diff, y_proof, y_diff]))
 
-    dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(a)), func.Expr(children=[deriv_x_subbed_node])]).reduce()
-    dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(b)), func.Expr(children=[deriv_y_subbed_node])]).reduce()
-
     def convert_to_multi_var_diff(diff_string, order):
         replace_dict = {
             "differentiableAt_pow" : f"differentiableAt_{order}.pow",
@@ -665,9 +732,6 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} +
     
     with open('lean/LeanCalc/synthetic/multivar.lean', 'w') as f:
         f.write(file_str)
-
-# expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
-# expand_generic_comp(funcs, funcs_derivs) # -> 25
 
 def generate_extrema_problems():
 
@@ -824,8 +888,6 @@ example (f:ℝ→ℝ) : (f = fun x:ℝ => {str(fx)}) → (deriv f ({point}:ℝ) 
     with open('lean/LeanCalc/synthetic/extrema_problems.lean', 'w') as f:
         f.write(file_str)
 
-
-
 def check_valid(lines: list[str]) -> bool:
     import subprocess, json, os, time
     # RUN FROM ROOT
@@ -898,6 +960,42 @@ def clean_mistakes(file: str):
         with open(file, 'w') as f:
             f.writelines(lines)
 
+def shitty_cleanup_script(file: str = 'lean/LeanCalc/synthetic/seed_2.lean'):
+    fs, _, ts, ps = parse_functions(file)
+    ref_fs, _, _, ref_ps = parse_functions('lean/LeanCalc/synthetic/seed_1_1.lean')
+    hm = {}
+    lookback=5
+    for p in ref_ps:
+        proof = p.split('\n')
+        i, j = 0, 0
+        while i < len(proof) and j < len(proof):
+            if 'Function.comp_def' in proof[j]:
+                block = '\n'.join(proof[max(j-lookback, i):j])
+                if block not in hm:
+                    hm[block] = proof[j]
+                i = j
+            j += 1
+    
+    for k in range(len(ps)):
+        p = ps[k]
+        proof = p.split('\n')
+        i, j = 0, 0
+        while i < len(proof) and j < len(proof):
+            if 'Function.comp_def' in proof[j]:
+                block = '\n'.join(proof[max(j-lookback, i):j])
+                if block in hm:
+                    proof[j] = hm[block]  # replace
+                i = j
+            j += 1
+        ps[k] = '\n'.join(proof)
+
+    file_str = header
+    for theorem, proof in zip(ts, ps):
+        file_str += theorem + proof + '\n\n'
+    
+    with open(f'lean/LeanCalc/synthetic/seed_2.lean', 'w') as f:
+        f.write(file_str)
+
 # create_seed(funcs, funcs_derivs)
 # clean_mistakes("LeanCalc/synthetic/seed_1.lean")
 
@@ -921,5 +1019,10 @@ def clean_mistakes(file: str):
 #generate_pq_easy(10)
 
 # TODO implement 
-generate_tangent(1)
-generate_extrema_problems()
+# generate_tangent(1)
+# generate_extrema_problems()
+            
+# fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed_1.lean')         
+# expand_seed(funcs, fs)
+  
+# shitty_cleanup_script()
