@@ -514,7 +514,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
     with open('lean/LeanCalc/synthetic/pq_easy.lean', 'w') as f:
         f.write(file_str)
 
-def generate_tangent(n):
+def generate_random_tangent_instance():
     
     class Poly:
         def __init__(self, terms = []):
@@ -563,8 +563,20 @@ def generate_tangent(n):
             return self.differentiability_proof
 
     # DONOT MAKE THE FIRST COEFFICIENT NEGATIVE
-    x_expression_as_a_list = [(1, 3), (-5, 2), (2, 1)]
-    y_expression_as_a_list = [(1, 5), (-4, 3)]
+    d1, d2 = random.randint(3,8), random.randint(3,8)
+    x_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d1+1)]
+    y_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d2+1)]
+
+    random_mask1 = random.sample(range(len(x_expression_as_a_list)-1), random.randint(2, len(x_expression_as_a_list) - 1))
+    random_mask2 = random.sample(range(len(y_expression_as_a_list)-1), random.randint(2, len(y_expression_as_a_list) - 1))
+
+    x_expression_as_a_list = [term for i,term in enumerate(x_expression_as_a_list) if i in random_mask1]
+    y_expression_as_a_list = [term for i,term in enumerate(y_expression_as_a_list) if i in random_mask2]
+
+    # leading coeff is positive :D
+    if x_expression_as_a_list[-1][0] < 0: x_expression_as_a_list[-1] = (x_expression_as_a_list[-1][0]*-1, x_expression_as_a_list[-1][1])
+    if y_expression_as_a_list[-1][0] < 0: y_expression_as_a_list[-1] = (y_expression_as_a_list[-1][0]*-1, y_expression_as_a_list[-1][1])
+
     # Adding (1,1) at the end is a neat little trick. Since it gives me the final expression too.
     # (Almost gives me the final expression, since I still have to make some changes)
     x_f_hack = Poly(x_expression_as_a_list + [(1,0)])
@@ -576,7 +588,7 @@ def generate_tangent(n):
     dx_f = PolyDeriv([e for e in x_f_hack.terms])
     dy_f = PolyDeriv([e for e in y_f_hack.terms])
 
-    a, b = 3, 4
+    a, b = random.randint(2,20), random.randint(2,20)
 
     x_subbed_node = deriv.parse(str(x_f_hack).replace('p.1', f"(x - {a})")).children[0]
     y_subbed_node = deriv.parse(str(y_f_hack).replace('p.2', f"(x - {b})")).children[0]
@@ -632,12 +644,9 @@ def generate_tangent(n):
     template = f"""
 example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * ({str(dx_f).replace('x', f'(x-{a})')}) + {b} * ({str(dy_f).replace('x', f'(y-{b})')}) = 0) := by
   intro h
-  -- fderiv_sub or fderiv_add based on we subtract or add the constant
   rw [fderiv_sub] at h
 
-  -- This is to split the expression into p.1 and p.2
   have h_split 
-  -- We assume they are differentiable (anyways we will prove that later)
   (hp1: DifferentiableAt ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}))
   (hp2: DifferentiableAt ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})): 
     fderiv ℝ (fun p : ℝ × ℝ => 
@@ -656,44 +665,34 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} +
   rw [ContinuousLinearMap.sub_apply] at h
   rw [ContinuousLinearMap.add_apply] at h
 
-  -- Now we are back on track
   have h1 : (fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b})) ({a}, {b}) = {a} * ({str(dx_f).replace('x', f'(x-{a})')})  := by
     have hp1comp : (fun p : ℝ × ℝ => {str(x_f).replace('x', 'p.1')}) = (fun x => {str(x_f)}) ∘ (fun p => p.1) := rfl
     rw [hp1comp]
     rw [fderiv_comp]
     rw [fderiv_fst]
     rw [←deriv_fderiv]
-    -- expandable part 1 --
 {x_proof}
-    -- end --
     rw [ContinuousLinearMap.comp_apply]
     rw [ContinuousLinearMap.smulRight_apply]
     rw [ContinuousLinearMap.coe_fst']
     field_simp
     ring
-    -- expandable part 2 --
 {x_diff}
-    -- ends --
     exact differentiableAt_fst
 
-  -- Let's solve part 2
   have h2 : (fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})) ({a}, {b}) = {b} * ({str(dy_f).replace('x', f'(y-{b})')})  := by
     have hp2comp : (fun p : ℝ × ℝ => {str(y_f).replace('x', 'p.2')}) = (fun x => {str(y_f)}) ∘ (fun p => p.2) := rfl
     rw [hp2comp]
     rw [fderiv_comp]
     rw [fderiv_snd]
     rw [←deriv_fderiv]
-    -- expandable part 1 --
 {y_proof}
-    -- end --
     rw [ContinuousLinearMap.comp_apply]
     rw [ContinuousLinearMap.smulRight_apply]
     rw [ContinuousLinearMap.coe_snd']
     field_simp
     ring
-    -- expandable part 2 --
 {y_diff}
-    -- ends --
     exact differentiableAt_snd
 
   have h3 : fderiv ℝ (fun p : ℝ × ℝ => ({c}:ℝ)) (x - {a}, y - {b}) ({a}, {b}) = 0 := by
@@ -706,34 +705,25 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} +
   ring_nf at h
   linarith
 
-  -- Now this part is tricky, but let me help you out with a hint --
-  -- This is different from the normal differentiableAt. Here we write the entire expression in one go
-  -- Notice the exact statement matches (+ (+ (x^3) (5x^2))) (2x))
-  -- Since you have the tree you can generate this. 
-
   {multivar_diff_p1}
-  -- Let's do the same for p.2
   {multivar_diff_p2}
   
-  -- Now we add the p.1 expression and p.2 expression
-  -- This can be done, but don't tree p.1 and p.2 as separate expressions,
-  -- It's a nested DifferentiableAt.add that adds one term in order
-  -- I.e. given p.1 ^ 3 + 5*p.1^2 + 2*p.1 + p.2 ^ 5 + p.2^3
-  -- We are basically doing (((p.1 ^ 3 + 5*p.1^2) + 2*p.1) + p.2 ^ 5) + p.2^3
   {multivar_diff_f_func}
 
-  -- Finally for the const part
   exact differentiableAt_const _
-  -- And we are done :)
 """
     
+    return template
+
+def generate_tangent_problems(n):
     file_str = tangent_header
-    file_str += template
+    for i in range(n):
+      file_str += generate_random_tangent_instance()
     
-    with open('lean/LeanCalc/synthetic/multivar.lean', 'w') as f:
+    with open('lean/LeanCalc/synthetic/tangents.lean', 'w') as f:
         f.write(file_str)
 
-def generate_extrema_problems():
+def generate_extrema_instance():
 
     # Copying what I had in generate tangent
     class Poly:
@@ -776,7 +766,13 @@ def generate_extrema_problems():
     # I need three things
     # One: the array denoting the polynomial
     # We will use the format @Devan has been using.
-    polynomial = [(1,3), (2,2), (-1,1)] # Can be randomly generated
+    d = random.randint(2,7)
+    polynomial = [(random.randint(2,20), i) for i in range(1, d+1)]
+
+    random_mask = random.sample(range(len(polynomial)-1), random.randint(2, len(polynomial) - 1))
+
+    polynomial = [term for i,term in enumerate(polynomial) if i in random_mask]
+    
     # Second: We want to generate a Maxima, Minima or SaddlePoint question
     QU_TYPES = ["Maxima", "Minima", "SaddlePoint"]
     qu_type = QU_TYPES[0]
@@ -1019,8 +1015,8 @@ def shitty_cleanup_script(file: str = 'lean/LeanCalc/synthetic/seed_2.lean'):
 #generate_pq_easy(10)
 
 # TODO implement 
-# generate_tangent(1)
-# generate_extrema_problems()
+# generate_random_tangent_instance()
+generate_tangent_problems(150)
             
 # fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed_1.lean')         
 # expand_seed(funcs, fs)
