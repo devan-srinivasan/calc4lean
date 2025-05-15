@@ -564,6 +564,7 @@ def generate_random_tangent_instance():
 
     # DONOT MAKE THE FIRST COEFFICIENT NEGATIVE
     d1, d2 = random.randint(3,8), random.randint(3,8)
+    # change (2,20) to (-20,20) and you'll hit the error
     x_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d1+1)]
     y_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d2+1)]
 
