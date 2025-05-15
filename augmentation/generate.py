@@ -36,6 +36,26 @@ open Real
 open Set
 """
 
+tangent_header = """
+import Mathlib.Analysis.Calculus.Deriv.Basic
+import Mathlib.Analysis.Calculus.FDeriv.Add
+import Mathlib.Analysis.Calculus.FDeriv.Mul
+import Mathlib.Analysis.Calculus.FDeriv.Basic
+import Mathlib.Tactic
+
+open Real
+open Set
+"""
+
+extrema_headers = """
+import Mathlib.Analysis.Calculus.Deriv.Add
+import Mathlib.Analysis.Calculus.Deriv.Mul
+import Mathlib.Analysis.Calculus.Deriv.Pow
+import Mathlib.Analysis.Calculus.Deriv.Comp
+
+open Real
+"""
+
 funcs = [
     "(Real.exp x) * (x^2 + 3)",
     "Real.cos (Real.log x)",
@@ -434,6 +454,14 @@ def generate_tangent(n):
                 pass
         def __repr__(self):
             def format_x(c,e):
+
+                op = "+ "
+                if c < 0:
+                    op = "- "
+                c = abs(c)
+                if e == 0:
+                    return op + str(c)
+
                 if c > 1:
                     coeff=f"{c}" + (' * ' if e > 0 else '')
                 else:
@@ -444,9 +472,9 @@ def generate_tangent(n):
                     p = f"x ^ {e}"
                 else:
                     p = ""
-                return coeff + p
+                return op + coeff + p
             
-            return ' + '.join([format_x(c,e) for c, e in self.terms])
+            return ' '.join([format_x(c,e) for c, e in self.terms])[1:]
     
     class PolyDeriv(Poly):
         def __init__(self, terms):
@@ -455,21 +483,45 @@ def generate_tangent(n):
                 self.terms[i] = (c*e, e-1)
             self.terms = [(c,e) for c,e in self.terms if e >= 0]
 
-    x_f = Poly([(1, 3), (5, 2), (2, 1)])
-    y_f = Poly([(1, 5), (1, 3)])
-    dx_f = PolyDeriv([e for e in x_f.terms])
-    dy_f = PolyDeriv([e for e in y_f.terms])
+    class MultiVarNodeHack(func.Node):
+        
+        def __init__(self, differentiability):
+            super().__init__()
+            self.differentiability_proof = differentiability
+
+        def differentiability(self):
+            return self.differentiability_proof
+
+    # DONOT MAKE THE FIRST COEFFICIENT NEGATIVE
+    x_expression_as_a_list = [(1, 3), (-5, 2), (2, 1)]
+    y_expression_as_a_list = [(1, 5), (-4, 3)]
+    # Adding (1,1) at the end is a neat little trick. Since it gives me the final expression too.
+    # (Almost gives me the final expression, since I still have to make some changes)
+    x_f_hack = Poly(x_expression_as_a_list + [(1,0)])
+    y_f_hack = Poly(y_expression_as_a_list + [(1,0)])
+    # For other use I will use normal x_f and y_f
+    x_f = Poly(x_expression_as_a_list)
+    y_f = Poly(y_expression_as_a_list)
+
+    dx_f = PolyDeriv([e for e in x_f_hack.terms])
+    dy_f = PolyDeriv([e for e in y_f_hack.terms])
 
     a, b = 3, 4
 
-    x_subbed_node = deriv.parse(str(x_f).replace('p.1', f"(x - {a})")).children[0]
-    y_subbed_node = deriv.parse(str(y_f).replace('p.2', f"(x - {b})")).children[0]
+    x_subbed_node = deriv.parse(str(x_f_hack).replace('p.1', f"(x - {a})")).children[0]
+    y_subbed_node = deriv.parse(str(y_f_hack).replace('p.2', f"(x - {b})")).children[0]
+    y_subbed_node_original = deriv.parse(str(y_f).replace('p.2', f"(x - {b})")).children[0]
 
     deriv_x_subbed_node = deriv.parse(x_subbed_node.derivative()).children[0].reduce()
     deriv_y_subbed_node = deriv.parse(y_subbed_node.derivative()).children[0].reduce()
 
-    x_proof, _, _, x_diff = deriv.get_deriv_proof(deriv_x_subbed_node, separate=True)
-    y_proof, _, _, y_diff = deriv.get_deriv_proof(deriv_y_subbed_node, separate=True)
+    x_proof, _, _, x_diff = deriv.get_deriv_proof(x_subbed_node, separate=True)
+    y_proof, _, _, y_diff = deriv.get_deriv_proof(y_subbed_node, separate=True)
+
+    x_proof = x_proof.strip().partition("\n")[-1].rpartition("\n")[0]+"\n"
+    x_diff = x_diff.strip().rpartition("\n")[0]+"\n"
+    y_proof = y_proof.strip().partition("\n")[-1].rpartition("\n")[0]+"\n"
+    y_diff = y_diff.strip().rpartition("\n")[0]+"\n"
     
     indent = lambda s: '\n'.join([f"    {l}" for l in s.split('\n')])
     x_proof, x_diff, y_proof, y_diff = list(map(indent, [x_proof, x_diff, y_proof, y_diff]))
@@ -477,9 +529,41 @@ def generate_tangent(n):
     dir_deriv_x_subbed_node = func.Mul(children=[func.Const(str(a)), func.Expr(children=[deriv_x_subbed_node])]).reduce()
     dir_deriv_y_subbed_node = func.Mul(children=[func.Const(str(b)), func.Expr(children=[deriv_y_subbed_node])]).reduce()
 
-    c = 25
+    def convert_to_multi_var_diff(diff_string, order):
+        replace_dict = {
+            "differentiableAt_pow" : f"differentiableAt_{order}.pow",
+            "differentiableAt_id" : f"differentiableAt_{order}"
+        }
+        diff_string = diff_string.strip().rpartition("\n")[-1]
+        for key in replace_dict:
+            diff_string = diff_string.replace(key, replace_dict[key])
+        return diff_string
+
+    multivar_diff_p1 = convert_to_multi_var_diff(x_diff, "fst").strip()
+    multivar_diff_p2 = convert_to_multi_var_diff(y_diff, "snd").strip()
+
+    m_temp = MultiVarNodeHack(multivar_diff_p1[6:])
+
+    def add_y_nodes_recursively(recurr_node, y_original: func.Node):
+        if isinstance(y_original, func.Add):
+            recurr_node = add_y_nodes_recursively(recurr_node, y_original.children[0])
+            recurr_node = func.Add([recurr_node, y_original.children[1]])
+        elif isinstance(y_original, func.Sub):
+            recurr_node = add_y_nodes_recursively(recurr_node, y_original.children[0])
+            recurr_node = func.Sub([recurr_node, y_original.children[1]])
+        else:
+            recurr_node = func.Add([recurr_node, y_original])
+        return recurr_node
+    
+    a_temp = add_y_nodes_recursively(m_temp, y_subbed_node_original)
+    multivar_diff_f_func = convert_to_multi_var_diff("exact " + a_temp.differentiability(), "snd")
+    #multivar_diff_f_func = "sorry"
+
+    c = "c" # Let's keep c as a constant. As it helps with making sure the equation is a valid equation.
+    # I.e. it is hard to make sure that f(a,b) = 0. f(a,b) - c will always be 0 for some c.
+    # I am doing this as the point (a,b) needs to be on the curve.
     template = f"""
-example (x y : ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * (3*(x-{a})^2 + 10*(x-{a}) + 2) + {b} * (5*(y-{b})^4 + 3*(y-{b})^2) = 0) := by
+example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * ({str(dx_f).replace('x', f'(x-{a})')}) + {b} * ({str(dy_f).replace('x', f'(y-{b})')}) = 0) := by
   intro h
   -- fderiv_sub or fderiv_add based on we subtract or add the constant
   rw [fderiv_sub] at h
@@ -560,30 +644,23 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {s
   -- Notice the exact statement matches (+ (+ (x^3) (5x^2))) (2x))
   -- Since you have the tree you can generate this. 
 
-  exact DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)
-
+  {multivar_diff_p1}
   -- Let's do the same for p.2
-  exact DifferentiableAt.add (differentiableAt_snd.pow _) (differentiableAt_snd.pow _)
+  {multivar_diff_p2}
   
   -- Now we add the p.1 expression and p.2 expression
   -- This can be done, but don't tree p.1 and p.2 as separate expressions,
   -- It's a nested DifferentiableAt.add that adds one term in order
   -- I.e. given p.1 ^ 3 + 5*p.1^2 + 2*p.1 + p.2 ^ 5 + p.2^3
   -- We are basically doing (((p.1 ^ 3 + 5*p.1^2) + 2*p.1) + p.2 ^ 5) + p.2^3
-  exact DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (DifferentiableAt.add (differentiableAt_fst.pow _) (DifferentiableAt.const_mul (differentiableAt_fst.pow _) _)) (DifferentiableAt.const_mul differentiableAt_fst _)) (differentiableAt_snd.pow _)) (differentiableAt_snd.pow _)
+  {multivar_diff_f_func}
 
   -- Finally for the const part
   exact differentiableAt_const _
   -- And we are done :)
 """
     
-    file_str = monotone_header
-    # TODO
-            # p = Poly()
-            # problem_str = p.get_monotonicity_problem()
-            # problem_str = problem_str.replace('\t', '  ')   # no tabs
-            # file_str += problem_str
-    
+    file_str = tangent_header
     file_str += template
     
     with open('lean/LeanCalc/synthetic/multivar.lean', 'w') as f:
@@ -591,6 +668,163 @@ example (x y : ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {s
 
 # expand_generic_op(funcs[:-1], funcs_derivs[:-1])  # -> 40
 # expand_generic_comp(funcs, funcs_derivs) # -> 25
+
+def generate_extrema_problems():
+
+    # Copying what I had in generate tangent
+    class Poly:
+        def __init__(self, terms = []):
+            self.terms = terms
+            if not self.terms:
+                # TODO generate randomly
+                pass
+        def __repr__(self):
+            def format_x(c,e):
+
+                op = "+ "
+                if c < 0:
+                    op = "- "
+                c = abs(c)
+                if e == 0:
+                    return op + str(c)
+
+                if c > 1:
+                    coeff=f"{c}" + (' * ' if e > 0 else '')
+                else:
+                    coeff = ""
+                if e == 1:
+                    p = "x"
+                elif e > 1:
+                    p = f"x ^ {e}"
+                else:
+                    p = ""
+                return op + coeff + p
+            
+            return ' '.join([format_x(c,e) for c, e in self.terms])[1:]
+    
+    class PolyDeriv(Poly):
+        def __init__(self, terms):
+            self.terms = terms
+            for i, (c, e) in enumerate(self.terms):
+                self.terms[i] = (c*e, e-1)
+            self.terms = [(c,e) for c,e in self.terms if e >= 0]
+
+    # I need three things
+    # One: the array denoting the polynomial
+    # We will use the format @Devan has been using.
+    polynomial = [(1,3), (2,2), (-1,1)] # Can be randomly generated
+    # Second: We want to generate a Maxima, Minima or SaddlePoint question
+    QU_TYPES = ["Maxima", "Minima", "SaddlePoint"]
+    qu_type = QU_TYPES[0]
+    #Third the point at which we are evaluating
+    point = 2
+
+    fx = Poly(polynomial)
+    deriv_fx = PolyDeriv([e for e in fx.terms])
+    deriv_deriv_fx = PolyDeriv([e for e in deriv_fx.terms])
+
+    # The cheeky part
+    # We convert the polynomial to match the question type
+    def get_corresponding_constant(fx: Poly, point):
+        import numpy as np 
+        max_degree = max([e for _,e in fx.terms])
+        poly_numpy_format = [0] * (max_degree + 1)
+        for c, e in fx.terms:
+            poly_numpy_format[e] = c
+        poly_numpy_format = poly_numpy_format[::-1]
+        return np.polyval(poly_numpy_format, point)
+    
+    corresponding_constant = get_corresponding_constant(deriv_deriv_fx, point)
+    corresponding_inequality = "="
+
+    if qu_type == QU_TYPES[0]:
+        # This is a maxima problem
+        # f''(x) < 0
+        corresponding_constant = corresponding_constant + random.randint(1, 5)
+        if corresponding_constant%2 == 1:
+            corresponding_constant += 1
+        corresponding_inequality = "<" 
+    elif qu_type == QU_TYPES[1]:
+        # This is a minima problem
+        # f''(x) > 0
+        corresponding_constant = corresponding_constant - random.randint(1, 5)
+        if corresponding_constant%2 == 1:
+            corresponding_constant -= 1
+        corresponding_inequality = ">"
+    else:
+        # This is a saddle point problem
+        # f''(x) = 0
+        corresponding_constant = corresponding_constant # Basically do nothing
+
+    def subtract_single_expression(fx: Poly, term):
+        c_term, e_term = term
+        for i, (c,e) in enumerate(fx.terms):
+            if e == e_term:
+                fx.terms[i] = (c-c_term, e)
+                break
+        else:
+            fx.terms.append((-c_term, e_term))
+
+    # Now subtract this constant from f''(x)
+    subtract_single_expression(deriv_deriv_fx, (corresponding_constant, 0))
+    # Now we also need to update f'(x) and f(x)
+    subtract_single_expression(deriv_fx, (corresponding_constant, 1))
+    subtract_single_expression(fx, (corresponding_constant//2, 2))
+
+    # For all extrema points f'(x)=0
+    # Therefore we do something similar to f'(x)
+    corresponding_constant = get_corresponding_constant(deriv_fx, point)
+    # Again update f'(x) and f(x)
+    subtract_single_expression(deriv_fx, (corresponding_constant, 0))
+    subtract_single_expression(fx, (corresponding_constant, 1))
+
+    fx_subbed_node = deriv.parse(str(fx)).children[0]
+    deriv_fx_subbed_node = deriv.parse(str(deriv_fx)).children[0]
+
+    deriv_fx_proof, _, _, deriv_fx_diff = deriv.get_deriv_proof(fx_subbed_node, separate=True)
+    deriv_deriv_fx_proof, _, _, deriv_deriv_fx_diff = deriv.get_deriv_proof(deriv_fx_subbed_node, separate=True)
+
+    indent = lambda s: '\n'.join([f"    {l}" for l in s.split('\n')])
+    deriv_fx_proof, deriv_fx_diff, deriv_deriv_fx_proof, deriv_deriv_fx_diff = list(map(indent, [
+        deriv_fx_proof, deriv_fx_diff, deriv_deriv_fx_proof, deriv_deriv_fx_diff
+    ]))
+
+    final_expression = "" if corresponding_inequality == "=" else "norm_num"
+
+    # And we are pretty much done
+    # Let's generate the Lean proof
+    template = f"""
+example (f:ℝ→ℝ) : (f = fun x:ℝ => {str(fx)}) → (deriv f ({point}:ℝ) = 0 ∧ deriv (deriv f) ({point}:ℝ) {corresponding_inequality} 0) := by
+  intros hf
+  have h_deriv_f : deriv f = fun x => {str(deriv_fx)} := by
+    ext x
+    rw [hf]
+{deriv_fx_proof}
+    ring
+{deriv_fx_diff}
+
+  have h_deriv_deriv_f : deriv (deriv f) = fun x => {str(deriv_deriv_fx)} := by
+    ext x
+    rw [h_deriv_f]
+{deriv_deriv_fx_proof}
+    ring
+{deriv_deriv_fx_diff}
+
+  constructor
+  nth_rewrite 1 [h_deriv_f]
+  ring
+  nth_rewrite 1 [h_deriv_deriv_f]
+  ring
+  {final_expression}
+    """
+
+    file_str = extrema_headers
+    file_str += template
+    
+    with open('lean/LeanCalc/synthetic/extrema_problems.lean', 'w') as f:
+        f.write(file_str)
+
+
 
 def check_valid(lines: list[str]) -> bool:
     import subprocess, json, os, time
@@ -684,7 +918,8 @@ def clean_mistakes(file: str):
 
 # generate_monotonicity_simple(n = 100) # 4*5 -> 20
 # generate_monotonicity_shifted(n = 100) # -> 20
-generate_pq_easy(10)
+#generate_pq_easy(10)
 
 # TODO implement 
-# generate_tangent(1)
+generate_tangent(1)
+generate_extrema_problems()
