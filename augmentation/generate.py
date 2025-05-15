@@ -1017,9 +1017,10 @@ def shitty_cleanup_script(file: str = 'lean/LeanCalc/synthetic/seed_2.lean'):
 
 # TODO implement 
 # generate_random_tangent_instance()
-generate_tangent_problems(150)
+# generate_tangent_problems(150)
             
-# fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed_1.lean')         
+# fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed2_good.lean')
+# print(len(fs))         
 # expand_seed(funcs, fs)
   
 # shitty_cleanup_script()
