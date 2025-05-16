@@ -3,10 +3,11 @@ import torch
 from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
 from exp import ProblemSolver
+from typing import List
 
 class DS_Autoformalizer(ProblemSolver):
-    def __init__(self, name: str = ""):
-        self.name = name
+    def __init__(self, name: str = "", shots: int = 4, examples: List = []):
+        super().__init__(name,shots,examples)
         model_name = "deepseek-ai/DeepSeek-Prover-V1.5-RL"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = LLM(model=model_name, max_num_batched_tokens=8192, seed=1, trust_remote_code=True)

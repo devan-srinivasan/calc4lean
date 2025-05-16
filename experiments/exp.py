@@ -1,5 +1,6 @@
-import tqdm, json
+import re, os, tqdm, json
 from langchain.prompts import PromptTemplate
+from typing import List, Dict, Optional, Tuple, Set
 
 def validate_proof(imports: str, problem: str, proof_lines: str) -> bool:
     import subprocess, json, os, time
@@ -94,6 +95,58 @@ def create_lean_file(file_path: str, imports: str, problem: Problem, include_pro
         lean_file.write(problem.problem)
         if include_proof: lean_file.writelines(problem.proof)
 
+class ProblemSolver:
+    def __init__(self, name: str = "", shots: int = 4, examples: List = []):
+        self.name = name
+        self.examples = examples
+        example_names = ["Example" + str(i+1) for i in range(shots)]
+        self.input_variables = {
+            'fl': example_names + ['theorem'],
+            'nl': example_names + ['informalProof', 'theorem']
+        }
+        self.shots = shots
+
+    def get_prompt(self, prompt_type: str, problem:Problem):
+        dir = "experiments/prompts/" + prompt_type + "_prompts.json"
+        with open(dir, 'r') as file:
+            data = json.load(file)
+        template = data[self.name]
+        prompt_template = PromptTemplate(
+            input_variables = self.input_variables[prompt_type],
+            template = template
+        )
+        # get examples
+        example_params = {}
+        for shot in range(self.shots):
+            example_name = "Example" + str(shot+1)
+            example = self.examples[shot]
+            example_params[example_name] = example
+
+        if prompt_type == 'nl':
+            prompt = prompt_template.format(**example_params, informal_proof = problem.informal_hints, theorem = problem.problem)
+        else:
+            prompt = prompt_template.format(**example_params, theorem = problem.problem)
+        return prompt
+
+    def solve(self,prompt) -> Tuple[str, bool]:
+        raise NotImplementedError
+
+    def solve_nohint(self,imports: List[str], problem: Problem) -> Problem:
+        prompt = self.get_prompt("fl",problem)
+        out, complete = self.solve(prompt)
+        problem.complete = complete
+        if complete:
+            problem.proof = [out]
+        else:
+            problem.out = [out]
+        return problem
+
+    def solve_hint(self):
+        raise NotImplementedError
+    
+    def solve_augmented(self):
+        raise NotImplementedError
+
 # TODO given a dataset, and some theorem prover, run the experiment
 
 def run_exp_nohint(problem_file: str, solver: ProblemSolver):
@@ -150,55 +203,3 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
     pbar.close()
 
     print(f"Experiment completed. Results saved to {outfile}")
-
-class ProblemSolver:
-    def __init__(self, name: str = "", shots: int = 4, examples: list = []):
-        self.name = name
-        self.examples = examples
-        example_names = ["Example" + str(i) for i in shots]
-        self.input_variables = {
-            'fl': example_names + ['theorem'],
-            'nl': example_names + ['informalProof', 'theorem']
-        }
-        self.shots = shots
-
-    def get_prompt(self, prompt_type: str, problem:Problem):
-        dir = "prompts/" + prompt_type + "_prompts.json"
-        with open('your_file.json', 'r') as file:
-            data = json.load(file)
-        template = data[self.name]
-        prompt_template = PromptTemplate(
-            input_variables = self.input_variables[prompt_type],
-            template = template
-        )
-        # get examples
-        example_params = {}
-        for shot in self.shots:
-            example_name = "Example" + str(shot)
-            example = self.examples[shot]
-            example_params[example_name] = example
-
-        if problem_type == 'nl':
-            prompt = prompt_template.format(**example_params, informal_proof = problem.informal_hints, theorem = problem.problem)
-        else:
-            prompt = prompt_template.format(**example_params, theorem = problem.problem)
-        return prompt
-
-    def solve(self,prompt) -> Tuple[str, bool]:
-        raise NotImplementedError
-
-    def solve_nohint(self,imports: List[str], problem: Problem) -> Problem:
-        prompt = self.get_prompt("fl",problem)
-        out, complete = self.solve(prompt)
-        problem.complete = complete
-        if complete:
-            problem.proof = [out]
-        else:
-            problem.out = [out]
-        return problem
-
-    def solve_hint(self):
-        raise NotImplementedError
-    
-    def solve_augmented(self):
-        raise NotImplementedError

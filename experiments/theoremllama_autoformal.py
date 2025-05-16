@@ -1,12 +1,13 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from exp import ProblemSolver
+from typing import List
 
 #use prompt example from huggingface? Or get few shot examples to use in the prompts
 
 class TL_Autoformalizer(ProblemSolver):
-    def __init__(self, name: str = ""):
-        self.name = name
+    def __init__(self, name: str = "", shots: int = 4, examples: List = []):
+        super().__init__(name,shots,examples)
         self.model = AutoModelForCausalLM.from_pretrained("RickyDeSkywalker/TheoremLlama")
         self.model = self.model.to(torch.device("cuda"))
         self.tokenizer = AutoTokenizer.from_pretrained("RickyDeSkywalker/TheoremLlama")

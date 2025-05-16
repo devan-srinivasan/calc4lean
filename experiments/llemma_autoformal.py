@@ -1,14 +1,15 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from exp import ProblemSolver
+from typing import List
 
 # their paper says they use prompts in the format of draft sketch, and prove to formalize
 # draft, sketch, and prove uses few-shot prompting for their autoformlaizer
 # TODO: get examples for prompts
 
 class Llemma_Autoformalizer(ProblemSolver):
-    def __init__(self, name: str = ""):
-        self.name = name
+    def __init__(self, name: str = "", shots: int = 4, examples: List = []):
+        super().__init__(name,shots,examples)
         model_name = "EleutherAI/llemma_7b"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForCausalLM.from_pretrained(model_name)
