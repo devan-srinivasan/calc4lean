@@ -133,6 +133,7 @@ class ProblemSolver:
 
     def solve_nohint(self,imports: List[str], problem: Problem) -> Problem:
         prompt = self.get_prompt("fl",problem)
+        print(prompt)
         out, complete = self.solve(prompt)
         problem.complete = complete
         if complete:
@@ -182,8 +183,14 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
     for i, problem in enumerate(problems):
         print(problem.name)
         # use the first 4 problems from the file as examples
+        proof_ex = "".join(problem.proof)
+        example_template = f"""### Lean4 version of theorem statement:
+        {problem.problem}
+        ### Lean4 version of theorem and proof:
+        {proof_ex}
+        """
         if i < 4:
-            examples.append(problem)
+            examples.append(example_template)
             continue
         if i == 4:
             solver.examples = examples
