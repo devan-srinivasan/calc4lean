@@ -138,7 +138,6 @@ class ProblemSolver:
 
     def solve_nohint(self,imports: List[str], problem: Problem) -> Problem:
         prompt = self.get_prompt("fl",problem,imports)
-        print(prompt)
         out, complete = self.solve(prompt)
         problem.complete = complete
         if complete:
@@ -194,11 +193,12 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
         ### Lean4 version of theorem and proof:
         {proof_ex}
         """
-        if i < 4:
-            examples.append(example_template)
-            continue
-        if i == 4:
-            solver.examples = examples
+        if not(solver.name == 'deepseek'):
+            if i < 4:
+                examples.append(example_template)
+                continue
+            if i == 4:
+                solver.examples = examples
         if problem.name not in solved:
             result = solver.solve_nohint(imports, problem)  # Solve the problem
             result_entry = {
