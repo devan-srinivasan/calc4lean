@@ -106,7 +106,7 @@ class ProblemSolver:
         }
         self.shots = shots
 
-    def get_prompt(self, prompt_type: str, problem:Problem):
+    def get_prompt(self, prompt_type: str, problem:Problem, imports: List[str]):
         dir = "experiments/prompts/" + prompt_type + "_prompts.json"
         with open(dir, 'r') as file:
             data = json.load(file)
@@ -117,11 +117,16 @@ class ProblemSolver:
         )
         # get examples
         example_params = {}
-        for shot in range(self.shots):
-            example_name = "Example" + str(shot+1)
-            example = self.examples[shot]
-            example_params[example_name] = example
-
+        if not self.name == "deepseek":
+            for shot in range(self.shots):
+                example_name = "Example" + str(shot+1)
+                example = self.examples[shot]
+                example_params[example_name] = example
+        else:
+            import_str = ''
+            for imp in imports:
+                import_str += imp + '\n'
+            example_params['imports'] = import_str
         if prompt_type == 'nl':
             prompt = prompt_template.format(**example_params, informal_proof = problem.informal_hints, theorem = problem.problem)
         else:
@@ -132,7 +137,7 @@ class ProblemSolver:
         raise NotImplementedError
 
     def solve_nohint(self,imports: List[str], problem: Problem) -> Problem:
-        prompt = self.get_prompt("fl",problem)
+        prompt = self.get_prompt("fl",problem,imports)
         print(prompt)
         out, complete = self.solve(prompt)
         problem.complete = complete

@@ -8,6 +8,10 @@ from typing import List
 class DS_Autoformalizer(ProblemSolver):
     def __init__(self, name: str = "", shots: int = 4, examples: List = []):
         super().__init__(name,shots,examples)
+        self.input_variables = {
+            'fl': ['imports','theorem'],
+            'nl': ['informalProof', 'imports', 'theorem']
+        }
         model_name = "deepseek-ai/DeepSeek-Prover-V1.5-RL"
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = LLM(model=model_name, max_num_batched_tokens=8192, seed=1, trust_remote_code=True)
@@ -43,7 +47,8 @@ Translate the problem to Lean 4 (only the core declaration):
             statement = self.extract(generated_text)
             return statement, True
         except Exception as e:
-            return e, False
+            print(e)
+            return f"{e.__class__.__name__}: {e}", False
 
 
 
