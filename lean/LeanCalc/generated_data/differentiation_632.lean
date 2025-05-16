@@ -32,7 +32,6 @@ nth_rewrite 2 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
 nth_rewrite 1 [Real.deriv_log]
--- field_simp [h_log_ne_zero_16]
 ring
 exact Real.differentiableAt_cos
 exact Real.differentiableAt_log (h_log_ne_zero_16)
@@ -4071,7 +4070,6 @@ nth_rewrite 3 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
 nth_rewrite 1 [Real.deriv_log]
--- field_simp [h_log_ne_zero_25]
 ring
 exact Real.differentiableAt_cos
 exact Real.differentiableAt_log (h_log_ne_zero_25)
@@ -5642,7 +5640,6 @@ nth_rewrite 2 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
 nth_rewrite 1 [Real.deriv_log]
--- field_simp [h_log_ne_zero_16]
 ring
 exact Real.differentiableAt_cos
 exact Real.differentiableAt_log (h_log_ne_zero_16)
@@ -9681,7 +9678,6 @@ nth_rewrite 3 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
 nth_rewrite 1 [Real.deriv_log]
--- field_simp [h_log_ne_zero_25]
 ring
 exact Real.differentiableAt_cos
 exact Real.differentiableAt_log (h_log_ne_zero_25)
