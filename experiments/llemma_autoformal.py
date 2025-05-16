@@ -18,10 +18,11 @@ class Llemma_Autoformalizer(ProblemSolver):
 
     def solve(self, prompt):
         try:
-            inputs = self.tokenizer(prompt, return_tensors='pt').to(self.device)
+            inputs = self.tokenizer(prompt, return_tensors="pt")
+            inputs = {k: v.to(self.device) for k, v in inputs.items()}
             output_ids = self.model.generate(
                 **inputs,
-                max_new_tokens=max_new_tokens,
+                max_new_tokens=1024,
                 do_sample=False,
                 pad_token_id=self.tokenizer.eos_token_id,  
             )
@@ -31,7 +32,8 @@ class Llemma_Autoformalizer(ProblemSolver):
                 clean_up_tokenization_spaces=True,
             ), True
         except Exception as e:
-            return e, False
+            print(e)
+            return f"{e.__class__.__name__}: {e}", False
     def solve_hint(self, prompt, max_new_tokens: int = 64):
         return
  
