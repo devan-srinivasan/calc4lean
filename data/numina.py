@@ -152,12 +152,22 @@ def load_problems(in_file='data/llm_filtered_results.json'):
             
 # print(len(calcds))
 
-monotonic_maybe = calcds.filter(lambda p: all(k in p['problem'] for k in {'monoton', 'prove', 'on'}))
-print(len(monotonic_maybe))
+# monotonic_maybe = calcds.filter(lambda p: all(k in p['problem'] for k in {'monoton', 'prove', 'on'}))
+# print(len(monotonic_maybe))
+# c = 0
+# for p in monotonic_maybe:
+#     print(p['problem'])
+#     print(p['solution'])
+#     print("="*20)
+#     c+=1
+#     if c == 50: break
 
+inequality_problems = calcds.filter(lambda p: all(k in p['problem'] for k in {'p', 'q', 'known that'}))
+print(len(inequality_problems))
 c = 0
-for p in monotonic_maybe:
+for p in inequality_problems:
     print(p['problem'])
-    print()
+    print(p['solution'])
+    print("="*20)
     c+=1
     if c == 50: break
