@@ -1,4 +1,5 @@
 import func, deriv, json, re, random
+import numpy as np 
 
 """
 This is the file for creating synthetic problems. Not much to see here
@@ -73,6 +74,14 @@ funcs_derivs = [
     "15 * (Real.log (5 * x + 2)) ^ 2 / (5 * x + 2)",
     # "5 / cos (5 * x) ^ 2",
 ]
+
+def get_corresponding_constant(fx: "Poly", point):
+    max_degree = max([e for _,e in fx.terms])
+    poly_numpy_format = [0] * (max_degree + 1)
+    for c, e in fx.terms:
+        poly_numpy_format[e] = c
+    poly_numpy_format = poly_numpy_format[::-1]
+    return np.polyval(poly_numpy_format, point)
 
 def parse_functions(seed_file: str):
     with open(seed_file, 'r') as f:
@@ -609,8 +618,26 @@ def generate_random_tangent_instance():
     x_expression_as_a_list = [(random.randint(-5,5), i) for i in range(1, d1+1)]
     y_expression_as_a_list = [(random.randint(-5,5), i) for i in range(1, d2+1)]
 
-    random_mask1 = random.sample(range(len(x_expression_as_a_list)-1), random.randint(2, len(x_expression_as_a_list) - 1))
-    random_mask2 = random.sample(range(len(y_expression_as_a_list)-1), random.randint(2, len(y_expression_as_a_list) - 1))
+    random_mask1 = random.sample(range(len(x_expression_as_a_list)-1), random.randint(1, len(x_expression_as_a_list) - 1))
+    random_mask2 = random.sample(range(len(y_expression_as_a_list)-1), random.randint(1, len(y_expression_as_a_list) - 1))
+
+    solving_equation_x = "norm_num"
+    if len(random_mask1) == 1:
+        for i,term in enumerate(x_expression_as_a_list):
+            if i in random_mask1 and term[1]==1:
+                solving_equation_x = ""
+    solving_equation_y = "norm_num"
+    if len(random_mask2) == 1:
+        for i,term in enumerate(y_expression_as_a_list):
+            if i in random_mask2 and term[1]==1:
+                solving_equation_y = ""
+    hsplit_adjust = """congr 1
+    ext p
+    ring
+    """
+
+    if len(random_mask2) == 1:
+        hsplit_adjust = ""
 
     x_expression_as_a_list = [term for i,term in enumerate(x_expression_as_a_list) if i in random_mask1]
     x_expression_as_a_list = [(1,e) if c==0 else (c,e) for c,e in x_expression_as_a_list]
@@ -631,11 +658,13 @@ def generate_random_tangent_instance():
     # For other use I will use normal x_f and y_f
     x_f = Poly(x_expression_as_a_list)
     y_f = Poly(y_expression_as_a_list)
+    y_f_sign_change_poly = Poly([(-c,e) for c,e in y_expression_as_a_list])
 
     dx_f = PolyDeriv([e for e in x_f_hack.terms])
     dy_f = PolyDeriv([e for e in y_f_hack.terms])
+    dy_f_sign_change_poly = PolyDeriv([e for e in y_f_sign_change_poly.terms])
 
-    a, b = random.randint(2,6), random.randint(2,6)
+    a, b = random.randint(-6,6), random.randint(-6,6)
 
     x_subbed_node = deriv.parse(str(x_f_hack).replace('p.1', f"(x - {a})")).children[0]
     y_subbed_node = deriv.parse(str(y_f_hack).replace('p.2', f"(x - {b})")).children[0]
@@ -710,6 +739,10 @@ def generate_random_tangent_instance():
     y_diff_to_use = y_diff
     multivar_diff_p2_to_use = multivar_diff_p2
     multivar_diff_f_func_to_use = multivar_diff_f_func
+    dx_f_at_a = get_corresponding_constant(dx_f, a)
+    dy_f_at_b = get_corresponding_constant(dy_f, b)
+    dy_f_at_b_original = dy_f_at_b
+    
     if y_f.leading_operation() == "-":
         operation = "-"
         str_y_f_sign_change = y_f.repr_sign_changed()
@@ -719,6 +752,13 @@ def generate_random_tangent_instance():
         y_diff_to_use = y_diff_sign_change
         multivar_diff_p2_to_use = multivar_diff_p2_sign_change
         multivar_diff_f_func_to_use = multivar_diff_f_func_sign_changed
+        dy_f_at_b = get_corresponding_constant(dy_f_sign_change_poly, b)
+        
+    sign_of_dy_f_at_b = "+" if dy_f_at_b >= 0 else "-"
+    operation_for_eq = operation
+
+    a_to_use = f"{a}" if a >=0 else f"({a})"
+    b_to_use = f"{b}" if b >=0 else f"({b})"
 
     #multivar_diff_f_func_to_use = 'sorry'
 
@@ -726,22 +766,20 @@ def generate_random_tangent_instance():
     # I.e. it is hard to make sure that f(a,b) = 0. f(a,b) - c will always be 0 for some c.
     # I am doing this as the point (a,b) needs to be on the curve.
     template = f"""
-example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} {operation} {str_y_f.replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * ({str(dx_f).replace('x', f'(x-{a})')}) {operation} {b} * ({str_dy_f_sign_change.replace('x', f'(y-{b})')}) = 0) := by
+example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} {operation} {str_y_f.replace('x', 'p.2')} - {c}) (({a}:ℝ), ({b}:ℝ)) (x-{a_to_use}, y-{b_to_use}) = 0) → ((x-{a_to_use}) * ({dx_f_at_a}) {operation_for_eq} (y-{b_to_use}) * ({dy_f_at_b}) = 0) := by
   intro h
   rw [fderiv_sub] at h
 
   have h_split 
-  (hp1: DifferentiableAt ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}))
-  (hp2: DifferentiableAt ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (x - {a}, y - {b})): 
+  (hp1: DifferentiableAt ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (({a}:ℝ), ({b}:ℝ)))
+  (hp2: DifferentiableAt ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (({a}:ℝ), ({b}:ℝ))): 
     fderiv ℝ (fun p : ℝ × ℝ => 
-      {str(x_f).replace('x', 'p.1')} {operation} {str_y_f.replace('x', 'p.2')}) (x - {a}, y - {b})
+      {str(x_f).replace('x', 'p.1')} {operation} {str_y_f.replace('x', 'p.2')}) (({a}:ℝ), ({b}:ℝ))
       = 
-      fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}) {operation}
-      fderiv ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (x - {a}, y - {b}) := by
+      fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (({a}:ℝ), ({b}:ℝ)) {operation}
+      fderiv ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (({a}:ℝ), ({b}:ℝ)) := by
     rw [←fderiv_{operation_name}]
-    congr 1
-    ext p
-    ring
+    {hsplit_adjust}
     exact hp1
     exact hp2
 
@@ -749,7 +787,7 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} {
   rw [ContinuousLinearMap.sub_apply] at h
   rw [ContinuousLinearMap.{operation_name}_apply] at h
 
-  have h1 : (fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b})) ({a}, {b}) = {a} * ({str(dx_f).replace('x', f'(x-{a})')})  := by
+  have h1 : (fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (({a}:ℝ), ({b}:ℝ))) (x - {a_to_use}, y - {b_to_use}) = (x-{a_to_use}) * ({dx_f_at_a})  := by
     have hp1comp : (fun p : ℝ × ℝ => {str(x_f).replace('x', 'p.1')}) = (fun x => {str(x_f)}) ∘ (fun p => p.1) := rfl
     rw [hp1comp]
     rw [fderiv_comp]
@@ -760,11 +798,11 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} {
     rw [ContinuousLinearMap.smulRight_apply]
     rw [ContinuousLinearMap.coe_fst']
     field_simp
-    ring
+    {solving_equation_x}
 {x_diff}
     exact differentiableAt_fst
 
-  have h2 : (fderiv ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (x - {a}, y - {b})) ({a}, {b}) = {b} * ({str_dy_f_sign_change.replace('x', f'(y-{b})')})  := by
+  have h2 : (fderiv ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (({a}:ℝ), ({b}:ℝ))) (x - {a_to_use}, y - {b_to_use}) = (y-{b_to_use}) * ({dy_f_at_b})  := by
     have hp2comp : (fun p : ℝ × ℝ => {str_y_f_sign_change.replace('x', 'p.2')}) = (fun x => {str_y_f_sign_change}) ∘ (fun p => p.2) := rfl
     rw [hp2comp]
     rw [fderiv_comp]
@@ -775,11 +813,11 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} {
     rw [ContinuousLinearMap.smulRight_apply]
     rw [ContinuousLinearMap.coe_snd']
     field_simp
-    ring
+    {solving_equation_y}
 {y_diff_to_use}
     exact differentiableAt_snd
 
-  have h3 : fderiv ℝ (fun p : ℝ × ℝ => ({c}:ℝ)) (x - {a}, y - {b}) ({a}, {b}) = 0 := by
+  have h3 : fderiv ℝ (fun p : ℝ × ℝ => ({c}:ℝ)) (({a}:ℝ), ({b}:ℝ)) (x - {a_to_use}, y - {b_to_use}) = 0 := by
     rw [fderiv_const]
     field_simp
 
@@ -882,15 +920,6 @@ def generate_extrema_instance():
 
     # The cheeky part
     # We convert the polynomial to match the question type
-    def get_corresponding_constant(fx: Poly, point):
-        import numpy as np 
-        max_degree = max([e for _,e in fx.terms])
-        poly_numpy_format = [0] * (max_degree + 1)
-        for c, e in fx.terms:
-            poly_numpy_format[e] = c
-        poly_numpy_format = poly_numpy_format[::-1]
-        return np.polyval(poly_numpy_format, point)
-    
     corresponding_constant = get_corresponding_constant(deriv_deriv_fx, point)
     corresponding_inequality = "="
 
