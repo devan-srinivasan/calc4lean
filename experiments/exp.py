@@ -191,7 +191,7 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
             result = solver.solve_nohint(imports, problem)  # Solve the problem
             result_entry = {
                 "name": problem.name,
-                "result": result.json()  # Assuming result is a dict and JSON-serializable
+                "result": json.dumps(result, default=lambda o: o.__dict__) # Assuming result is a dict and JSON-serializable
             }
             if result.proof:
                 existing_results.append(result_entry)
