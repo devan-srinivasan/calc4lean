@@ -4,3 +4,4 @@
 llm_filtered_results.json
 .lake
 */pycache/*
+*/__pycache__/*

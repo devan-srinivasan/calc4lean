@@ -1,5 +1,6 @@
-import tqdm, json
+import re, os, tqdm, json
 from langchain.prompts import PromptTemplate
+from typing import List, Dict, Optional, Tuple, Set
 
 def validate_proof(imports: str, problem: str, proof_lines: str) -> bool:
     import subprocess, json, os, time
@@ -94,70 +95,20 @@ def create_lean_file(file_path: str, imports: str, problem: Problem, include_pro
         lean_file.write(problem.problem)
         if include_proof: lean_file.writelines(problem.proof)
 
-# TODO given a dataset, and some theorem prover, run the experiment
-
-def run_exp_nohint(problem_file: str, solver: ProblemSolver):
-    assert problem_file[-5:] == '.lean'
-    imports, problems = parse_lean_file(problem_file)
-    
-    # Ensure the results directory exists
-    os.makedirs(f"results/{solver.name}", exist_ok=True)
-    
-    # Define the output file
-    filename = re.search(r'([^/]+)\.[^/.]+$', problem_file)
-    filename = filename.group(1)
-    #print(filename)
-    outfile = f"results/{solver.name}/{filename}.json"
-    solved: Set[str] = set()  # Set to keep track of already solved problems
-
-    # Load existing results if the outfile already exists
-    if os.path.exists(outfile):
-        with open(outfile, 'r') as f:
-            try:
-                existing_results = json.load(f)
-                # Extract solved problem names
-                solved = {result["name"] for result in existing_results}
-            except json.JSONDecodeError:
-                print("Error reading existing problems, may repeat some problems")
-                existing_results = []
-    else:
-        existing_results = []
-
-    # Go through each problem and solve if not already solved
-    pbar = tqdm.tqdm(initial=len(solved), total=len(problems), unit='problem')
-    for problem in problems:
-        print(problem.name)
-        if problem.name not in solved:
-            result = solver.solve_nohint(imports, problem)  # Solve the problem
-            result_entry = {
-                "name": problem.name,
-                "result": result.json()  # Assuming result is a dict and JSON-serializable
-            }
-            if result.proof:
-                existing_results.append(result_entry)
-            
-            # Write intermediate results to the JSON file
-            with open(outfile, 'w') as f:
-                json.dump(existing_results, f, indent=4)
-            pbar.update(1)
-    pbar.close()
-
-    print(f"Experiment completed. Results saved to {outfile}")
-
 class ProblemSolver:
-    def __init__(self, name: str = "", shots: int = 2):
+    def __init__(self, name: str = "", shots: int = 4, examples: List = []):
         self.name = name
-        examples = ["Example" + str(i) for i in shots]
+        self.examples = examples
+        example_names = ["Example" + str(i+1) for i in range(shots)]
         self.input_variables = {
-            'fl': examples + ['theorem'],
-            'nl': examples + ['informalProof', 'theorem']
+            'fl': example_names + ['theorem'],
+            'nl': example_names + ['informalProof', 'theorem']
         }
         self.shots = shots
 
-    #TODO
     def get_prompt(self, prompt_type: str, problem:Problem):
-        dir = "prompts/" + prompt_type + "_prompts.json"
-        with open('your_file.json', 'r') as file:
+        dir = "experiments/prompts/" + prompt_type + "_prompts.json"
+        with open(dir, 'r') as file:
             data = json.load(file)
         template = data[self.name]
         prompt_template = PromptTemplate(
@@ -166,12 +117,12 @@ class ProblemSolver:
         )
         # get examples
         example_params = {}
-        for shot in self.shots:
-            example_name = "Example" + str(shot)
-            example = data[example_name]
+        for shot in range(self.shots):
+            example_name = "Example" + str(shot+1)
+            example = self.examples[shot]
             example_params[example_name] = example
 
-        if problem_type == 'nl':
+        if prompt_type == 'nl':
             prompt = prompt_template.format(**example_params, informal_proof = problem.informal_hints, theorem = problem.problem)
         else:
             prompt = prompt_template.format(**example_params, theorem = problem.problem)
@@ -195,3 +146,60 @@ class ProblemSolver:
     
     def solve_augmented(self):
         raise NotImplementedError
+
+# TODO given a dataset, and some theorem prover, run the experiment
+
+def run_exp_nohint(problem_file: str, solver: ProblemSolver):
+    assert problem_file[-5:] == '.lean'
+    imports, problems = parse_lean_file(problem_file)
+    
+    # Ensure the results directory exists
+    os.makedirs(f"results/fl/{solver.name}", exist_ok=True)
+    
+    # Define the output file
+    filename = re.search(r'([^/]+)\.[^/.]+$', problem_file)
+    filename = filename.group(1)
+    #print(filename)
+    outfile = f"results/fl/{solver.name}/{filename}.json"
+    solved: Set[str] = set()  # Set to keep track of already solved problems
+
+    # Load existing results if the outfile already exists
+    if os.path.exists(outfile):
+        with open(outfile, 'r') as f:
+            try:
+                existing_results = json.load(f)
+                # Extract solved problem names
+                solved = {result["name"] for result in existing_results}
+            except json.JSONDecodeError:
+                print("Error reading existing problems, may repeat some problems")
+                existing_results = []
+    else:
+        existing_results = []
+
+    # Go through each problem and solve if not already solved
+    pbar = tqdm.tqdm(initial=len(solved), total=len(problems), unit='problem')
+    examples = []
+    for i, problem in enumerate(problems):
+        print(problem.name)
+        # use the first 4 problems from the file as examples
+        if i < 4:
+            examples.append(problem)
+            continue
+        if i == 4:
+            solver.examples = examples
+        if problem.name not in solved:
+            result = solver.solve_nohint(imports, problem)  # Solve the problem
+            result_entry = {
+                "name": problem.name,
+                "result": json.dumps(result, default=lambda o: o.__dict__) # Assuming result is a dict and JSON-serializable
+            }
+            if result.proof:
+                existing_results.append(result_entry)
+            
+            # Write intermediate results to the JSON file
+            with open(outfile, 'w') as f:
+                json.dump(existing_results, f, indent=4)
+            pbar.update(1)
+    pbar.close()
+
+    print(f"Experiment completed. Results saved to {outfile}")

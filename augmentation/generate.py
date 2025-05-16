@@ -525,6 +525,9 @@ def generate_random_tangent_instance():
         def __repr__(self):
             def format_x(c,e):
 
+                if c == 0:
+                    return ""
+
                 op = "+ "
                 if c < 0:
                     op = "- "
@@ -544,7 +547,45 @@ def generate_random_tangent_instance():
                     p = ""
                 return op + coeff + p
             
-            return ' '.join([format_x(c,e) for c, e in self.terms])[1:]
+            return ' '.join([format_x(c,e) for c, e in self.terms])
+        
+        def repr_sign_changed(self):
+            def format_x(c,e):
+
+                if c == 0:
+                    return ""
+
+                op = "- "
+                if c < 0:
+                    op = "+ "
+                c = abs(c)
+                if e == 0:
+                    return op + str(c)
+
+                if c > 1:
+                    coeff=f"{c}" + (' * ' if e > 0 else '')
+                else:
+                    coeff = ""
+                if e == 1:
+                    p = "x"
+                elif e > 1:
+                    p = f"x ^ {e}"
+                else:
+                    p = ""
+                return op + coeff + p
+            
+            return ' '.join([format_x(c,e) for c, e in self.terms])[2:]
+        
+        def __str__(self):
+            representation = repr(self)
+            if representation.startswith("-"):
+                pass
+            return representation[2:]
+        
+        def leading_operation(self):
+            if repr(self).startswith("-"):
+                return "-"
+            return "+"
     
     class PolyDeriv(Poly):
         def __init__(self, terms):
@@ -563,22 +604,27 @@ def generate_random_tangent_instance():
             return self.differentiability_proof
 
     # DONOT MAKE THE FIRST COEFFICIENT NEGATIVE
-    d1, d2 = random.randint(3,8), random.randint(3,8)
+    d1, d2 = random.randint(3,5), random.randint(3,5)
     # @binduchange (2,20) to (-20,20) and you'll hit the error
-    x_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d1+1)]
-    y_expression_as_a_list = [(random.randint(2,20), i) for i in range(1, d2+1)]
+    x_expression_as_a_list = [(random.randint(-5,5), i) for i in range(1, d1+1)]
+    y_expression_as_a_list = [(random.randint(-5,5), i) for i in range(1, d2+1)]
 
     random_mask1 = random.sample(range(len(x_expression_as_a_list)-1), random.randint(2, len(x_expression_as_a_list) - 1))
     random_mask2 = random.sample(range(len(y_expression_as_a_list)-1), random.randint(2, len(y_expression_as_a_list) - 1))
 
     x_expression_as_a_list = [term for i,term in enumerate(x_expression_as_a_list) if i in random_mask1]
+    x_expression_as_a_list = [(1,e) if c==0 else (c,e) for c,e in x_expression_as_a_list]
     y_expression_as_a_list = [term for i,term in enumerate(y_expression_as_a_list) if i in random_mask2]
+    y_expression_as_a_list = [(1,e) if c==0 else (c,e) for c,e in y_expression_as_a_list]
 
     # leading coeff is positive :D
     if x_expression_as_a_list[-1][0] < 0: x_expression_as_a_list[-1] = (x_expression_as_a_list[-1][0]*-1, x_expression_as_a_list[-1][1])
-    if y_expression_as_a_list[-1][0] < 0: y_expression_as_a_list[-1] = (y_expression_as_a_list[-1][0]*-1, y_expression_as_a_list[-1][1])
+    #if y_expression_as_a_list[-1][0] < 0: y_expression_as_a_list[-1] = (y_expression_as_a_list[-1][0]*-1, y_expression_as_a_list[-1][1])
 
-    # Adding (1,1) at the end is a neat little trick. Since it gives me the final expression too.
+    x_expression_as_a_list = x_expression_as_a_list[::-1]
+    y_expression_as_a_list = y_expression_as_a_list[::-1]
+
+    # Adding (1,0) at the end is a neat little trick. Since it gives me the final expression too.
     # (Almost gives me the final expression, since I still have to make some changes)
     x_f_hack = Poly(x_expression_as_a_list + [(1,0)])
     y_f_hack = Poly(y_expression_as_a_list + [(1,0)])
@@ -589,25 +635,31 @@ def generate_random_tangent_instance():
     dx_f = PolyDeriv([e for e in x_f_hack.terms])
     dy_f = PolyDeriv([e for e in y_f_hack.terms])
 
-    a, b = random.randint(2,20), random.randint(2,20)
+    a, b = random.randint(2,6), random.randint(2,6)
 
     x_subbed_node = deriv.parse(str(x_f_hack).replace('p.1', f"(x - {a})")).children[0]
     y_subbed_node = deriv.parse(str(y_f_hack).replace('p.2', f"(x - {b})")).children[0]
+    y_subbed_node_sign_change = deriv.parse(str(y_f_hack.repr_sign_changed()).replace('p.2', f"(x - {b})")).children[0]
     y_subbed_node_original = deriv.parse(str(y_f).replace('p.2', f"(x - {b})")).children[0]
+    y_subbed_node_original_sign_changed = deriv.parse(y_f.repr_sign_changed().replace('p.2', f"(x - {b})")).children[0]
 
     deriv_x_subbed_node = deriv.parse(x_subbed_node.derivative()).children[0].reduce()
     deriv_y_subbed_node = deriv.parse(y_subbed_node.derivative()).children[0].reduce()
 
     x_proof, _, _, x_diff = deriv.get_deriv_proof(x_subbed_node, separate=True)
     y_proof, _, _, y_diff = deriv.get_deriv_proof(y_subbed_node, separate=True)
+    y_proof_sign_change, _, _, y_diff_sign_change = deriv.get_deriv_proof(y_subbed_node_sign_change, separate=True)
 
     x_proof = x_proof.strip().partition("\n")[-1].rpartition("\n")[0]+"\n"
     x_diff = x_diff.strip().rpartition("\n")[0]+"\n"
     y_proof = y_proof.strip().partition("\n")[-1].rpartition("\n")[0]+"\n"
     y_diff = y_diff.strip().rpartition("\n")[0]+"\n"
+    y_proof_sign_change = y_proof_sign_change.strip().partition("\n")[-1].rpartition("\n")[0]+"\n"
+    y_diff_sign_change = y_diff_sign_change.strip().rpartition("\n")[0]+"\n"
     
     indent = lambda s: '\n'.join([f"    {l}" for l in s.split('\n')])
     x_proof, x_diff, y_proof, y_diff = list(map(indent, [x_proof, x_diff, y_proof, y_diff]))
+    y_proof_sign_change, y_diff_sign_change = list(map(indent, [y_proof_sign_change, y_diff_sign_change]))
 
     def convert_to_multi_var_diff(diff_string, order):
         replace_dict = {
@@ -621,41 +673,72 @@ def generate_random_tangent_instance():
 
     multivar_diff_p1 = convert_to_multi_var_diff(x_diff, "fst").strip()
     multivar_diff_p2 = convert_to_multi_var_diff(y_diff, "snd").strip()
+    multivar_diff_p2_sign_change = convert_to_multi_var_diff(y_diff_sign_change, "snd").strip()
 
     m_temp = MultiVarNodeHack(multivar_diff_p1[6:])
 
-    def add_y_nodes_recursively(recurr_node, y_original: func.Node):
+    def add_y_nodes_recursively(recurr_node, y_original: func.Node, default):
         if isinstance(y_original, func.Add):
-            recurr_node = add_y_nodes_recursively(recurr_node, y_original.children[0])
+            recurr_node = add_y_nodes_recursively(recurr_node, y_original.children[0], default)
             recurr_node = func.Add([recurr_node, y_original.children[1]])
         elif isinstance(y_original, func.Sub):
-            recurr_node = add_y_nodes_recursively(recurr_node, y_original.children[0])
+            recurr_node = add_y_nodes_recursively(recurr_node, y_original.children[0], default)
             recurr_node = func.Sub([recurr_node, y_original.children[1]])
         else:
-            recurr_node = func.Add([recurr_node, y_original])
+            if default == "+":
+                recurr_node = func.Add([recurr_node, y_original])
+            else:
+                recurr_node = func.Sub([recurr_node, y_original])
         return recurr_node
     
-    a_temp = add_y_nodes_recursively(m_temp, y_subbed_node_original)
+    if y_f.leading_operation() == "-":
+        pass
+
+    a_temp = add_y_nodes_recursively(m_temp, y_subbed_node_original, "+")
     multivar_diff_f_func = convert_to_multi_var_diff("exact " + a_temp.differentiability(), "snd")
+
+    a_temp = add_y_nodes_recursively(m_temp, y_subbed_node_original, "-")
+    multivar_diff_f_func_sign_changed = convert_to_multi_var_diff("exact " + a_temp.differentiability(), "snd")
     #multivar_diff_f_func = "sorry"
+
+    operation = "+"
+    operation_name = "add"
+    str_y_f = str(y_f)
+    str_y_f_sign_change = str(y_f)
+    str_dy_f_sign_change = str(dy_f)
+    y_proof_to_use = y_proof
+    y_diff_to_use = y_diff
+    multivar_diff_p2_to_use = multivar_diff_p2
+    multivar_diff_f_func_to_use = multivar_diff_f_func
+    if y_f.leading_operation() == "-":
+        operation = "-"
+        str_y_f_sign_change = y_f.repr_sign_changed()
+        str_dy_f_sign_change = dy_f.repr_sign_changed()
+        operation_name = "sub"
+        y_proof_to_use = y_proof_sign_change
+        y_diff_to_use = y_diff_sign_change
+        multivar_diff_p2_to_use = multivar_diff_p2_sign_change
+        multivar_diff_f_func_to_use = multivar_diff_f_func_sign_changed
+
+    #multivar_diff_f_func_to_use = 'sorry'
 
     c = "c" # Let's keep c as a constant. As it helps with making sure the equation is a valid equation.
     # I.e. it is hard to make sure that f(a,b) = 0. f(a,b) - c will always be 0 for some c.
     # I am doing this as the point (a,b) needs to be on the curve.
     template = f"""
-example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * ({str(dx_f).replace('x', f'(x-{a})')}) + {b} * ({str(dy_f).replace('x', f'(y-{b})')}) = 0) := by
+example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} {operation} {str_y_f.replace('x', 'p.2')} - {c}) (x-{a}, y-{b}) ({a}, {b}) = 0) → ({a} * ({str(dx_f).replace('x', f'(x-{a})')}) {operation} {b} * ({str_dy_f_sign_change.replace('x', f'(y-{b})')}) = 0) := by
   intro h
   rw [fderiv_sub] at h
 
   have h_split 
   (hp1: DifferentiableAt ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}))
-  (hp2: DifferentiableAt ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})): 
+  (hp2: DifferentiableAt ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (x - {a}, y - {b})): 
     fderiv ℝ (fun p : ℝ × ℝ => 
-      {str(x_f).replace('x', 'p.1')} + {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})
+      {str(x_f).replace('x', 'p.1')} {operation} {str_y_f.replace('x', 'p.2')}) (x - {a}, y - {b})
       = 
-      fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}) +
-      fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b}) := by
-    rw [←fderiv_add]
+      fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b}) {operation}
+      fderiv ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (x - {a}, y - {b}) := by
+    rw [←fderiv_{operation_name}]
     congr 1
     ext p
     ring
@@ -664,7 +747,7 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} +
 
   rw [h_split] at h
   rw [ContinuousLinearMap.sub_apply] at h
-  rw [ContinuousLinearMap.add_apply] at h
+  rw [ContinuousLinearMap.{operation_name}_apply] at h
 
   have h1 : (fderiv ℝ (fun p => {str(x_f).replace('x', 'p.1')}) (x - {a}, y - {b})) ({a}, {b}) = {a} * ({str(dx_f).replace('x', f'(x-{a})')})  := by
     have hp1comp : (fun p : ℝ × ℝ => {str(x_f).replace('x', 'p.1')}) = (fun x => {str(x_f)}) ∘ (fun p => p.1) := rfl
@@ -681,19 +764,19 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} +
 {x_diff}
     exact differentiableAt_fst
 
-  have h2 : (fderiv ℝ (fun p => {str(y_f).replace('x', 'p.2')}) (x - {a}, y - {b})) ({a}, {b}) = {b} * ({str(dy_f).replace('x', f'(y-{b})')})  := by
-    have hp2comp : (fun p : ℝ × ℝ => {str(y_f).replace('x', 'p.2')}) = (fun x => {str(y_f)}) ∘ (fun p => p.2) := rfl
+  have h2 : (fderiv ℝ (fun p => {str_y_f_sign_change.replace('x', 'p.2')}) (x - {a}, y - {b})) ({a}, {b}) = {b} * ({str_dy_f_sign_change.replace('x', f'(y-{b})')})  := by
+    have hp2comp : (fun p : ℝ × ℝ => {str_y_f_sign_change.replace('x', 'p.2')}) = (fun x => {str_y_f_sign_change}) ∘ (fun p => p.2) := rfl
     rw [hp2comp]
     rw [fderiv_comp]
     rw [fderiv_snd]
     rw [←deriv_fderiv]
-{y_proof}
+{y_proof_to_use}
     rw [ContinuousLinearMap.comp_apply]
     rw [ContinuousLinearMap.smulRight_apply]
     rw [ContinuousLinearMap.coe_snd']
     field_simp
     ring
-{y_diff}
+{y_diff_to_use}
     exact differentiableAt_snd
 
   have h3 : fderiv ℝ (fun p : ℝ × ℝ => ({c}:ℝ)) (x - {a}, y - {b}) ({a}, {b}) = 0 := by
@@ -707,9 +790,9 @@ example (x y {c}: ℝ) : (fderiv ℝ (fun p ↦ {str(x_f).replace('x', 'p.1')} +
   linarith
 
   {multivar_diff_p1}
-  {multivar_diff_p2}
+  {multivar_diff_p2_to_use}
   
-  {multivar_diff_f_func}
+  {multivar_diff_f_func_to_use}
 
   exact differentiableAt_const _
 """
@@ -735,6 +818,9 @@ def generate_extrema_instance():
                 pass
         def __repr__(self):
             def format_x(c,e):
+
+                if c == 0:
+                    return ""
 
                 op = "+ "
                 if c < 0:
@@ -767,18 +853,28 @@ def generate_extrema_instance():
     # I need three things
     # One: the array denoting the polynomial
     # We will use the format @Devan has been using.
-    d = random.randint(2,7)
-    polynomial = [(random.randint(2,20), i) for i in range(1, d+1)]
+    d = random.randint(3,7)
+    polynomial = [(random.randint(-5,5), i) for i in range(1, d+1)]
+    p_copy = polynomial[::]
+    polynomial = [(1,e) if c==0 else (c,e) for c,e in polynomial]
 
     random_mask = random.sample(range(len(polynomial)-1), random.randint(2, len(polynomial) - 1))
 
     polynomial = [term for i,term in enumerate(polynomial) if i in random_mask]
+
+    # leading coeff is positive :D
+    if polynomial[-1][0] < 0: polynomial[-1] = (polynomial[-1][0]*-1, polynomial[-1][1])
+    polynomial = polynomial[::-1]
+    max_degree = max([e for _,e in polynomial])
     
     # Second: We want to generate a Maxima, Minima or SaddlePoint question
     QU_TYPES = ["Maxima", "Minima", "SaddlePoint"]
-    qu_type = QU_TYPES[0]
+    if max_degree > 2:
+        qu_type = random.choice(QU_TYPES)
+    else:
+        qu_type = QU_TYPES[1]
     #Third the point at which we are evaluating
-    point = 2
+    point = random.randint(-6,6)
 
     fx = Poly(polynomial)
     deriv_fx = PolyDeriv([e for e in fx.terms])
@@ -879,8 +975,12 @@ example (f:ℝ→ℝ) : (f = fun x:ℝ => {str(fx)}) → (deriv f ({point}:ℝ) 
   {final_expression}
     """
 
+    return template
+
+def generate_extrema_problems(n):
     file_str = extrema_headers
-    file_str += template
+    for i in range(n):
+      file_str += generate_extrema_instance()
     
     with open('lean/LeanCalc/synthetic/extrema_problems.lean', 'w') as f:
         f.write(file_str)
@@ -1017,7 +1117,8 @@ def shitty_cleanup_script(file: str = 'lean/LeanCalc/synthetic/seed_2.lean'):
 
 # TODO implement 
 # generate_random_tangent_instance()
-# generate_tangent_problems(150)
+generate_tangent_problems(170)
+generate_extrema_problems(170)
             
 # fs, dfs, ts, ps = parse_functions('lean/LeanCalc/synthetic/seed2_good.lean')
 # print(len(fs))         
