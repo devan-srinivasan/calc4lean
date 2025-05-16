@@ -673,5 +673,3 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
   have equiv: p x + 3 * q x > 30 * x ↔ p x + 3 * q x - 30 * x > 0 := by constructor <;> intro h <;> linarith
   rw [equiv]
   exact f_pos
-
-
