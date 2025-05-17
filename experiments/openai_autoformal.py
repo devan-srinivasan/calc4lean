@@ -1,11 +1,27 @@
 from __future__ import annotations
 
 import re
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 from openai import OpenAI
 from langchain.prompts import PromptTemplate
 from exp import ProblemSolver
+
+import logging
+logger = logging.getLogger(__name__)
+
+LEAN_FENCE_RE = re.compile(
+    r"```(?:lean4?|Lean)\s*([\s\S]*?)```",   # non‑greedy, DOTALL
+    flags=re.IGNORECASE,
+)
+
+def extract_lean_code(text: str) -> Optional[str]:
+    """
+    Return the first ```lean4 fenced block from `text`, or None if absent.
+    Leading/trailing blank lines are trimmed.
+    """
+    match = LEAN_FENCE_RE.search(text)
+    return match.group(1).strip() if match else None
 
 class O3ProblemSolver(ProblemSolver):
 
@@ -14,8 +30,8 @@ class O3ProblemSolver(ProblemSolver):
         name: str = "",
         shots: int = 4,
         examples: List = [],
-        temperature: float = 0.0,
-        max_tokens: int = 1024,
+        temperature: float = 1.0,
+        max_tokens: int = 5120,
         top_p: float = 1.0,
         **chat_kwargs,
     ):
@@ -35,15 +51,17 @@ class O3ProblemSolver(ProblemSolver):
     def solve(self, prompt: str) -> Tuple[str, bool]:
         try:
             response = self.client.chat.completions.create(
-                model="o3",
+                model="o4-mini",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=self.temperature,
-                max_tokens=self.max_tokens,
+                max_completion_tokens=self.max_tokens,
                 top_p=self.top_p,
                 **self.chat_kwargs,
             )
 
             out: str = response.choices[0].message.content.strip()
+            logger.info(f"Prompt: {prompt}")
+            logger.info(f"Response: {out}")
             proof = extract_lean_code(out)
             if not proof:
                 return out, False
