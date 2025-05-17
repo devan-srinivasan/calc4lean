@@ -572,8 +572,7 @@ def llm_annotate(example_annotations_file, lean_file, out_file):
 
     cost = 0
 
-    for _, problem in (pbar := tqdm(enumerate(problems[len(out):]), total=len(problems) - len(out), unit="problem")):
-        PROMPT = f"""You are a mathematician assistant. You are tasked with annotating formalized proofs to help college students formalize their proofs and learn Lean4. The goal is for the students
+    PROMPT = f"""You are a mathematician assistant. You are tasked with annotating formalized proofs to help college students formalize their proofs and learn Lean4. The goal is for the students
 to prove some theorem and formalize it in Lean themselves, and one reason is to learn the Lean syntax. This annotation is a hint, not the solution. Since we want them to figure out the syntax themselves, 
 do not give them any hints as to what exact theorems or lemmas they should use as this is giving away the answer. What you can do is utilize the fact that the proof will have some inherent mathematic structure. 
 For example, when intermediary results need to be proved before you make final conclusions. This is reflected in the lean proof. This is very important,
@@ -582,14 +581,30 @@ as we want the annotation to be aligned with this structure. So when a new `have
 very similar. Follow the annotation structure I have provided in the examples below, and annotate the proof given to you in this aligned fashion. Remember not to give away actual Lean lemmas. Also,
 you don't need to explain how to differentiate the functions as that is typically the easy part.
 
-Use numbers rather than dashes for all lists/sublists. This annotation is supposed to help the students with 
+Use numbers rather than dashes for all lists/sublists, and remember don't give away any actual lean. To decide how much of a hint to give away in terms of the mathematics (how much to help them with the proof),
+follow the examples below. Notice what they hint and do not hint. The proof supplied to you will be very similar, so you should be able to annotate it similarly.
 
-*** Proof ***
+*** Example Proof 1***
 {examples[0]['proof']}
 
-*** Annotation ***
+*** Example Annotation 1***
 {examples[0]['annotation']}
 """
+    if len(examples) >= 3:
+        PROMPT += f"""*** Example Proof 2***
+{examples[1]['proof']}
+
+*** Example Annotation 2***
+{examples[1]['annotation']}
+
+*** Example Proof 3***
+{examples[2]['proof']}
+
+*** Example Annotation 3***
+{examples[2]['annotation']}
+"""
+
+    for _, problem in (pbar := tqdm(enumerate(problems[len(out):]), total=len(problems) - len(out), unit="problem")):
     
         response = client.chat.completions.create(
             model="gpt-4.1-2025-04-14",  # or your preferred model
@@ -603,15 +618,19 @@ Use numbers rather than dashes for all lists/sublists. This annotation is suppos
 
         cost += api_cost
         pbar.set_postfix_str({'cost': cost})
-        out.append(response)
+        out.append({
+            'theorem': problem[0],
+            'proof': problem[1],
+            'annotation': response
+        })
         with open(out_file, 'w') as f:
             json.dump(out, f, indent=4)
-
-llm_annotate(
-    'lean_annotations/differentiation_examples.json',
-    'lean/LeanCalc/generated_data/differentiation_632.lean',
-    'lean/LeanCalc/generated_data/annotated_data/differentiation.json'
-)
+for t in ['extrema', 'tangents', 'inequality', 'monotonicity']:
+    llm_annotate(
+        f'lean_annotations/{t}_examples.json',
+        f'lean/LeanCalc/generated_data/{t}.lean',
+        f'lean/LeanCalc/generated_data/annotated_data/{t}.json'
+    )
 
 # populate_manual_diff()
 # populate_manual_ineq()
