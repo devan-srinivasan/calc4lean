@@ -547,7 +547,7 @@ Now we are done.
 
     with open('lean_annotations/inequality_examples.json', 'w') as f: json.dump(pairs, f, indent=4)
 
-def llm_annotate():
+def llm_annotate(example_annotations, lean_file, out_file):
     dotenv.load_dotenv(dotenv_path='data/.env')
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -567,7 +567,7 @@ asfa
     return response.choices[0].message.content.strip(), d(0.3 * response.usage.prompt_tokens + 1.2 * response.usage.completion_tokens) / (10**6)
 
 
-with open('lean_annotations/monotonicity_examples.json', 'r') as f:
+with open('lean_annotations/extrema_examples.json', 'r') as f:
     problems = json.load(f)
 for p in problems:
     print(p['proof'])
