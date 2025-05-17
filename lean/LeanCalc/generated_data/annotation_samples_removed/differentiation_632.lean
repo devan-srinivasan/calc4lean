@@ -17,7 +17,6 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 open Real
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -47,7 +46,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -77,7 +75,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -107,7 +104,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -137,7 +133,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) / (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -167,7 +162,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -207,7 +201,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.exp x) + (Real.cos (Real.log x) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -247,7 +240,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -281,7 +273,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.cos (Real.log x)) + (Real.cos (Real.log x) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -316,7 +307,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -361,7 +351,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -406,7 +395,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -452,7 +440,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -498,7 +485,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -543,7 +529,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -588,7 +573,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -618,7 +602,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -648,7 +631,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -678,7 +660,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -708,7 +689,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -738,7 +718,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -778,7 +757,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.exp x) + (Real.cos (Real.log x) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -817,7 +795,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -851,7 +828,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.cos (Real.log x)) + (Real.cos (Real.log x) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -885,7 +861,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -930,7 +905,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -975,7 +949,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -1021,7 +994,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -1067,7 +1039,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -1112,7 +1083,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -1157,7 +1127,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -1187,7 +1156,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -1217,7 +1185,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -1247,7 +1214,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -1277,7 +1243,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) / (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -1307,7 +1272,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1347,7 +1311,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1386,7 +1349,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1420,7 +1382,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1454,7 +1415,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1499,7 +1459,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1544,7 +1503,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1590,7 +1548,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1636,7 +1593,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_16)) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1681,7 +1637,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -1726,7 +1681,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -1757,7 +1711,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -1788,7 +1741,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / Real.cos ((Real.log (x)))) ≠ 0) (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -1819,7 +1771,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -1850,7 +1801,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / Real.cos ((Real.log (x)))) ≠ 0) (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) / (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -1882,7 +1832,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -1923,7 +1872,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -1963,7 +1911,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -1998,7 +1945,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -2033,7 +1979,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -2079,7 +2024,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -2125,7 +2069,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -2172,7 +2115,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -2219,7 +2161,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_16)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -2265,7 +2206,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -2311,7 +2251,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -2351,7 +2290,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -2391,7 +2329,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -2432,7 +2369,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -2472,7 +2408,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) / (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -2513,7 +2448,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -2562,7 +2496,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -2611,7 +2544,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -2655,7 +2587,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -2700,7 +2631,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -2754,7 +2684,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -2808,7 +2737,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -2864,7 +2792,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -2920,7 +2847,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -2975,7 +2901,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3030,7 +2955,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -3070,7 +2994,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -3110,7 +3033,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -3151,7 +3073,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3191,7 +3112,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -3232,7 +3152,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -3281,7 +3200,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3330,7 +3248,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -3374,7 +3291,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3418,7 +3334,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -3472,7 +3387,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3526,7 +3440,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -3582,7 +3495,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3638,7 +3550,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -3693,7 +3604,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3748,7 +3658,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -3788,7 +3697,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -3828,7 +3736,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -3869,7 +3776,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -3909,7 +3815,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) / (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -3950,7 +3855,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -3999,7 +3903,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4048,7 +3951,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4092,7 +3994,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4136,7 +4037,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4190,7 +4090,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4244,7 +4143,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4300,7 +4198,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4356,7 +4253,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4411,7 +4307,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -4466,7 +4361,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -4508,7 +4402,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -4550,7 +4443,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -4591,7 +4483,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -4633,7 +4524,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) / (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -4675,7 +4565,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -4726,7 +4615,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -4776,7 +4664,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -4821,7 +4708,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -4866,7 +4752,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -4922,7 +4807,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -4978,7 +4862,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -5035,7 +4918,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -5092,7 +4974,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -5148,7 +5029,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -5204,7 +5084,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -5245,7 +5124,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -5286,7 +5164,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -5328,7 +5205,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -5370,7 +5246,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -5421,7 +5296,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -5472,7 +5346,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -5528,7 +5401,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -5584,7 +5456,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -5614,7 +5485,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -5644,7 +5514,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -5674,7 +5543,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) / (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -5704,7 +5572,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -5744,7 +5611,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.exp x) + (Real.cos (Real.log x) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -5784,7 +5650,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -5818,7 +5683,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.cos (Real.log x)) + (Real.cos (Real.log x) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -5853,7 +5717,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -5898,7 +5761,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -5943,7 +5805,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -5989,7 +5850,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6035,7 +5895,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -6080,7 +5939,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6125,7 +5983,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -6155,7 +6012,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -6185,7 +6041,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -6215,7 +6070,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6245,7 +6099,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -6275,7 +6128,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -6315,7 +6167,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.exp x) + (Real.cos (Real.log x) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6354,7 +6205,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -6388,7 +6238,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * Real.cos (Real.log x)) + (Real.cos (Real.log x) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6422,7 +6271,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -6467,7 +6315,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6512,7 +6359,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -6558,7 +6404,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6604,7 +6449,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -6649,7 +6493,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6694,7 +6537,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -6724,7 +6566,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -6754,7 +6595,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -6784,7 +6624,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -6814,7 +6653,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * Real.cos ((Real.log (x)))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) / (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -6844,7 +6682,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -6884,7 +6721,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -6923,7 +6759,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -6957,7 +6792,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -6991,7 +6825,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -7036,7 +6869,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -7081,7 +6913,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -7127,7 +6958,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -7173,7 +7003,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_16)) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -7218,7 +7047,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.cos (Real.log x)) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -7263,7 +7091,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -7294,7 +7121,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -7325,7 +7151,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / Real.cos ((Real.log (x)))) ≠ 0) (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -7356,7 +7181,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -7387,7 +7211,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / Real.cos ((Real.log (x)))) ≠ 0) (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x))) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) / (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -7419,7 +7242,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7460,7 +7282,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -7500,7 +7321,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7535,7 +7355,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7570,7 +7389,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_15))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7616,7 +7434,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7662,7 +7479,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7709,7 +7525,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_16: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -7756,7 +7571,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_16)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2 + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7802,7 +7616,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: Real.cos ((Real.log (x))) ≠ 0) (h_log_ne_zero_15: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * Real.cos (Real.log x) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) / Real.cos (Real.log x) ^ 2) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.cos (Real.log x)) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -7848,7 +7661,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -7888,7 +7700,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -7928,7 +7739,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -7969,7 +7779,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8009,7 +7818,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) / (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -8050,7 +7858,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -8099,7 +7906,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8148,7 +7954,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -8192,7 +7997,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8237,7 +8041,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -8291,7 +8094,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8345,7 +8147,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -8401,7 +8202,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8457,7 +8257,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -8512,7 +8311,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8567,7 +8365,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -8607,7 +8404,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -8647,7 +8443,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -8688,7 +8483,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8728,7 +8522,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -8769,7 +8562,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -8818,7 +8610,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8867,7 +8658,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -8911,7 +8701,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -8955,7 +8744,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -9009,7 +8797,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -9063,7 +8850,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -9119,7 +8905,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -9175,7 +8960,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -9230,7 +9014,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -9285,7 +9068,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -9325,7 +9107,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -9365,7 +9146,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -9406,7 +9186,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -9446,7 +9225,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) / (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -9487,7 +9265,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9536,7 +9313,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9585,7 +9361,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9629,7 +9404,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9673,7 +9447,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9727,7 +9500,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ) : deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9781,7 +9553,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9837,7 +9608,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9893,7 +9663,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -9948,7 +9717,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -10003,7 +9771,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -10045,7 +9812,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -10087,7 +9853,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -10128,7 +9893,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -10170,7 +9934,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) / (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -10212,7 +9975,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10263,7 +10025,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -10313,7 +10074,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10358,7 +10118,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10403,7 +10162,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10459,7 +10217,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10515,7 +10272,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10572,7 +10328,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -10629,7 +10384,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10685,7 +10439,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_25: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -10741,7 +10494,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -10782,7 +10534,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -10823,7 +10574,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -10865,7 +10615,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -10907,7 +10656,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.exp x * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -10949,7 +10697,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -11000,7 +10747,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11051,7 +10797,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -11107,7 +10852,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11163,7 +10907,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -11219,7 +10962,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11275,7 +11017,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -11317,7 +11058,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -11359,7 +11099,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -11401,7 +11140,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11443,7 +11181,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) / (Real.exp x * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -11485,7 +11222,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -11536,7 +11272,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11586,7 +11321,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -11642,7 +11376,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11697,7 +11430,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_20)) (DifferentiableAt.log (differentiableAt_const _) (h_log_ne_zero_22)) (h_div_ne_zero_19))) (DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)) (differentiableAt_const _))) _)
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -11753,7 +11485,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11809,7 +11540,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -11851,7 +11581,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -11893,7 +11622,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -11935,7 +11663,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -11977,7 +11704,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -12019,7 +11745,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12070,7 +11795,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12120,7 +11844,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12176,7 +11899,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12231,7 +11953,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (Real.dif
 exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)) (differentiableAt_const _))) _
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12287,7 +12008,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12343,7 +12063,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -12386,7 +12105,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -12429,7 +12147,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -12472,7 +12189,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -12515,7 +12231,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -12558,7 +12273,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.mul (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -12610,7 +12324,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -12661,7 +12374,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -12718,7 +12430,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -12775,7 +12486,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -12832,7 +12542,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (x ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -12889,7 +12598,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -12930,7 +12638,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -12971,7 +12678,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -13011,7 +12717,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13052,7 +12757,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / (Real.exp x * (x ^ 2 + (3:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -13092,7 +12796,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -13142,7 +12845,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13192,7 +12894,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -13236,7 +12937,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13281,7 +12981,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -13336,7 +13035,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13391,7 +13089,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -13447,7 +13144,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (x ^ 3)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13503,7 +13199,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -13544,7 +13239,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -13585,7 +13279,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -13625,7 +13318,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13666,7 +13358,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.exp x * (x ^ 2 + (3:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -13706,7 +13397,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -13756,7 +13446,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13805,7 +13494,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -13849,7 +13537,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -13893,7 +13580,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -13948,7 +13634,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -14003,7 +13688,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -14059,7 +13743,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (x ^ 3)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [Real.deriv_exp]
@@ -14115,7 +13798,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -14156,7 +13838,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -14197,7 +13878,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -14237,7 +13917,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -14278,7 +13957,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / (Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -14318,7 +13996,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14368,7 +14045,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14417,7 +14093,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14461,7 +14136,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14505,7 +14179,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14560,7 +14233,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14615,7 +14287,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14671,7 +14342,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -14727,7 +14397,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -14769,7 +14438,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -14811,7 +14479,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) / Real.cos (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -14852,7 +14519,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -14894,7 +14560,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.exp (x)) * (x ^ 2 + (3:ℝ)) / (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) / (Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -14936,7 +14601,6 @@ exact DifferentiableAt.div (DifferentiableAt.mul (Real.differentiableAt_exp) (Di
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -14987,7 +14651,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * Real.exp x) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -15037,7 +14700,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -15082,7 +14744,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * Real.cos (Real.log x)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -15127,7 +14788,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -15183,7 +14843,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -15239,7 +14898,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_mul]
@@ -15296,7 +14954,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.exp x) * (x ^ 2 + (3:ℝ)) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.exp x * (x ^ 2 + (3:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * (x ^ 3)) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.exp x * (x ^ 2 + (3:ℝ)) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -15353,7 +15010,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.cos (Real.log x) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -15389,7 +15045,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -15425,7 +15080,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) + (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) / Real.cos (Real.cos (Real.log x) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -15460,7 +15114,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.cos (Real.log x) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -15496,7 +15149,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) + (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) / (Real.cos (Real.log x) + Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -15531,7 +15183,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -15576,7 +15227,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -15621,7 +15271,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -15660,7 +15309,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -15700,7 +15348,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -15750,7 +15397,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -15800,7 +15446,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -15851,7 +15496,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -15902,7 +15546,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -15952,7 +15595,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -16002,7 +15644,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.cos (Real.log x) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -16038,7 +15679,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -16074,7 +15714,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) - (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / Real.cos (Real.cos (Real.log x) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -16109,7 +15748,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.cos (Real.log x) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -16145,7 +15783,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) - (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.cos (Real.log x) - Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -16180,7 +15817,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -16225,7 +15861,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -16269,7 +15904,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -16308,7 +15942,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -16347,7 +15980,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -16396,7 +16028,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)) (differentiableAt_const _))) _
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -16446,7 +16077,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -16497,7 +16127,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -16548,7 +16177,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -16584,7 +16212,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -16620,7 +16247,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -16656,7 +16282,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) * (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) / (Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -16691,7 +16316,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -16736,7 +16360,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * Real.exp x) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -16780,7 +16403,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -16819,7 +16441,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * Real.cos (Real.log x)) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -16858,7 +16479,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -16908,7 +16528,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -16958,7 +16577,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -17009,7 +16627,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (x ^ 3)) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -17060,7 +16677,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_6)) (Differ
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -17110,7 +16726,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.cos (Real.log x) * Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -17160,7 +16775,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.cos (Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -17197,7 +16811,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -17234,7 +16847,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) / (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) / Real.cos (Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -17270,7 +16882,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = Real.exp (Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -17306,7 +16917,6 @@ exact Real.differentiableAt_exp
 exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_6))) (DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_const _) (differentiableAt_id)) (differentiableAt_const _))) _) (h_div_ne_zero_3)
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) / (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2) ≠ 0) (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) / (Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -17343,7 +16953,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17389,7 +16998,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * Real.exp x) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -17434,7 +17042,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + Real.cos (Real.log x)) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17474,7 +17081,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * Real.cos (Real.log x)) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * Real.cos (Real.log x)) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17514,7 +17120,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17565,7 +17170,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17616,7 +17220,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17668,7 +17271,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (x ^ 3)) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -17720,7 +17322,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_6)) (Differ
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2 + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17771,7 +17372,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_19: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) - Real.cos (Real.log x) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) ^ 2) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.cos (Real.log x) / Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -17822,7 +17422,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -17859,7 +17458,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -17896,7 +17494,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -17933,7 +17530,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -17970,7 +17566,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -18007,7 +17602,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -18053,7 +17647,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18099,7 +17692,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -18140,7 +17732,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.cos (Real.log x)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18181,7 +17772,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -18232,7 +17822,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18283,7 +17872,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -18334,7 +17922,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18385,7 +17972,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -18422,7 +18008,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -18459,7 +18044,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) - (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) / Real.cos (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -18496,7 +18080,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -18533,7 +18116,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) - (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) / (Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -18570,7 +18152,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -18616,7 +18197,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18661,7 +18241,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -18701,7 +18280,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -18752,7 +18330,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18803,7 +18380,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -18854,7 +18430,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -18905,7 +18480,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -18942,7 +18516,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -18979,7 +18552,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) * (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -19016,7 +18588,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -19053,7 +18624,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) * (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -19090,7 +18660,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19136,7 +18705,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + ((Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19181,7 +18749,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.cos (Real.log x)) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19221,7 +18788,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_6))
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.cos (Real.log x)) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.cos (Real.log x)) + ((Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19261,7 +18827,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_6))
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19312,7 +18877,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19363,7 +18927,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19414,7 +18977,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.cos (Real.log x) * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19465,7 +19027,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -19503,7 +19064,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -19541,7 +19101,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) / (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -19579,7 +19138,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -19617,7 +19175,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) / (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -19655,7 +19212,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.cos (Real.dif
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -19702,7 +19258,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_log_ne_zero_7: x ≠ 0) (h_div_ne_zero_14: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_17: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + ((Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -19748,7 +19303,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.cos (Real.log x)) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -19789,7 +19343,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_6))
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.cos (Real.log x)) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.cos (Real.log x)) + ((Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -19830,7 +19383,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_6))
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -19882,7 +19434,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -19934,7 +19485,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -19986,7 +19536,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_div_ne_zero_13: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_16: (5:ℝ) ≠ 0) (h_log_ne_zero_20: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (x ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.cos (Real.log x) / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -20038,7 +19587,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.cos (Real.log x) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -20074,7 +19622,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -20110,7 +19657,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / Real.cos (Real.cos (Real.log x) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -20145,7 +19691,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.cos (Real.log x) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -20181,7 +19726,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / (Real.cos (Real.log x) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -20216,7 +19760,6 @@ exact DifferentiableAt.add (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -20261,7 +19804,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -20306,7 +19848,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -20345,7 +19886,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -20385,7 +19925,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -20435,7 +19974,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -20485,7 +20023,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
@@ -20536,7 +20073,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (x ^ 3)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -20587,7 +20123,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.cos (Real.log x) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -20623,7 +20158,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -20659,7 +20193,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / Real.cos (Real.cos (Real.log x) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -20694,7 +20227,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.cos (Real.log x) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -20730,7 +20262,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.cos (Real.log x) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -20765,7 +20296,6 @@ exact DifferentiableAt.sub (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -20810,7 +20340,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -20854,7 +20383,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -20893,7 +20421,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -20932,7 +20459,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -20982,7 +20508,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -21032,7 +20557,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
@@ -21083,7 +20607,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_4: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (x ^ 3)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
@@ -21134,7 +20657,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -21170,7 +20692,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -21206,7 +20727,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / Real.cos (Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -21241,7 +20761,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -21277,7 +20796,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / (Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -21312,7 +20830,6 @@ exact DifferentiableAt.mul (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -21357,7 +20874,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.exp x) + ((Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -21401,7 +20917,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -21440,7 +20955,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.cos (Real.log x)) + ((Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -21479,7 +20993,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -21529,7 +21042,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -21579,7 +21091,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [← Function.comp_def]
@@ -21630,7 +21141,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * (x ^ 3)) + ((Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -21681,7 +21191,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_6)) (Differ
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin (Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -21718,7 +21227,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -21755,7 +21263,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos (Real.cos ((Real.log (x))) / (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan (Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) / Real.cos (Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -21791,7 +21298,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp (Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -21828,7 +21334,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_log_ne_zero_1: (Real.cos ((Real.log (x))) / (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log (Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) / (Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -21865,7 +21370,6 @@ exact DifferentiableAt.div (DifferentiableAt.cos (Real.differentiableAt_log (h_l
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -21911,7 +21415,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * Real.exp x) + ((Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -21956,7 +21459,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -21996,7 +21498,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * Real.cos (Real.log x)) + ((Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -22036,7 +21537,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_5))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -22087,7 +21587,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -22138,7 +21637,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_5: x ≠ 0) (h_log_ne_zero_9: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [← Function.comp_def]
@@ -22190,7 +21688,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_6: x ≠ 0) (h_log_ne_zero_10: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_23: Real.log ((5:ℝ)) ≠ 0)  (h_log_ne_zero_26: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos (Real.log x) / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - Real.cos (Real.log x) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * (x ^ 3)) + ((Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.cos (Real.log x) / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -22241,7 +21738,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.cos (Real.dif
 exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_6)) (DifferentiableAt.log (differentiableAt_const _) (h_log_ne_zero_26)) (h_div_ne_zero_23)
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -22287,7 +21783,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -22333,7 +21828,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -22380,7 +21874,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -22427,7 +21920,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 + (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -22474,7 +21966,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -22530,7 +22021,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -22586,7 +22076,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -22647,7 +22136,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -22708,7 +22196,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -22769,7 +22256,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -22830,7 +22316,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -22877,7 +22362,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -22924,7 +22408,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 - (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -22971,7 +22454,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -23018,7 +22500,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 - (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -23065,7 +22546,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -23121,7 +22601,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -23176,7 +22655,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.mul (differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -23237,7 +22715,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -23298,7 +22775,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -23359,7 +22835,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -23420,7 +22895,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -23467,7 +22941,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -23514,7 +22987,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 * (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -23561,7 +23033,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -23608,7 +23079,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 * (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -23655,7 +23125,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -23711,7 +23180,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -23766,7 +23234,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -23827,7 +23294,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -23888,7 +23354,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -23949,7 +23414,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -24010,7 +23474,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -24058,7 +23521,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -24106,7 +23568,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 / (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -24154,7 +23615,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -24202,7 +23662,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 / (x ^ 3) * (Real.log (x) / Real.log ((5:ℝ)))) ≠ 0) (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)))) x = ((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -24250,7 +23709,6 @@ exact DifferentiableAt.mul (DifferentiableAt.div (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -24307,7 +23765,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_4: (x ^ 3) ≠ 0) (h_div_ne_zero_20: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_21: x ≠ 0) (h_log_ne_zero_23: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -24363,7 +23820,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -24425,7 +23881,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -24487,7 +23942,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -24549,7 +24003,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (x ^ 3) ≠ 0) (h_div_ne_zero_19: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_20: x ≠ 0) (h_log_ne_zero_22: (5:ℝ) ≠ 0) (h_log_ne_zero_26: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (x ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * x ^ 2)) / (x ^ 3) ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / (x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -24611,7 +24064,6 @@ exact DifferentiableAt.pow (DifferentiableAt.log (DifferentiableAt.add (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -24657,7 +24109,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -24703,7 +24154,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -24748,7 +24198,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -24794,7 +24243,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -24839,7 +24287,6 @@ exact DifferentiableAt.add (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -24894,7 +24341,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -24949,7 +24395,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -24998,7 +24443,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25048,7 +24492,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -25108,7 +24551,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25168,7 +24610,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
@@ -25229,7 +24670,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (x ^ 3)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25290,7 +24730,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -25336,7 +24775,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -25382,7 +24820,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -25427,7 +24864,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -25473,7 +24909,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -25518,7 +24953,6 @@ exact DifferentiableAt.sub (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -25573,7 +25007,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25627,7 +25060,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -25676,7 +25108,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25725,7 +25156,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -25785,7 +25215,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25845,7 +25274,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
@@ -25906,7 +25334,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (x ^ 3)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_pow'']
 nth_rewrite 1 [← Function.comp_def]
@@ -25967,7 +25394,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -26013,7 +25439,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -26059,7 +25484,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -26104,7 +25528,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -26150,7 +25573,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -26195,7 +25617,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -26250,7 +25671,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -26304,7 +25724,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -26353,7 +25772,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -26402,7 +25820,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -26462,7 +25879,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -26522,7 +25938,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -26583,7 +25998,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -26644,7 +26058,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -26691,7 +26104,6 @@ exact DifferentiableAt.div (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -26738,7 +26150,6 @@ exact DifferentiableAt.div (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 / (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) / Real.cos (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -26784,7 +26195,6 @@ exact DifferentiableAt.div (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -26831,7 +26241,6 @@ exact DifferentiableAt.div (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((Real.sin (((2:ℝ) * x - (1:ℝ)))) ^ 2 / (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) / (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -26878,7 +26287,6 @@ exact DifferentiableAt.div (DifferentiableAt.pow (DifferentiableAt.sin (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_pow'']
@@ -26934,7 +26342,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * Real.exp x) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -26989,7 +26396,6 @@ exact DifferentiableAt.add (differentiableAt_pow _) (differentiableAt_const _)
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_pow'']
@@ -27039,7 +26445,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_log_ne_zero_25: x ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * Real.cos (Real.log x)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_pow'']
@@ -27089,7 +26494,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_25))
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_pow'']
@@ -27150,7 +26554,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_pow'']
@@ -27211,7 +26614,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_2: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_15: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 + (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_div]
 nth_rewrite 1 [deriv_pow'']
@@ -27273,7 +26675,6 @@ exact DifferentiableAt.mul (differentiableAt_pow _) (DifferentiableAt.div (Real.
 
 
 example (x: ℝ)  (h_div_ne_zero_3: (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3 ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) (h_div_ne_zero_29: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_30: x ≠ 0) (h_log_ne_zero_32: (5:ℝ) ≠ 0): deriv (λ x ↦ (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2 / (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (x ^ 3) * (Real.log x / Real.log (5:ℝ))) x = (((((((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) - (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2) * (x ^ 3)) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((3:ℝ) * x ^ 2))) * (Real.log x / Real.log (5:ℝ))) + ((Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2 / Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * (x ^ 3)) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_div]
@@ -27335,7 +26736,6 @@ exact DifferentiableAt.div (Real.differentiableAt_log (h_log_ne_zero_30)) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -27382,7 +26782,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -27429,7 +26828,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ))) + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -27476,7 +26874,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -27523,7 +26920,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ))) + (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) / ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) + Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -27570,7 +26966,6 @@ exact DifferentiableAt.add (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -27626,7 +27021,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_8: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_9: x ≠ 0) (h_log_ne_zero_11: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -27682,7 +27076,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -27732,7 +27125,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_10))
 
 
 example (x: ℝ)  (h_div_ne_zero_8: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_9: x ≠ 0) (h_log_ne_zero_11: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -27783,7 +27175,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
@@ -27844,7 +27235,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_8: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_9: x ≠ 0) (h_log_ne_zero_11: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) + (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) + (((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)))) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -27905,7 +27295,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -27952,7 +27341,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -27999,7 +27387,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ))) - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -28046,7 +27433,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -28093,7 +27479,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ))) - (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) / ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) - Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -28140,7 +27525,6 @@ exact DifferentiableAt.sub (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -28196,7 +27580,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_8: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_9: x ≠ 0) (h_log_ne_zero_11: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.exp x) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -28251,7 +27634,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (DifferentiableAt.pow (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + Real.cos (Real.log x)) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -28301,7 +27683,6 @@ exact DifferentiableAt.cos (Real.differentiableAt_log (h_log_ne_zero_10))
 
 
 example (x: ℝ)  (h_div_ne_zero_8: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_9: x ≠ 0) (h_log_ne_zero_11: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0) : deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * Real.cos (Real.log x)) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * Real.cos (Real.log x)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((-1:ℝ) * Real.sin (Real.log x) * ((1:ℝ) / x)))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -28351,7 +27732,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) + (2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
@@ -28412,7 +27792,6 @@ exact DifferentiableAt.pow (DifferentiableAt.sin (DifferentiableAt.sub (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_8: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_9: x ≠ 0) (h_log_ne_zero_11: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) - (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.sin ((2:ℝ) * x - (1:ℝ))) ^ 2) x = (((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2)) - ((((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))) * (Real.sin ((2:ℝ) * x - (1:ℝ)) ^ 2)) + ((Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((2:ℝ) * Real.sin ((2:ℝ) * x - (1:ℝ)) * (Real.cos ((2:ℝ) * x - (1:ℝ)) * (2:ℝ))))) := by
-
 nth_rewrite 1 [deriv_sub]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_pow'']
@@ -28473,7 +27852,6 @@ exact DifferentiableAt.mul (DifferentiableAt.pow (DifferentiableAt.log (Differen
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.sin ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_sin]
@@ -28520,7 +27898,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = (-1:ℝ) * Real.sin ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_cos]
@@ -28567,7 +27944,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_tan_ne_zero_1: Real.cos ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ))) * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.tan ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / Real.cos ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) ^ 2 := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_tan]
@@ -28614,7 +27990,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.exp ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = Real.exp ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_exp]
@@ -28661,7 +28036,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_log_ne_zero_1: ((x ^ 3) * (Real.log (x) / Real.log ((5:ℝ))) * (Real.log (((5:ℝ) * x + (2:ℝ)))) ^ 3) ≠ 0) (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ Real.log ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3)) x = ((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) / ((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) := by
-
 nth_rewrite 1 [← Function.comp_def]
 nth_rewrite 1 [deriv_comp]
 nth_rewrite 1 [Real.deriv_log]
@@ -28708,7 +28082,6 @@ exact DifferentiableAt.mul (DifferentiableAt.mul (differentiableAt_pow _) (Diffe
 
 
 example (x: ℝ)  (h_div_ne_zero_9: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_10: x ≠ 0) (h_log_ne_zero_12: (5:ℝ) ≠ 0) (h_log_ne_zero_16: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 + (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ))))) + (Real.exp x * (x ^ 2 + (3:ℝ))) + (Real.exp x * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_add]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
@@ -28764,7 +28137,6 @@ exact DifferentiableAt.mul (Real.differentiableAt_exp) (DifferentiableAt.add (di
 
 
 example (x: ℝ)  (h_div_ne_zero_10: Real.log ((5:ℝ)) ≠ 0) (h_log_ne_zero_11: x ≠ 0) (h_log_ne_zero_13: (5:ℝ) ≠ 0) (h_log_ne_zero_17: ((5:ℝ) * x + (2:ℝ)) ≠ 0): deriv (λ x ↦ (x ^ 3) * (Real.log x / Real.log (5:ℝ)) * (Real.log ((5:ℝ) * x + (2:ℝ))) ^ 3 * (Real.exp x) * (x ^ 2 + (3:ℝ))) x = (((((((((3:ℝ) * x ^ 2) * (Real.log x / Real.log (5:ℝ))) + ((x ^ 3) * ((((1:ℝ) / x) * Real.log (5:ℝ)) / Real.log (5:ℝ) ^ 2))) * (Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3)) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ))) * ((3:ℝ) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 2 * ((5:ℝ) / ((5:ℝ) * x + (2:ℝ)))))) * Real.exp x) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3) * Real.exp x)) * (x ^ 2 + (3:ℝ))) + (((x ^ 3) * (Real.log x / Real.log (5:ℝ)) * Real.log ((5:ℝ) * x + (2:ℝ)) ^ 3 * Real.exp x) * ((2:ℝ) * x)) := by
-
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]
 nth_rewrite 1 [deriv_mul]

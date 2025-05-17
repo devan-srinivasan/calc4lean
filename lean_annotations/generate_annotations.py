@@ -1,8 +1,9 @@
 """
 Prompt GPT4o to generate annotations. Later we can add fine-tuning here as well.
 """
-import dotenv, os, json
+import dotenv, os, json, re
 from openai import OpenAI
+from tqdm import tqdm
 
 def convert_copied_proof_to_one_line_str(proof): return '\\n'.join(proof.split('\n'))
 
@@ -381,11 +382,11 @@ def populate_manual_mon():
 of f is positive on the interior of D. Then we will show that f is continuous on D. Finally, we can conclude it is monotonic on D. 
 1. We can prove D is convey by using the theorem that any closed interval is convex.
 2. To prove the derivative of f is positive on the interior of D, we can do the following:
-    a. First we can assume that x is in the interior of D, that is, 0 < x < 3
-    a. Second we can differentiate the function, which will include using (more than once) differentiation rules. This will show that it sufficies to prove 119 * x ^ 6 + 6 * x > 0. We may need to
+    2.1. First we can assume that x is in the interior of D, that is, 0 < x < 3
+    2.2. Second we can differentiate the function, which will include using (more than once) differentiation rules. This will show that it sufficies to prove 119 * x ^ 6 + 6 * x > 0. We may need to
         do some algebraic simplification here, but usually it is obvious
-    b. Third, we must show the inequality is true. One way to do this is by showing each term is positive, and thus the sum is positive.
-    d. Finally, we recall that each differentiation rule we applied in step (b) requires that we prove differentiability of the constituent functions, so we prove that here.
+    2.3. Third, we must show the inequality is true. One way to do this is by showing each term is positive, and thus the sum is positive.
+    2.4. Finally, we recall that each differentiation rule we applied in step (b) requires that we prove differentiability of the constituent functions, so we prove that here.
     Now we have proven f' is positive on the interior of D
 3. We can show continuity by proving that each term in the polynomial is continuous, and thus the sum is continuous. This part is straightforward.
 4. Using these we can then conclude that f is monotonic on D.
@@ -396,11 +397,11 @@ Now we are done.
 of f is positive on the interior of D. Then we will show that f is continuous on D. Finally, we can conclude it is monotonic on D. 
 1. We can prove D is convey by using the theorem that any closed interval is convex.
 2. To prove the derivative of f is positive on the interior of D, we can do the following:
-    a. First we can assume that x is in the interior of D, that is, 0 < x < 7
-    a. Second we can differentiate the function, which will include using (more than once) differentiation rules. This will show that it sufficies to prove 42 * x ^ 5 + 28 * x ^ 6 + 10 * x > 0. We may need to
+    2.1. First we can assume that x is in the interior of D, that is, 0 < x < 7
+    2.2. Second we can differentiate the function, which will include using (more than once) differentiation rules. This will show that it sufficies to prove 42 * x ^ 5 + 28 * x ^ 6 + 10 * x > 0. We may need to
         do some algebraic simplification here, but usually it is obvious
-    b. Third, we must show the inequality is true. One way to do this is by showing each term is positive, and thus the sum is positive.
-    d. Finally, we recall that each differentiation rule we applied in step (b) requires that we prove differentiability of the constituent functions, so we prove that here.
+    2.3. Third, we must show the inequality is true. One way to do this is by showing each term is positive, and thus the sum is positive.
+    2.4. Finally, we recall that each differentiation rule we applied in step (b) requires that we prove differentiability of the constituent functions, so we prove that here.
     Now we have proven f' is positive on the interior of D
 3. We can show continuity by proving that each term in the polynomial is continuous, and thus the sum is continuous. This part is straightforward.
 4. Using these we can then conclude that f is monotonic on D.
@@ -411,11 +412,11 @@ Now we are done.
 of f is positive on the interior of D. Then we will show that f is continuous on D. Finally, we can conclude it is monotonic on D. 
 1. We can prove D is convey by using the theorem that any closed interval is convex.
 2. To prove the derivative of f is positive on the interior of D, we can do the following:
-    a. First we can assume that x is in the interior of D, that is, 7 < x < 9
-    a. Second we can differentiate the function, which will include using (more than once) differentiation rules. This will show that it sufficies to prove -126 * x + 18 > 0. We may need to
+    2.1. First we can assume that x is in the interior of D, that is, 7 < x < 9
+    2.2. Second we can differentiate the function, which will include using (more than once) differentiation rules. This will show that it sufficies to prove -126 * x + 18 > 0. We may need to
         do some algebraic simplification here, but usually it is obvious
-    b. Third, we must show the inequality is true. In this case, it is obvious given that x > 7 so this is easy to show.
-    d. Finally, we recall that each differentiation rule we applied in step (b) requires that we prove differentiability of the constituent functions, so we prove that here.
+    2.3. Third, we must show the inequality is true. In this case, it is obvious given that x > 7 so this is easy to show.
+    2.4. Finally, we recall that each differentiation rule we applied in step (b) requires that we prove differentiability of the constituent functions, so we prove that here.
     Now we have proven f' is positive on the interior of D
 3. We can show continuity by proving that each term in the polynomial is continuous, and thus the sum is continuous. This part is straightforward.
 4. Using these we can then conclude that f is monotonic on D.
@@ -431,7 +432,7 @@ Now we are done.
             "annotation": ann
         })
 
-    with open('lean_annotations/motonicity_examples.json', 'w') as f: json.dump(pairs, f, indent=4)
+    with open('lean_annotations/monotonicity_examples.json', 'w') as f: json.dump(pairs, f, indent=4)
 
 def populate_manual_ineq():
     import json
@@ -514,24 +515,24 @@ it to show our original inequality is true.
 1. Let f(x) = p(x) + 17 * q(x) - 34 * x
 2. We can prove that f(0) = 0 by straightforward substitution.
 3. Next we can show that f is monotonic on D using the following.
-    a. We show that f is differentiable over the reals, which follows using our assumptions about the differentiability of p and q, as well as differentiabiliy
+    3.1. We show that f is differentiable over the reals, which follows using our assumptions about the differentiability of p and q, as well as differentiabiliy
     rules. 
-    b. We can then conclude f is differentiable on D since D is a subset of all real numbers
-    c. Since f is differentiable, we can conclude that it is continuous on D as well.
-    d. We can show that the derivative of f is nonnegative on the interior of D by the following method
-        i. We assume that x is in the interior of D, that is 0 < x < 1
-        ii. We substitute the q'(x) as 17/p'(x) using the fact that p'(x) > 0
-        iii. We apply standard differentiation rules to simplify the derivative to p'(x) + 17 * (17 / p'(x)) - 34
-        iv. We show that p'(x) + 17 * (17 / p'(x)) - 34 > 0 if and only if p'(x) * (p'(x) + 17 * (17 / p'(x)) - 34) > 0 using the fact that p'(x) > 0
-        v. We show that this expression can be factored into (p'(x) - 17)^2 > 0
-        vi. We then show that this is nonnegative using the fact that the square of anything is nonnegative
-        vii. Finally, as we used differentiation rules to simplify the derivatives, we show each constitutuent in the rules we applied are differentiability, to satisfy
+    3.2. We can then conclude f is differentiable on D since D is a subset of all real numbers
+    3.3. Since f is differentiable, we can conclude that it is continuous on D as well.
+    3.4. We can show that the derivative of f is nonnegative on the interior of D by the following method
+        3.4.1. We assume that x is in the interior of D, that is 0 < x < 1
+        3.4.2. We substitute the q'(x) as 17/p'(x) using the fact that p'(x) > 0
+        3.4.3. We apply standard differentiation rules to simplify the derivative to p'(x) + 17 * (17 / p'(x)) - 34
+        3.4.4. We show that p'(x) + 17 * (17 / p'(x)) - 34 > 0 if and only if p'(x) * (p'(x) + 17 * (17 / p'(x)) - 34) > 0 using the fact that p'(x) > 0
+        3.4.5. We show that this expression can be factored into (p'(x) - 17)^2 > 0
+        3.4.6. We then show that this is nonnegative using the fact that the square of anything is nonnegative
+        3.4.7. Finally, as we used differentiation rules to simplify the derivatives, we show each constitutuent in the rules we applied are differentiability, to satisfy
             valid use of those rules.
-    e. Finally, with these proven, we can conclude that f is monotonic on D
+    3.5. Finally, with these proven, we can conclude that f is monotonic on D
 4. Now we can prove that f is positive on D.
-    a. First we show that x is positive which is easy as we have the assumption that 0 < x < 1.
-    b. Then we show that f(x) > f(0) for x in D, which follows from our proof of monotonicity of f on D.
-    c. Then we conclude that f is positive on D.
+    4.1. First we show that x is positive which is easy as we have the assumption that 0 < x < 1.
+    4.2. Then we show that f(x) > f(0) for x in D, which follows from our proof of monotonicity of f on D.
+    4.3. Then we conclude that f is positive on D.
 5. Finally we rearrange the terms of f being positive on D to show that we have proven our desired inequality. That is, p(x) + 17 * q(x) - 34 * x > 0 is equivalent to p(x) + 17 * q(x) > 34 * x
 Now we are done.
 
@@ -547,28 +548,71 @@ Now we are done.
 
     with open('lean_annotations/inequality_examples.json', 'w') as f: json.dump(pairs, f, indent=4)
 
-def llm_annotate(example_annotations, lean_file, out_file):
+def parse_lean_file(lean_file: str):
+    with open(lean_file, "r") as f:
+        text = f.read()
+    pattern = r'(example.*?:= by)(.*?)(?=\nexample|\Z)'
+    return re.findall(pattern, text, flags=re.DOTALL)
+
+
+def llm_annotate(example_annotations_file, lean_file, out_file):
     dotenv.load_dotenv(dotenv_path='data/.env')
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    PROMPT = f"""
+    with open(example_annotations_file, 'r') as f:
+        examples = json.load(f)
 
-asfa
+    problems = parse_lean_file(lean_file)
+
+    if os.path.exists(out_file):
+        with open(out_file, 'r') as f:
+            out = json.load(f)
+    else:
+        out = []
+
+    cost = 0
+
+    for _, problem in (pbar := tqdm(enumerate(problems[len(out):]), total=len(problems) - len(out), unit="problem")):
+        PROMPT = f"""You are a mathematician assistant. You are tasked with annotating formalized proofs to help college students formalize their proofs and learn Lean4. The goal is for the students
+to prove some theorem and formalize it in Lean themselves, and one reason is to learn the Lean syntax. This annotation is a hint, not the solution. Since we want them to figure out the syntax themselves, 
+do not give them any hints as to what exact theorems or lemmas they should use as this is giving away the answer. What you can do is utilize the fact that the proof will have some inherent mathematic structure. 
+For example, when intermediary results need to be proved before you make final conclusions. This is reflected in the lean proof. This is very important,
+as we want the annotation to be aligned with this structure. So when a new `have` statement is introduced to prove some intermediate result, if the proof is of any significance
+(i.e.) more than just one line, you can add sub-items in the corresponding NL portion to describe this proof. You will see examples below. You will be given a lean proof that looks
+very similar. Follow the annotation structure I have provided in the examples below, and annotate the proof given to you in this aligned fashion. Remember not to give away actual Lean lemmas. Also,
+you don't need to explain how to differentiate the functions as that is typically the easy part.
+
+Use numbers rather than dashes for all lists/sublists. This annotation is supposed to help the students with 
+
+*** Proof ***
+{examples[0]['proof']}
+
+*** Annotation ***
+{examples[0]['annotation']}
 """
     
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",  # or your preferred model
-        messages=[
-            {"role": "system", "content": PROMPT},
-            {"role": "user", "content": ""}
-        ]
-    )
-    
-    return response.choices[0].message.content.strip(), d(0.3 * response.usage.prompt_tokens + 1.2 * response.usage.completion_tokens) / (10**6)
+        response = client.chat.completions.create(
+            model="gpt-4.1-2025-04-14",  # or your preferred model
+            messages=[
+                {"role": "system", "content": PROMPT},
+                {"role": "user", "content": f"{problem[0]}{problem[1]}"}
+            ]
+        )
+        
+        response, api_cost = response.choices[0].message.content.strip(), (2 * response.usage.prompt_tokens + 8 * response.usage.completion_tokens) / (10**6)
 
+        cost += api_cost
+        pbar.set_postfix_str({'cost': cost})
+        out.append(response)
+        with open(out_file, 'w') as f:
+            json.dump(out, f, indent=4)
 
-with open('lean_annotations/extrema_examples.json', 'r') as f:
-    problems = json.load(f)
-for p in problems:
-    print(p['proof'])
-    print()
+llm_annotate(
+    'lean_annotations/differentiation_examples.json',
+    'lean/LeanCalc/generated_data/differentiation_632.lean',
+    'lean/LeanCalc/generated_data/annotated_data/differentiation.json'
+)
+
+# populate_manual_diff()
+# populate_manual_ineq()
+# populate_manual_mon()
