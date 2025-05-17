@@ -154,7 +154,7 @@ class ProblemSolver:
 
 # TODO given a dataset, and some theorem prover, run the experiment
 
-def run_exp_nohint(problem_file: str, solver: ProblemSolver):
+def run_exp_nohint(problem_file: str, solver: ProblemSolver, force_new_results=False):
     assert problem_file[-5:] == '.lean'
     imports, problems = parse_lean_file(problem_file)
     
@@ -169,7 +169,7 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
     solved: Set[str] = set()  # Set to keep track of already solved problems
 
     # Load existing results if the outfile already exists
-    if os.path.exists(outfile):
+    if os.path.exists(outfile) and not force_new_results:
         with open(outfile, 'r') as f:
             try:
                 existing_results = json.load(f)

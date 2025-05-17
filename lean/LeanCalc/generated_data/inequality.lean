@@ -6,9 +6,7 @@ import Mathlib.Tactic
 open Real
 open Set
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 17)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 17 * q x > 34 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 17) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 17 * q x > 34 * x := by
   let f := (λ x ↦ p x + 17 * q x - 34 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -73,9 +71,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 200)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 40 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 200) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 40 * x := by
   let f := (λ x ↦ p x + 2 * q x - 40 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -140,9 +136,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 2)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 4 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 2) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 4 * x := by
   let f := (λ x ↦ p x + 2 * q x - 4 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -207,9 +201,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 17)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 17 * q x > 34 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 17) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 17 * q x > 34 * x := by
   let f := (λ x ↦ p x + 17 * q x - 34 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -274,9 +266,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 18)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 12 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 18) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 12 * x := by
   let f := (λ x ↦ p x + 2 * q x - 12 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -341,9 +331,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 8)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 8 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 8) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 8 * x := by
   let f := (λ x ↦ p x + 2 * q x - 8 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -408,9 +396,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 98)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 28 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 98) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 2 * q x > 28 * x := by
   let f := (λ x ↦ p x + 2 * q x - 28 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -475,9 +461,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
   let f := (λ x ↦ p x + 3 * q x - 30 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -542,9 +526,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
   let f := (λ x ↦ p x + 3 * q x - 30 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -609,9 +591,7 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
 
 
 
-example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75)
-  (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p)
-  (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
+example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:ℝ, (deriv p y) * (deriv q y) = 75) (hqDeriv: Differentiable ℝ q) (hpDeriv: Differentiable ℝ p) (hP: ∀ y:ℝ, deriv p y > 0) (hD: x ∈ Icc (0: ℝ) (1: ℝ)): p x + 3 * q x > 30 * x := by
   let f := (λ x ↦ p x + 3 * q x - 30 * x)
   let D := Icc (0: ℝ) (1: ℝ)
 
@@ -673,5 +653,3 @@ example (x: ℝ) (p q : ℝ → ℝ) (h0 : p 0 = q 0 ∧ q 0 > 0) (hf': ∀ y:�
   have equiv: p x + 3 * q x > 30 * x ↔ p x + 3 * q x - 30 * x > 0 := by constructor <;> intro h <;> linarith
   rw [equiv]
   exact f_pos
-
-
