@@ -1,6 +1,8 @@
 """
 Prompt GPT4o to generate annotations. Later we can add fine-tuning here as well.
 """
+import dotenv, os, json
+from openai import OpenAI
 
 def convert_copied_proof_to_one_line_str(proof): return '\\n'.join(proof.split('\n'))
 
@@ -545,4 +547,28 @@ Now we are done.
 
     with open('lean_annotations/inequality_examples.json', 'w') as f: json.dump(pairs, f, indent=4)
 
-populate_manual_ineq()
+def llm_annotate():
+    dotenv.load_dotenv(dotenv_path='data/.env')
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    PROMPT = f"""
+
+asfa
+"""
+    
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # or your preferred model
+        messages=[
+            {"role": "system", "content": PROMPT},
+            {"role": "user", "content": ""}
+        ]
+    )
+    
+    return response.choices[0].message.content.strip(), d(0.3 * response.usage.prompt_tokens + 1.2 * response.usage.completion_tokens) / (10**6)
+
+
+with open('lean_annotations/monotonicity_examples.json', 'r') as f:
+    problems = json.load(f)
+for p in problems:
+    print(p['proof'])
+    print()
