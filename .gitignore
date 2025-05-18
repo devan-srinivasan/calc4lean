@@ -7,3 +7,4 @@ llm_filtered_results.json
 */__pycache__/*
 .devcontainer
 setup_lean.sh
+*.log
