@@ -5,3 +5,5 @@ llm_filtered_results.json
 .lake
 */pycache/*
 */__pycache__/*
+.devcontainer
+setup_lean.sh
