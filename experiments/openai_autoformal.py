@@ -15,7 +15,6 @@ class O3ProblemSolver(ProblemSolver):
         shots: int = 4,
         examples: List = [],
         temperature: float = 0.0,
-        max_tokens: int = 1024,
         top_p: float = 1.0,
         **chat_kwargs,
     ):
@@ -24,7 +23,6 @@ class O3ProblemSolver(ProblemSolver):
         super().__init__(name=name, shots=shots, examples=examples)
 
         self.temperature = temperature
-        self.max_tokens = max_tokens
         self.top_p = top_p
         self.chat_kwargs = chat_kwargs
 
@@ -38,7 +36,6 @@ class O3ProblemSolver(ProblemSolver):
                 model="o3",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=self.temperature,
-                max_tokens=self.max_tokens,
                 top_p=self.top_p,
                 **self.chat_kwargs,
             )

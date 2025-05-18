@@ -143,6 +143,7 @@ class ProblemSolver:
         if complete:
             problem.proof = [out]
         else:
+            problem.proof = []
             problem.out = [out]
         return problem
 
@@ -205,8 +206,7 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver):
                 "name": problem.name,
                 "result": json.dumps(result, default=lambda o: o.__dict__) # Assuming result is a dict and JSON-serializable
             }
-            if result.proof:
-                existing_results.append(result_entry)
+            existing_results.append(result_entry)
             
             # Write intermediate results to the JSON file
             with open(outfile, 'w') as f:

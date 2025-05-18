@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import re
 from typing import List, Tuple, Optional
+import traceback, json
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -30,13 +31,14 @@ class DeepSeekR1ProblemSolver(ProblemSolver):
         name: str = "",
         shots: int = 4,
         examples: List = [],
-        temperature: float = 0.2,
+        temperature: float = 0.15,
         top_p: float = 0.95
     ): 
         super().__init__(name=name, shots=shots, examples=[])
 
         self.client = OpenAI(
-            base_url="https://openrouter.ai/api/v1",
+            #base_url="https://openrouter.ai/api/v1",
+            base_url="https://api.deepseek.com",
             api_key=KEY,
         )
 
@@ -47,18 +49,25 @@ class DeepSeekR1ProblemSolver(ProblemSolver):
     def solve(self, prompt: str) -> Tuple[str, bool]:
         try:
             resp = self.client.chat.completions.create(
-                model="deepseek/deepseek-r1:free",
+                #model="deepseek/deepseek-r1:free",
+                model="deepseek-reasoner",
                 messages=[{"role": "user", "content": prompt}],
+                max_tokens=8192,
                 temperature=self.temperature,
                 top_p=self.top_p,
             )
-            out: str = resp.choices[0].message.content.strip()
-            proof = extract_lean_code(out)
-            if not proof:
-                return out, False
-
             print(resp)
+            out: str = resp.choices[0].message.content.strip()
+            print(out)
+            proof = extract_lean_code(out)
+            print(proof)
+            if not proof:
+                proof = extract_lean_code(resp.choices[0].message.reasoning.strip())
+                if not proof:
+                    return out, False
+
             return proof, True
 
         except Exception as e:
+            traceback.print_exc()
             return f"DeepSeek API error: {e}", False
