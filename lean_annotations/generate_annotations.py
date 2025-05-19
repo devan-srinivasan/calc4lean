@@ -625,12 +625,13 @@ follow the examples below. Notice what they hint and do not hint. The proof supp
         })
         with open(out_file, 'w') as f:
             json.dump(out, f, indent=4)
-for t in ['extrema', 'tangents', 'inequality', 'monotonicity']:
-    llm_annotate(
-        f'lean_annotations/{t}_examples.json',
-        f'lean/LeanCalc/generated_data/{t}.lean',
-        f'lean/LeanCalc/generated_data/annotated_data/{t}.json'
-    )
+
+# for t in ['extrema', 'tangents', 'inequality', 'monotonicity']:
+#     llm_annotate(
+#         f'lean_annotations/{t}_examples.json',
+#         f'lean/LeanCalc/generated_data/{t}.lean',
+#         f'lean/LeanCalc/generated_data/annotated_data/{t}.json'
+#     )
 
 # populate_manual_diff()
 # populate_manual_ineq()

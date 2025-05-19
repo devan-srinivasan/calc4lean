@@ -8,3 +8,4 @@ llm_filtered_results.json
 .devcontainer
 setup_lean.sh
 *.log
+archive/
