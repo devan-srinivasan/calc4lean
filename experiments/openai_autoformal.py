@@ -42,6 +42,7 @@ class OpenAIReasoningProblemSolver(ProblemSolver):
         self.temperature = temperature
         self.top_p = top_p
         self.chat_kwargs = chat_kwargs
+        self.max_tokens = max_tokens
 
         self.client = OpenAI()
 
