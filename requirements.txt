@@ -2,3 +2,5 @@ openai
 langchain
 vllm
 transformers
+google-genai
+replicate
