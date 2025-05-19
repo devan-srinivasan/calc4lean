@@ -115,8 +115,7 @@ def process_proof(proof_lines):
 # models = ['deepseek', 'o4-mini', 'r1', 'gemini-2.0-flash-lite', 'claude-3.5-haiku']
 
 #bindu: models = ['gemini-2.0-flash-lite', 'claude-3.5-haiku']
-#megan: models = ['r1']
-devan: models = ['deepseek', 'o4-mini']
+models = ['deepseek', 'o4-mini', 'r1']
 
 for model in models:
     test_results(f"results/fl/{model}", override_results_file=False)
