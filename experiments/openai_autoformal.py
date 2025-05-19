@@ -21,13 +21,13 @@ def extract_lean_code(text: str) -> Optional[str]:
     Leading/trailing blank lines are trimmed.
     """
     match = LEAN_FENCE_RE.search(text)
-    return match.group(1).strip() if match else None
+    return match.groups()[-1].strip() if match else None
 
-class O3ProblemSolver(ProblemSolver):
+class OpenAIReasoningProblemSolver(ProblemSolver):
 
     def __init__(
         self,
-        name: str = "",
+        name: str = "o4-mini",
         shots: int = 4,
         examples: List = [],
         temperature: float = 1.0,
@@ -42,6 +42,7 @@ class O3ProblemSolver(ProblemSolver):
         self.temperature = temperature
         self.top_p = top_p
         self.chat_kwargs = chat_kwargs
+        self.max_tokens = max_tokens
 
         self.client = OpenAI()
 
@@ -50,7 +51,7 @@ class O3ProblemSolver(ProblemSolver):
     def solve(self, prompt: str) -> Tuple[str, bool]:
         try:
             response = self.client.chat.completions.create(
-                model="o4-mini",
+                model=self.name,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=self.temperature,
                 max_completion_tokens=self.max_tokens,

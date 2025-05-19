@@ -1,0 +1,471 @@
+{
+    "tactics": [
+        {
+            "usedConstants": [
+                "Real",
+                "HMul.hMul",
+                "Real.instSub",
+                "HSub.hSub",
+                "instOfNatNat",
+                "Real.instAdd",
+                "instHAdd",
+                "instHSub",
+                "instNatAtLeastTwo",
+                "HAdd.hAdd",
+                "Nat",
+                "Real.instMul",
+                "OfNat.ofNat",
+                "instOfNatAtLeastTwo",
+                "instHMul",
+                "Real.instNatCast"
+            ],
+            "tactic": "let f := fun t => p t + 2 * q t - 12 * t",
+            "proofState": 0,
+            "pos": {
+                "line": 6,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 18\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 2 * q x > 12 * x",
+            "endPos": {
+                "line": 6,
+                "column": 42
+            }
+        },
+        {
+            "usedConstants": [],
+            "tactic": "let D :=\n  Icc (0 : \u211d)\n    1\n      -- check f(0) > 0:",
+            "proofState": 1,
+            "pos": {
+                "line": 7,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 18\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun t => p t + 2 * q t - 12 * t\n\u22a2 p x + 2 * q x > 12 * x",
+            "endPos": {
+                "line": 7,
+                "column": 24
+            }
+        },
+        {
+            "usedConstants": [
+                "Real",
+                "HMul.hMul",
+                "Real.instSub",
+                "HSub.hSub",
+                "instOfNatNat",
+                "Real.instAdd",
+                "instHAdd",
+                "instHSub",
+                "instNatAtLeastTwo",
+                "HAdd.hAdd",
+                "Nat",
+                "Real.instMul",
+                "OfNat.ofNat",
+                "instOfNatAtLeastTwo",
+                "instHMul",
+                "Real.instNatCast"
+            ],
+            "tactic": "let f := \u03bb t => p t + 2 * q t - 8 * t",
+            "proofState": 2,
+            "pos": {
+                "line": 71,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 8\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 2 * q x > 8 * x",
+            "endPos": {
+                "line": 71,
+                "column": 39
+            }
+        },
+        {
+            "usedConstants": [],
+            "tactic": "let D :=\n  Icc (0 : \u211d)\n    1\n      -- show f(0) > 0",
+            "proofState": 3,
+            "pos": {
+                "line": 72,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 8\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun t => p t + 2 * q t - 8 * t\n\u22a2 p x + 2 * q x > 8 * x",
+            "endPos": {
+                "line": 72,
+                "column": 24
+            }
+        },
+        {
+            "usedConstants": [
+                "Real",
+                "HMul.hMul",
+                "Real.instSub",
+                "HSub.hSub",
+                "instOfNatNat",
+                "Real.instAdd",
+                "instHAdd",
+                "instHSub",
+                "instNatAtLeastTwo",
+                "HAdd.hAdd",
+                "Nat",
+                "Real.instMul",
+                "OfNat.ofNat",
+                "instOfNatAtLeastTwo",
+                "instHMul",
+                "Real.instNatCast"
+            ],
+            "tactic": "let f := (\u03bb x \u21a6 p x + 2 * q x - 28 * x)",
+            "proofState": 4,
+            "pos": {
+                "line": 137,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 98\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 2 * q x > 28 * x",
+            "endPos": {
+                "line": 137,
+                "column": 41
+            }
+        },
+        {
+            "usedConstants": [],
+            "tactic": "let D := Icc (0 : \u211d) (1 : \u211d)",
+            "proofState": 5,
+            "pos": {
+                "line": 138,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 98\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun x => p x + 2 * q x - 28 * x\n\u22a2 p x + 2 * q x > 28 * x",
+            "endPos": {
+                "line": 138,
+                "column": 28
+            }
+        },
+        {
+            "usedConstants": [],
+            "tactic": "<failed to pretty print>",
+            "proofState": 6,
+            "pos": {
+                "line": 197,
+                "column": 0
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 3 * q x > 30 * x",
+            "endPos": {
+                "line": 197,
+                "column": 3
+            }
+        },
+        {
+            "usedConstants": [
+                "Real",
+                "HMul.hMul",
+                "Real.instSub",
+                "HSub.hSub",
+                "instOfNatNat",
+                "Real.instAdd",
+                "instHAdd",
+                "instHSub",
+                "instNatAtLeastTwo",
+                "HAdd.hAdd",
+                "Nat",
+                "Real.instMul",
+                "OfNat.ofNat",
+                "instOfNatAtLeastTwo",
+                "instHMul",
+                "Real.instNatCast"
+            ],
+            "tactic": "let f := (\u03bb x \u21a6 p x + 3 * q x - 30 * x)",
+            "proofState": 7,
+            "pos": {
+                "line": 202,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 3 * q x > 30 * x",
+            "endPos": {
+                "line": 202,
+                "column": 41
+            }
+        },
+        {
+            "usedConstants": [],
+            "tactic": "let D := Icc (0 : \u211d) (1 : \u211d)",
+            "proofState": 8,
+            "pos": {
+                "line": 203,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun x => p x + 3 * q x - 30 * x\n\u22a2 p x + 3 * q x > 30 * x",
+            "endPos": {
+                "line": 203,
+                "column": 28
+            }
+        },
+        {
+            "usedConstants": [
+                "Real",
+                "HMul.hMul",
+                "Real.instSub",
+                "HSub.hSub",
+                "instOfNatNat",
+                "Real.instAdd",
+                "instHAdd",
+                "instHSub",
+                "instNatAtLeastTwo",
+                "HAdd.hAdd",
+                "Nat",
+                "Real.instMul",
+                "OfNat.ofNat",
+                "instOfNatAtLeastTwo",
+                "instHMul",
+                "Real.instNatCast"
+            ],
+            "tactic": "let f : \u211d \u2192 \u211d := fun t => p t + 3 * q t - 30 * t",
+            "proofState": 9,
+            "pos": {
+                "line": 263,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 3 * q x > 30 * x",
+            "endPos": {
+                "line": 263,
+                "column": 50
+            }
+        },
+        {
+            "usedConstants": [],
+            "tactic": "let D :=\n  Icc (0 : \u211d)\n    1\n      -- 2) show f(0)>0",
+            "proofState": 10,
+            "pos": {
+                "line": 264,
+                "column": 2
+            },
+            "goals": "x\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun t => p t + 3 * q t - 30 * t\n\u22a2 p x + 3 * q x > 30 * x",
+            "endPos": {
+                "line": 264,
+                "column": 24
+            }
+        }
+    ],
+    "messages": [
+        {
+            "severity": "error",
+            "pos": {
+                "line": 4,
+                "column": 197
+            },
+            "endPos": {
+                "line": 4,
+                "column": 214
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  ?m.875"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 7,
+                "column": 11
+            },
+            "endPos": {
+                "line": 7,
+                "column": 24
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  x\u271d"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 4,
+                "column": 243
+            },
+            "endPos": {
+                "line": 66,
+                "column": 10
+            },
+            "data": "unsolved goals\nx\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 18\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun t => p t + 2 * q t - 12 * t\n\u22a2 p x + 2 * q x > 12 * x"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 68,
+                "column": 196
+            },
+            "endPos": {
+                "line": 68,
+                "column": 213
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  ?m.3819"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 72,
+                "column": 11
+            },
+            "endPos": {
+                "line": 72,
+                "column": 24
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  x\u271d"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 68,
+                "column": 241
+            },
+            "endPos": {
+                "line": 100,
+                "column": 33
+            },
+            "data": "unsolved goals\nx\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 8\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun t => p t + 2 * q t - 8 * t\n\u22a2 p x + 2 * q x > 8 * x"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 100,
+                "column": 34
+            },
+            "endPos": {
+                "line": 100,
+                "column": 36
+            },
+            "data": "unexpected token 'at'; expected command"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 136,
+                "column": 197
+            },
+            "endPos": {
+                "line": 136,
+                "column": 214
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  ?m.6751"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 138,
+                "column": 11
+            },
+            "endPos": {
+                "line": 138,
+                "column": 28
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  x\u271d"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 136,
+                "column": 243
+            },
+            "endPos": {
+                "line": 194,
+                "column": 13
+            },
+            "data": "unsolved goals\nx\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 98\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun x => p x + 2 * q x - 28 * x\n\u22a2 p x + 2 * q x > 28 * x"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 197,
+                "column": 1
+            },
+            "endPos": null,
+            "data": "unknown tactic"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 196,
+                "column": 197
+            },
+            "endPos": {
+                "line": 196,
+                "column": 214
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  ?m.9695"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 196,
+                "column": 243
+            },
+            "endPos": {
+                "line": 197,
+                "column": 3
+            },
+            "data": "unsolved goals\nx\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\n\u22a2 p x + 3 * q x > 30 * x"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 201,
+                "column": 197
+            },
+            "endPos": {
+                "line": 201,
+                "column": 214
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  ?m.12332"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 203,
+                "column": 11
+            },
+            "endPos": {
+                "line": 203,
+                "column": 28
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  x\u271d"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 201,
+                "column": 243
+            },
+            "endPos": {
+                "line": 259,
+                "column": 13
+            },
+            "data": "unsolved goals\nx\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun x => p x + 3 * q x - 30 * x\n\u22a2 p x + 3 * q x > 30 * x"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 261,
+                "column": 197
+            },
+            "endPos": {
+                "line": 261,
+                "column": 214
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  ?m.15276"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 264,
+                "column": 11
+            },
+            "endPos": {
+                "line": 264,
+                "column": 24
+            },
+            "data": "function expected at\n  Icc\nterm has type\n  x\u271d"
+        },
+        {
+            "severity": "error",
+            "pos": {
+                "line": 261,
+                "column": 243
+            },
+            "endPos": {
+                "line": 310,
+                "column": 10
+            },
+            "data": "unsolved goals\nx\u271d : Sort u_1\nIcc : x\u271d\nx : \u211d\np q : \u211d \u2192 \u211d\nh0 : p 0 = q 0 \u2227 q 0 > 0\nhf' : \u2200 (y : \u211d), deriv p y * deriv q y = 75\nhqDeriv : Differentiable \u211d q\nhpDeriv : Differentiable \u211d p\nhP : \u2200 (y : \u211d), deriv p y > 0\nhD : x \u2208 sorry\nf : \u211d \u2192 \u211d := fun t => p t + 3 * q t - 30 * t\n\u22a2 p x + 3 * q x > 30 * x"
+        }
+    ],
+    "env": 0
+}
