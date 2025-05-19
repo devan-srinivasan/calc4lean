@@ -9,7 +9,7 @@ import sys
 import logging
 logger = logging.getLogger(__name__)
 filename = "differentiation"
-logging.basicConfig(filename=f'run_exp_r1_{filename}_nl.log', level=logging.INFO)
+logging.basicConfig(filename=f'run_exp_r1_rev_{filename}_nl.log', level=logging.INFO)
 
 solver = DeepSeekR1ProblemSolver("r1")
 logger.info(f"Logging for solver {solver.__class__}")

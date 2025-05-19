@@ -225,25 +225,30 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver, force_new_results=F
     print(f"Experiment completed. Results saved to {outfile}")
 
 
-def run_exp_hint(problem_file: str, solver: ProblemSolver, force_new_results=False):
+def run_exp_hint(problem_file: str, solver: ProblemSolver, force_new_results=False, hint_type:str="annotated_data"):
     assert problem_file[-5:] == '.lean'
     imports, problems = parse_lean_file(problem_file)
-    
-    # Ensure the results directory exists
-    os.makedirs(f"results/nl/{solver.name}", exist_ok=True)
-    
+
     # Define the output file
     filename = re.search(r'([^/]+)\.[^/.]+$', problem_file)
     filename = filename.group(1)
+    
+    # Ensure the results directory exists
+    if hint_type == "annotated_data":
+        os.makedirs(f"results/nl/{solver.name}", exist_ok=True)
+        # Results file
+        outfile = f"results/nl/{solver.name}/{filename}.json"
+    else:
+        os.makedirs(f"results/nl_{hint_type}/{solver.name}", exist_ok=True)
+        # Results file
+        outfile = f"results/nl_{hint_type}/{solver.name}/{filename}.json"
 
     # Get NL Hints
     nl_hints = {}
-    with open(f"lean/LeanCalc/generated_data/annotated_data/{filename}.json", "r") as f:
+    with open(f"lean/LeanCalc/generated_data/{hint_type}/{filename}.json", "r") as f:
         nl_hints = json.load(f)
     nl_hints = {" ".join(f"{d['theorem']}".split("\n  ")):d["annotation"] for d in nl_hints}
 
-    # Results file
-    outfile = f"results/nl/{solver.name}/{filename}.json"
     solved: Set[str] = set()  # Set to keep track of already solved problems
 
     # Load existing results if the outfile already exists
@@ -259,10 +264,16 @@ def run_exp_hint(problem_file: str, solver: ProblemSolver, force_new_results=Fal
     else:
         existing_results = []
 
+    if hint_type == "annotated_data":
+        problem_len = len(problems)
+    else:
+        problem_len = len(problems)//10
+
     # Go through each problem and solve if not already solved
-    pbar = tqdm.tqdm(initial=len(solved), total=len(problems), unit='problem')
+    pbar = tqdm.tqdm(initial=len(solved), total=problem_len, unit='problem')
     examples = []
-    for i, problem in enumerate(problems):
+    
+    for i, problem in enumerate(problems[:problem_len]):
         print(problem.name)
         problem.informal_hints = nl_hints[problem.problem.strip()]
         # use the first 4 problems from the file as examples
