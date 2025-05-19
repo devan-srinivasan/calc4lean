@@ -147,8 +147,16 @@ class ProblemSolver:
             problem.out = [out]
         return problem
 
-    def solve_hint(self):
-        raise NotImplementedError
+    def solve_hint(self,imports: List[str], problem: Problem) -> Problem:
+        prompt = self.get_prompt("nl",problem,imports)
+        out, complete = self.solve(prompt)
+        problem.complete = complete
+        if complete:
+            problem.proof = [out]
+        else:
+            problem.proof = []
+            problem.out = [out]
+        return problem
     
     def solve_augmented(self):
         raise NotImplementedError
@@ -202,6 +210,79 @@ def run_exp_nohint(problem_file: str, solver: ProblemSolver, force_new_results=F
                 solver.examples = examples
         if problem.name not in solved:
             result = solver.solve_nohint(imports, problem)  # Solve the problem
+            result_entry = {
+                "name": problem.name,
+                "result": json.dumps(result, default=lambda o: o.__dict__) # Assuming result is a dict and JSON-serializable
+            }
+            existing_results.append(result_entry)
+            
+            # Write intermediate results to the JSON file
+            with open(outfile, 'w') as f:
+                json.dump(existing_results, f, indent=4)
+            pbar.update(1)
+    pbar.close()
+
+    print(f"Experiment completed. Results saved to {outfile}")
+
+
+def run_exp_hint(problem_file: str, solver: ProblemSolver, force_new_results=False):
+    assert problem_file[-5:] == '.lean'
+    imports, problems = parse_lean_file(problem_file)
+    
+    # Ensure the results directory exists
+    os.makedirs(f"results/nl/{solver.name}", exist_ok=True)
+    
+    # Define the output file
+    filename = re.search(r'([^/]+)\.[^/.]+$', problem_file)
+    filename = filename.group(1)
+
+    # Get NL Hints
+    nl_hints = {}
+    with open(f"lean/LeanCalc/generated_data/annotated_data/{filename}.json", "r") as f:
+        nl_hints = json.load(f)
+    nl_hints = {" ".join(f"{d['theorem']}".split("\n  ")):d["annotation"] for d in nl_hints}
+
+    # Results file
+    outfile = f"results/nl/{solver.name}/{filename}.json"
+    solved: Set[str] = set()  # Set to keep track of already solved problems
+
+    # Load existing results if the outfile already exists
+    if os.path.exists(outfile) and not force_new_results:
+        with open(outfile, 'r') as f:
+            try:
+                existing_results = json.load(f)
+                # Extract solved problem names
+                solved = {result["name"] for result in existing_results}
+            except json.JSONDecodeError:
+                print("Error reading existing problems, may repeat some problems")
+                existing_results = []
+    else:
+        existing_results = []
+
+    # Go through each problem and solve if not already solved
+    pbar = tqdm.tqdm(initial=len(solved), total=len(problems), unit='problem')
+    examples = []
+    for i, problem in enumerate(problems):
+        print(problem.name)
+        problem.informal_hints = nl_hints[problem.problem.strip()]
+        # use the first 4 problems from the file as examples
+        proof_ex = "".join(problem.proof)
+        example_template = f"""### Lean4 version of theorem statement:
+        {problem.problem}
+        ### Instructions:
+        {problem.informal_hints}
+        ### Lean4 version of theorem and proof:
+        {problem.problem}
+        {proof_ex}
+        """
+        if not(solver.name == 'deepseek' or solver.name=='r1'):
+            if i < 4:
+                examples.append(example_template)
+                continue
+            if i == 4:
+                solver.examples = examples
+        if problem.name not in solved:
+            result = solver.solve_hint(imports, problem)  # Solve the problem
             result_entry = {
                 "name": problem.name,
                 "result": json.dumps(result, default=lambda o: o.__dict__) # Assuming result is a dict and JSON-serializable
