@@ -1,7 +1,7 @@
 import os, json, re
 
-model = 'deepseek'
-nl = True
+model = 'gemini-2.0-flash-lite'
+nl = False
 compare_theorems = False
 
 compiled_directory = f"lean/LeanCalc/{'results_copy' if compare_theorems else 'results'}/{'nl' if nl else 'fl'}/{model}"
@@ -144,13 +144,13 @@ for filename in os.listdir(model_output_directory):
     
     corrupted = []
     for msg in messages:
-        if msg['severity'] == 'error' or msg['severity'] == 'warning' and 'sorry' in msg['data']:
+        if msg['severity'] == 'error' or (msg['severity'] == 'warning' and 'sorry' in msg['data']):
             ln = msg['pos']['line']
             K = find_key(ln)
             if K == -1:
                 continue
             mapping[K].append(msg)
-            if "unexpected token 'example'" in msg['data']:
+            if "unexpected token 'example'" in msg['data'] or 'sorry' in msg['data']:
                 corrupted.append(K)
                 
     for k in mapping:

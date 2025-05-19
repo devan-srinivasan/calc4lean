@@ -4,6 +4,7 @@ def test_results(directory: str, override_results_file: False):
     subdir = re.match(r"results/(.+)$", directory).group(1)
     out_dir = f"LeanCalc/results/{subdir}"  # we cd into .lean/ when we use repl
     for filename in os.listdir(directory):
+        # if 'differentiation' in filename: continue
         if filename.endswith('json'):
             print(f"processing: {subdir}/{filename}")
             with open(f"{directory}/{filename}", 'r') as f:
@@ -23,7 +24,7 @@ def compute_problems(problems, outfile, use_repl=False):
     # ==== process proofs ====
     r = {}
     lines = "import Mathlib\nopen Real Set\n\n"
-    sorry_count = 0
+    # sorry_count = 0
     for problem in problems:
         if problem['result']['complete']:
             cleaned_proof = process_proof(problem['result']['proof'])
@@ -31,11 +32,11 @@ def compute_problems(problems, outfile, use_repl=False):
             if problem['result']['out']:
                 cleaned_proof = process_proof(problem['result']['out'])
             else:
-                cleaned_proof = '' # will be logged as failure
+                cleaned_proof = 'sorry' # will be logged as failure
         if cleaned_proof and cleaned_proof[-1] != '\n': cleaned_proof += '\n'
         # if not cleaned_proof:
         #     print()
-        if 'sorry' in cleaned_proof: sorry_count += 1
+        # if 'sorry' in cleaned_proof: sorry_count += 1
         start, end = lines.count('\n') + 1, lines.count('\n') + cleaned_proof.count('\n') + 1
         r[f"{start}_{end}"] = []
         # problem['result']['proof'] = cleaned_proof
@@ -111,10 +112,15 @@ def process_proof(proof_lines):
 
     return proof
 
-models = ['deepseek', 'o4-mini', 'r1']
+# models = ['deepseek', 'o4-mini', 'r1', 'gemini-2.0-flash-lite', 'claude-3.5-haiku']
+
+#bindu: models = ['gemini-2.0-flash-lite', 'claude-3.5-haiku']
+#megan: models = ['r1']
+devan: models = ['deepseek', 'o4-mini']
+
 for model in models:
     test_results(f"results/fl/{model}", override_results_file=False)
-models = ['deepseek', 'o4-mini', 'r1']
+
 for model in models:
     test_results(f"results/nl/{model}", override_results_file=False)
 

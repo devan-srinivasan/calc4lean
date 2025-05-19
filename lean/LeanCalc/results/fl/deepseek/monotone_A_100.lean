@@ -1,5 +1,5 @@
 import Mathlib
-open Real
+open Real Set
 
 example: MonotoneOn (λ x ↦ 6 * x ^ 7 + 4 * x ^ 6 + 7 * x ^ 5 + 3 * x ^ 4 + 15 * x ^ 3 + 10 * x ^ 2 + 4) (Icc (0: ℝ) (4: ℝ)) := by
   intro x hx y hy hxy
