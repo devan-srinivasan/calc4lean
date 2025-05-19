@@ -22,13 +22,16 @@ def compute_problems(problems, outfile, use_repl=False):
 
     # ==== process proofs ====
     r = {}
-    lines = "import Mathlib\nopen Real\n\n"
+    lines = "import Mathlib\nopen Real Set\n\n"
     sorry_count = 0
     for problem in problems:
-        if problem['result']['proof']:
+        if problem['result']['complete']:
             cleaned_proof = process_proof(problem['result']['proof'])
         else:
-            cleaned_proof = process_proof(problem['result']['out'])
+            if problem['result']['out']:
+                cleaned_proof = process_proof(problem['result']['out'])
+            else:
+                cleaned_proof = '' # will be logged as failure
         if cleaned_proof and cleaned_proof[-1] != '\n': cleaned_proof += '\n'
         # if not cleaned_proof:
         #     print()
@@ -102,9 +105,20 @@ def process_proof(proof_lines):
         proof = proof[3:]
     if proof.endswith("```"):
         proof = proof[:-3]
+    if '```' in proof:
+        # if proof.index('```') < len(proof) - 10:
+        #     print()
+        proof = proof[:proof.index('```')]
 
     return proof
 
 models = ['deepseek', 'o4-mini', 'r1']
-model = models[1]
-test_results(f"results/fl/{model}", override_results_file=False)
+for model in models:
+    test_results(f"results/fl/{model}", override_results_file=False)
+models = ['o4-mini', 'r1']
+for model in models:
+    test_results(f"results/nl/{model}", override_results_file=False)
+
+# model = 'r1'
+# test_results(f"results/nl/{model}", override_results_file=False)
+
