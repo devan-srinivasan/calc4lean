@@ -4,7 +4,8 @@ def test_results(directory: str, override_results_file: False):
     subdir = re.match(r"results/(.+)$", directory).group(1)
     out_dir = f"LeanCalc/results/{subdir}"  # we cd into .lean/ when we use repl
     for filename in os.listdir(directory):
-        # if 'differentiation' in filename: continue
+        if 'differentiation' in filename: continue
+        # if 'inequality' not in filename: continue
         if filename.endswith('json'):
             print(f"processing: {subdir}/{filename}")
             with open(f"{directory}/{filename}", 'r') as f:
@@ -32,8 +33,10 @@ def compute_problems(problems, outfile, use_repl=False):
             if problem['result']['out']:
                 cleaned_proof = process_proof(problem['result']['out'])
             else:
-                cleaned_proof = 'sorry' # will be logged as failure
-        if cleaned_proof and cleaned_proof[-1] != '\n': cleaned_proof += '\n'
+                cleaned_proof = '' # will be logged as failure
+        if not cleaned_proof.strip():
+            cleaned_proof = '  sorry'
+        if cleaned_proof[-1] != '\n': cleaned_proof += '\n'
         # if not cleaned_proof:
         #     print()
         # if 'sorry' in cleaned_proof: sorry_count += 1
