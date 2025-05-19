@@ -77,15 +77,14 @@ def compute_problems(problems, outfile, use_repl=False):
                 if s <= ln <= e:
                     r[k].append(m)
                     break
-
-    line_dists = [int(r[k][0]['pos']['line']) - int(k.split('_')[0]) for k in r if r[k]]
-    print(f"""
-No. Problems: {len(problems)}
-{sorry_count} used 'sorry'
-Solved: {len(list(filter(lambda k: len(r[k]) == 0, r)))} | Unsolved: {len(problems) - len(list(filter(lambda k: len(r[k]) == 0, r)))}
-Proof Length (Lns):
-    Max: {max(line_dists)} Min: {min(line_dists)} Avg: {sum(line_dists) / len(line_dists)}
-        """)
+#     line_dists = [int(r[k][0]['pos']['line']) - int(k.split('_')[0]) for k in r if r[k]]
+#     print(f"""
+# No. Problems: {len(problems)}
+# {sorry_count} used 'sorry'
+# Solved: {len(list(filter(lambda k: len(r[k]) == 0, r)))} | Unsolved: {len(problems) - len(list(filter(lambda k: len(r[k]) == 0, r)))}
+# Proof Length (Lns):
+#     Max: {max(line_dists)} Min: {min(line_dists)} Avg: {sum(line_dists) / len(line_dists)}
+#         """)
 
 def process_proof(proof_lines):
     proof = ""
@@ -115,7 +114,7 @@ def process_proof(proof_lines):
 models = ['deepseek', 'o4-mini', 'r1']
 for model in models:
     test_results(f"results/fl/{model}", override_results_file=False)
-models = ['o4-mini', 'r1']
+models = ['deepseek', 'o4-mini', 'r1']
 for model in models:
     test_results(f"results/nl/{model}", override_results_file=False)
 

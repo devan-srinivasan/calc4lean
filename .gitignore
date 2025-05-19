@@ -9,3 +9,7 @@ llm_filtered_results.json
 setup_lean.sh
 *.log
 archive/
+results/
+results_copy/
+lean/LeanCalc/results/
+lean/LeanCalc/results_copy/
